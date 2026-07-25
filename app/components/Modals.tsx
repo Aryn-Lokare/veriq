@@ -13,6 +13,7 @@ import {
   Cpu,
   Globe,
   Sliders,
+  Loader2,
 } from 'lucide-react';
 
 interface ExportModalProps {
@@ -21,9 +22,12 @@ interface ExportModalProps {
 }
 
 export function ExportModal({ report, onClose }: ExportModalProps) {
+  const [isExporting, setIsExporting] = useState(false);
+
   if (!report) return null;
 
   const handlePrint = async () => {
+    setIsExporting(true);
     const reportElement = document.querySelector('.report-panel');
     const htmlContent = reportElement ? reportElement.innerHTML : '';
     try {
@@ -48,6 +52,8 @@ export function ExportModal({ report, onClose }: ExportModalProps) {
       setTimeout(() => {
         window.print();
       }, 150);
+    } finally {
+      setIsExporting(false);
     }
   };
 
@@ -98,10 +104,11 @@ export function ExportModal({ report, onClose }: ExportModalProps) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
             <button
               onClick={handlePrint}
-              className="flex items-center justify-center gap-2 rounded-full bg-[#171717] dark:bg-white p-2.5 font-medium text-white dark:text-[#171717] shadow-sm hover:bg-[#2c2c2c] dark:hover:bg-zinc-200 transition-colors"
+              disabled={isExporting}
+              className="flex items-center justify-center gap-2 rounded-full bg-[#171717] dark:bg-white p-2.5 font-medium text-white dark:text-[#171717] shadow-sm hover:bg-[#2c2c2c] dark:hover:bg-zinc-200 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <Printer className="h-4 w-4" />
-              <span>Export PDF / Save Report</span>
+              {isExporting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Printer className="h-4 w-4" />}
+              <span>{isExporting ? 'Generating PDF...' : 'Export PDF / Save Report'}</span>
             </button>
 
             <button

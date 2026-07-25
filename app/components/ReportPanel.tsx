@@ -158,22 +158,6 @@ export default function ReportPanel({
           </h2>
           <span className="text-[11px] font-mono text-[#8f8f8f] dark:text-zinc-400">Generated: {report.timestamp}</span>
         </div>
-
-        <div className="flex items-center gap-2">
-          <button
-            onClick={onShareReport}
-            className="inline-flex items-center gap-1.5 rounded-full border border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-zinc-900 px-4 py-1.5 text-[12px] font-medium text-[#171717] dark:text-white hover:bg-[#fafafa] dark:hover:bg-zinc-800 transition-colors shadow-sm"
-          >
-            <Share2 className="h-3.5 w-3.5" /> Share
-          </button>
-
-          <button
-            onClick={onExportPDF}
-            className="inline-flex items-center gap-1.5 rounded-full bg-[#171717] dark:bg-white px-4 py-1.5 text-[12px] font-medium text-white dark:text-[#171717] shadow-sm hover:bg-[#2c2c2c] dark:hover:bg-zinc-200 active:scale-[0.98] transition-all"
-          >
-            <Download className="h-3.5 w-3.5" /> Export PDF
-          </button>
-        </div>
       </div>
 
       {/* Confidence Gauge */}
