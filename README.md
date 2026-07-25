@@ -1,107 +1,280 @@
-# Veriq
+<div align="center">
 
-**Veriq** (formerly _Veritas AI_) is an autonomous, multi-agent fact-verification and research platform. It deploys specialized AI agents to collaborate on researching, verifying, challenging, and synthesizing information to produce structured, transparent reports.
+<img src="./public/Frame.png" alt="Veriq Logo" width="220"/>
 
-The platform is designed with a sleek, developer-centric aesthetic inspired by the **Vercel Geist Design System** (see [docs/DESIGN-vercel.md](file:///e:/veritas-ai/docs/DESIGN-vercel.md)).
+### Research Beyond the First Answer.
 
----
+**An Autonomous Multi-Agent AI Research & Fact Verification Platform**
 
-## 🚀 Key Features
+Instead of trusting a single AI response, Veriq orchestrates a team of specialized AI agents that **research, verify, challenge, and score information** before producing an evidence-backed report.
 
-- **Multi-Agent Collaboration**: Integrates Orchestrator, Strategist, Searcher, and Contradiction Detector agents to investigate claims.
-- **Granular Claim Verification**: Identifies key claims and classifies their status (`verified`, `mixed`, `unsupported`) with explanations and confidence scores.
-- **Contradiction Detection**: Explicitly seeks out sources that disprove or conflict with claims, highlighting discrepancies.
-- **Transparent Citations**: Evaluates source reliability, tracking institutional, academic, or governmental domains.
-- **Real-time Log Stream**: Streams agent logs and execution timelines directly to the dashboard workspace.
-- **Secure Auth & SSR**: Leverages **Supabase Auth** and SSR for session and workspace management.
+<br>
 
----
+![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=nextdotjs)
+![LangGraph](https://img.shields.io/badge/LangGraph-Orchestrator-blueviolet?style=for-the-badge)
 
-## 🛠️ Technology Stack
-
-- **Framework**: [Next.js 16](https://nextjs.org/) (App Router, React 19)
-- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) & Vanilla CSS with Geist System colors
-- **Database & Auth**: [Supabase](https://supabase.com/) (`@supabase/ssr`)
-- **Icons**: [Lucide React](https://lucide.dev/)
+</div>
 
 ---
 
-## 📂 Project Structure
+# 🚀 Overview
 
+Veriq is an **autonomous multi-agent AI research platform** designed to improve the reliability and transparency of AI-generated information.
+
+Instead of relying on one LLM to answer everything, Veriq coordinates multiple specialized AI agents that independently investigate, verify, challenge, and score every claim before generating a final report.
+
+The result is a **transparent, explainable, and trustworthy research workflow**.
+
+---
+
+# ✨ Features
+
+- 🧠 Autonomous AI Orchestrator
+- 🗺 Intelligent Research Planning
+- 🔍 Trusted Web Search
+- 📚 Evidence Extraction
+- ✅ Claim Verification
+- ⚔ Contradiction Detection
+- 📊 Confidence Scoring
+- 📄 Structured Research Reports
+- 🔗 Source Citations
+- ⚡ Live Agent Execution Timeline
+
+---
+
+# 🏗 Multi-Agent Architecture
+
+```text
+                    User
+                      │
+                      ▼
+            🧠 Orchestrator Agent
+                      │
+────────────────────────────────────────────
+
+      🗺 Research Strategist
+                │
+                ▼
+        🔍 Search Specialist
+                │
+                ▼
+       📚 Research Analyst
+                │
+                ▼
+       📝 Evidence Analyst
+                │
+        ┌───────┴────────┐
+        ▼                ▼
+✅ Verification      ⚔ Contradiction
+        └───────┬────────┘
+                ▼
+      📊 Confidence Scorer
+                │
+                ▼
+        📄 Report Writer
+                │
+                ▼
+      Evidence-backed Report
 ```
-veritasai/
-├── app/                  # Next.js App Router Pages
-│   ├── globals.css       # Global styles & Tailwind entry
-│   ├── layout.tsx        # Root layout & font loading
-│   ├── page.tsx          # Landing / Marketing Page
-│   ├── login/            # Auth: Login Page
-│   ├── signup/           # Auth: Signup Page
-│   └── workspace/        # Authenticated Research Dashboard
-├── lib/
-│   └── supabase/         # Supabase Client, Server, & Middleware Setup
-├── public/               # Asset assets, SVGs, and brand logos
-├── next.config.ts        # Next.js Configuration
-└── package.json          # Node scripts & dependencies
+
+---
+
+# 🧠 Research Workflow
+
+```text
+User Question
+      │
+      ▼
+Research Planning
+      │
+      ▼
+Web Search
+      │
+      ▼
+Research Analysis
+      │
+      ▼
+Evidence Extraction
+      │
+      ▼
+Fact Verification
+      │
+      ▼
+Contradiction Analysis
+      │
+      ▼
+Confidence Scoring
+      │
+      ▼
+Final Research Report
 ```
 
 ---
 
-## 💾 Database Schema
+# 💻 Tech Stack
 
-The database is built on PostgreSQL inside Supabase. The schema file is located at [supabase/schema.sql](file:///e:/veritas-ai/supabase/schema.sql).
+### Frontend
 
-### Core Tables
+<p>
+<img src="https://skillicons.dev/icons?i=nextjs,react,typescript,tailwind,framer" />
+</p>
 
-1. **`profiles`**: User metadata, synced automatically with `auth.users` via database triggers.
-2. **`research_sessions`**: The parent session records holding the user's question, status (`idle`, `running`, `completed`, `failed`), and synthesis summary.
-3. **`sources`**: Tracked citation URLs, snippets, and reliability scores.
-4. **`claims`**: Synthesized facts containing verification status and explanations.
-5. **`contradictions`**: Discrepancies between verified claims and specific sources.
-6. **`agent_logs`**: Step-by-step logs from active agents during research pipelines.
+### AI & LLM
+
+<p>
+<img src="https://skillicons.dev/icons?i=python,nodejs" />
+</p>
+
+- LangGraph
+- LangChain
+- OpenAI
+- Tavily
+- Firecrawl
+
+### Deployment
+
+<p>
+<img src="https://skillicons.dev/icons?i=git,github,vercel" />
+</p>
 
 ---
 
-## ⚙️ Getting Started
+# 📂 Project Structure
 
-### 1. Clone the repository and install dependencies
+```text
+src
+│
+├── app
+│
+├── components
+│
+├── lib
+│   ├── ai
+│   │
+│   ├── graph.ts
+│   ├── orchestrator.ts
+│   ├── state.ts
+│   │
+│   ├── nodes
+│   │     ├── strategist.ts
+│   │     ├── searcher.ts
+│   │     ├── analyst.ts
+│   │     ├── evidence.ts
+│   │     ├── verification.ts
+│   │     ├── contradiction.ts
+│   │     ├── confidence.ts
+│   │     └── report.ts
+│   │
+│   ├── prompts
+│   ├── services
+│   └── types
+│
+└── utils
+```
+
+---
+
+# 📷 Screenshots
+
+## Landing Page
+
+> Add screenshot here
+
+---
+
+## Research Workspace
+
+> Add screenshot here
+
+---
+
+## Agent Orchestration
+
+> Add screenshot here
+
+---
+
+## Final Report
+
+> Add screenshot here
+
+---
+
+# ⚖ Traditional AI vs Veriq
+
+| Traditional AI          | Veriq                         |
+| ----------------------- | ----------------------------- |
+| Single AI Model         | Multi-Agent System            |
+| One Generated Answer    | Collaborative Research        |
+| Hidden Reasoning        | Transparent Workflow          |
+| Limited Verification    | Independent Verification      |
+| No Contradiction Search | Contradiction Detection       |
+| Minimal Explainability  | Confidence Scores + Citations |
+| One Perspective         | Multiple Independent Agents   |
+
+---
+
+# ⚙ Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/yourusername/veriq.git
+```
+
+Navigate into the project
+
+```bash
+cd veriq
+```
+
+Install dependencies
 
 ```bash
 npm install
 ```
 
-### 2. Configure Environment Variables
-
-Create a `.env.local` file in the root of the project:
+Create a `.env.local`
 
 ```env
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+OPENAI_API_KEY=
+
+TAVILY_API_KEY=
+
+FIRECRAWL_API_KEY=
 ```
 
-### 3. Setup Database Schema
-
-Execute the SQL instructions from [supabase/schema.sql](file:///e:/veritas-ai/supabase/schema.sql) in your Supabase SQL Editor.
-
-### 4. Start the Development Server
+Run locally
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+---
+
+# 👥 Team
+
+Built with ❤️ during a Hackathon.
+
+- Aryan Lokare
+- Ayush Kharpude
+- Soham Tamhankar
+- Rahul Virkar
 
 ---
 
-## 🏗️ Build & Deploy
+# 📜 License
 
-To build the production bundle:
+This project is licensed under the MIT License.
 
-```bash
-npm run build
-```
+---
 
-To run the built production server locally:
+<div align="center">
 
-```bash
-npm run start
-```
+## Research Beyond the First Answer.
+
+### Trust Through Verification.
+
+⭐ If you like Veriq, consider giving this repository a star!
+
+</div>
