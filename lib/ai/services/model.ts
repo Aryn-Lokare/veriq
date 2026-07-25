@@ -77,6 +77,6 @@ export class ModelService {
       apiKey: process.env.GROQ_API_KEY,
       temperature,
       maxRetries: 5,
-    });
+    }) as unknown as InvokeableModel;
   }
 }
