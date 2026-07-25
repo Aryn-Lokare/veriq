@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import ThemeToggle from "./components/ThemeToggle";
 import {
   Search,
   CheckCircle,
@@ -259,27 +260,26 @@ export default function LandingPage({ user }: LandingPageProps) {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#fafafa] font-sans text-[#171717] selection:bg-[#d3e5ff] antialiased">
+    <div className="flex min-h-screen flex-col bg-[#fafafa] dark:bg-[#09090b] font-sans text-[#171717] dark:text-zinc-100 selection:bg-[#d3e5ff] dark:selection:bg-zinc-800 antialiased transition-colors duration-200">
       
       {/* ── Hero Section (Navigation bar resides inside here, transparent and non-sticky) ── */}
-      <header
-        className="relative px-6 pt-6 pb-16 text-center border-b border-[#ebebeb]"
-        style={{ backgroundImage: "linear-gradient(to top, #fff1eb 0%, #ace0f9 100%)" }}
-      >
+      <header className="relative px-6 pt-6 pb-16 text-center border-b border-[#ebebeb] dark:border-zinc-800 bg-gradient-to-b from-[#fff1eb] via-[#ace0f9]/30 to-[#fafafa] dark:from-[#121215] dark:via-[#16161a] dark:to-[#09090b] transition-colors duration-200">
 
         {/* Navigation Bar: Part of the hero section, scrolling naturally with page */}
         <nav className="mx-auto flex max-w-7xl h-[72px] items-center justify-between mb-16">
           <div className="flex items-center gap-2">
-            <span className="text-[36px] font-bold tracking-[-0.8px]">
+            <span className="text-[36px] font-bold tracking-[-0.8px] text-[#171717] dark:text-white">
               Veriq
             </span>
           </div>
 
           <div className="flex items-center gap-4">
+            <ThemeToggle variant="icon" />
+
             {user ? (
               <Link
                 href="/workspace"
-                className="flex h-[40px] items-center justify-center rounded-[8px] bg-[#171717] px-5 text-[15px] font-medium text-white transition-colors hover:bg-[#2c2c2c]"
+                className="flex h-[40px] items-center justify-center rounded-[8px] bg-[#171717] dark:bg-white px-5 text-[15px] font-medium text-white dark:text-[#171717] transition-colors hover:bg-[#2c2c2c] dark:hover:bg-zinc-200"
               >
                 Go to Workspace
               </Link>
@@ -287,13 +287,13 @@ export default function LandingPage({ user }: LandingPageProps) {
               <>
                 <Link
                   href="/login"
-                  className="flex h-[40px] items-center justify-center rounded-[8px] border border-[#ebebeb] bg-white px-5 text-[15px] font-medium text-[#171717] transition-colors hover:bg-[#fafafa]"
+                  className="flex h-[40px] items-center justify-center rounded-[8px] border border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-zinc-900 px-5 text-[15px] font-medium text-[#171717] dark:text-white transition-colors hover:bg-[#fafafa] dark:hover:bg-zinc-800"
                 >
                   Log In
                 </Link>
                 <Link
                   href="/signup"
-                  className="flex h-[40px] items-center justify-center rounded-[8px] bg-[#171717] px-5 text-[15px] font-medium text-white transition-colors hover:bg-[#2c2c2c]"
+                  className="flex h-[40px] items-center justify-center rounded-[8px] bg-[#171717] dark:bg-white px-5 text-[15px] font-medium text-white dark:text-[#171717] transition-colors hover:bg-[#2c2c2c] dark:hover:bg-zinc-200"
                 >
                   Sign Up
                 </Link>
@@ -304,17 +304,17 @@ export default function LandingPage({ user }: LandingPageProps) {
 
         {/* Hero Marketing Copy Content */}
         <div className="mx-auto max-w-4xl">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#ebebeb] bg-white px-3 py-1 text-[11px] font-mono uppercase tracking-wider text-[#7928ca] mb-6 shadow-[0px_1px_2px_rgba(0,0,0,0.02)]">
-            <Sparkles className="h-3.5 w-3.5 text-violet-500 animate-pulse" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-zinc-900 px-3 py-1 text-[11px] font-mono uppercase tracking-wider text-[#7928ca] dark:text-violet-400 mb-6 shadow-[0px_1px_2px_rgba(0,0,0,0.02)]">
+            <Sparkles className="h-3.5 w-3.5 text-violet-500 dark:text-violet-400 animate-pulse" />
             Built for Trustworthy AI Research
           </div>
 
-          <h1 className="text-[44px] md:text-[68px] font-bold tracking-[-2.4px] leading-[1.05] text-[#171717]">
+          <h1 className="text-[44px] md:text-[68px] font-bold tracking-[-2.4px] leading-[1.05] text-[#171717] dark:text-white">
             Don't Trust One AI.<br />
             Trust a Team of AI Researchers.
           </h1>
 
-          <p className="mx-auto mt-6 max-w-2xl text-[16px] md:text-[18px] leading-7 text-[#4d4d4d]">
+          <p className="mx-auto mt-6 max-w-2xl text-[16px] md:text-[18px] leading-7 text-[#4d4d4d] dark:text-zinc-400">
             Veriq is an autonomous multi-agent research platform that plans, researches, verifies, challenges, and scores information before generating a transparent, evidence-backed report.
           </p>
 
@@ -322,7 +322,7 @@ export default function LandingPage({ user }: LandingPageProps) {
             {user ? (
               <Link
                 href="/workspace"
-                className="flex h-[48px] items-center justify-center rounded-full bg-[#171717] px-8 text-[15px] font-medium text-white transition-all hover:bg-[#2c2c2c] hover:scale-[1.02]"
+                className="flex h-[48px] items-center justify-center rounded-full bg-[#171717] dark:bg-white px-8 text-[15px] font-medium text-white dark:text-[#171717] transition-all hover:bg-[#2c2c2c] dark:hover:bg-zinc-200 hover:scale-[1.02]"
               >
                 Go to Workspace
               </Link>
@@ -330,13 +330,13 @@ export default function LandingPage({ user }: LandingPageProps) {
               <>
                 <Link
                   href="/signup"
-                  className="flex h-[48px] items-center justify-center rounded-full bg-[#171717] px-8 text-[15px] font-medium text-white transition-all hover:bg-[#2c2c2c] hover:scale-[1.02]"
+                  className="flex h-[48px] items-center justify-center rounded-full bg-[#171717] dark:bg-white px-8 text-[15px] font-medium text-white dark:text-[#171717] transition-all hover:bg-[#2c2c2c] dark:hover:bg-zinc-200 hover:scale-[1.02]"
                 >
                   Start Researching
                 </Link>
                 <a
                   href="#how-it-works"
-                  className="flex h-[48px] items-center justify-center rounded-full border border-[#ebebeb] bg-white px-8 text-[15px] font-medium text-[#171717] transition-colors hover:bg-[#fafafa]"
+                  className="flex h-[48px] items-center justify-center rounded-full border border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-zinc-900 px-8 text-[15px] font-medium text-[#171717] dark:text-white transition-colors hover:bg-[#fafafa] dark:hover:bg-zinc-800"
                 >
                   Explore the Architecture
                 </a>
@@ -347,11 +347,11 @@ export default function LandingPage({ user }: LandingPageProps) {
       </header>
 
       {/* ── Product Preview Simulator ────────────────────── */}
-      <section className="border-b border-[#ebebeb] bg-white py-16 px-6">
+      <section className="border-b border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-[#09090b] py-16 px-6 transition-colors duration-200">
         <div className="mx-auto max-w-6xl">
           <div className="text-center mb-8">
-            <span className="text-[12px] font-mono uppercase tracking-wider text-[#8f8f8f]">Interactive Simulator</span>
-            <h3 className="text-[20px] font-semibold tracking-[-0.4px] text-[#171717]">See Veriq Agents Collaborate in Real-Time</h3>
+            <span className="text-[12px] font-mono uppercase tracking-wider text-[#8f8f8f] dark:text-zinc-400">Interactive Simulator</span>
+            <h3 className="text-[20px] font-semibold tracking-[-0.4px] text-[#171717] dark:text-white">See Veriq Agents Collaborate in Real-Time</h3>
           </div>
 
           {/* Interactive Question Prompts Selector */}
@@ -375,10 +375,10 @@ export default function LandingPage({ user }: LandingPageProps) {
             ))}
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-12 rounded-[16px] border border-[#ebebeb] overflow-hidden bg-[#fafafa] shadow-[0px_8px_30px_rgb(0,0,0,0.02)]">
+          <div className="grid gap-6 lg:grid-cols-12 rounded-[16px] border border-[#ebebeb] dark:border-zinc-800 overflow-hidden bg-[#fafafa] dark:bg-zinc-950 shadow-[0px_8px_30px_rgb(0,0,0,0.02)]">
             
             {/* Left Column: Input + Report Display */}
-            <div className="lg:col-span-7 p-6 border-r border-[#ebebeb] bg-white flex flex-col justify-between min-h-[460px]">
+            <div className="lg:col-span-7 p-6 border-r border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-zinc-900 flex flex-col justify-between min-h-[460px]">
               
               {!showReport ? (
                 // Input State / Planning View
@@ -390,9 +390,9 @@ export default function LandingPage({ user }: LandingPageProps) {
                         type="text"
                         readOnly
                         value={query}
-                        className="w-full h-[48px] pl-10 pr-4 rounded-[6px] border border-[#ebebeb] bg-[#fafafa] text-[14px] focus:outline-none"
+                        className="w-full h-[48px] pl-10 pr-4 rounded-[6px] border border-[#ebebeb] dark:border-zinc-700 bg-[#fafafa] dark:bg-zinc-800 text-[14px] text-[#171717] dark:text-white focus:outline-none"
                       />
-                      <Search className="absolute left-3.5 top-3.5 h-4 w-4 text-[#8f8f8f]" />
+                      <Search className="absolute left-3.5 top-3.5 h-4 w-4 text-[#8f8f8f] dark:text-zinc-400" />
                     </div>
                   </div>
 
@@ -425,10 +425,10 @@ export default function LandingPage({ user }: LandingPageProps) {
                 // Report State View
                 <div className="flex-1 flex flex-col justify-between">
                   <div>
-                    <div className="flex items-center justify-between border-b border-[#ebebeb] pb-3 mb-4">
+                    <div className="flex items-center justify-between border-b border-[#ebebeb] dark:border-zinc-800 pb-3 mb-4">
                       <div>
-                        <span className="text-[11px] font-mono uppercase text-[#8f8f8f]">Final Report Generated</span>
-                        <h4 className="text-[16px] font-semibold tracking-[-0.4px] mt-0.5">{query}</h4>
+                        <span className="text-[11px] font-mono uppercase text-[#8f8f8f] dark:text-zinc-400">Final Report Generated</span>
+                        <h4 className="text-[16px] font-semibold tracking-[-0.4px] mt-0.5 text-[#171717] dark:text-white">{query}</h4>
                       </div>
                       <div className="flex items-center gap-1.5 bg-[#d3e5ff] px-2.5 py-1 rounded-full text-[12px] font-semibold text-[#0070f3]">
                         Score: 80%
@@ -458,9 +458,9 @@ export default function LandingPage({ user }: LandingPageProps) {
                       </div>
 
                       <div>
-                        <span className="text-[11px] font-mono uppercase text-red-600 block">3. Detected Contradictions</span>
-                        <p className="text-[13px] text-[#4d4d4d] leading-5 bg-red-50/50 p-2.5 rounded border border-red-100 flex items-start gap-2">
-                          <AlertTriangle className="h-3.5 w-3.5 text-red-500 shrink-0 mt-0.5" />
+                        <span className="text-[11px] font-mono uppercase text-red-600 dark:text-red-400 block">3. Detected Contradictions</span>
+                        <p className="text-[13px] text-[#4d4d4d] dark:text-zinc-300 leading-5 bg-red-50/50 dark:bg-red-950/20 p-2.5 rounded border border-red-100 dark:border-red-900/50 flex items-start gap-2">
+                          <AlertTriangle className="h-3.5 w-3.5 text-red-500 dark:text-red-400 shrink-0 mt-0.5" />
                           <span>Minor conflicts found regarding productivity speed vs logical consistency rates.</span>
                         </p>
                       </div>
@@ -473,7 +473,7 @@ export default function LandingPage({ user }: LandingPageProps) {
                       setIsSimulating(false);
                       setSimulationStep(-1);
                     }}
-                    className="w-full h-[40px] rounded-full border border-[#ebebeb] bg-white text-[#171717] text-[13px] font-medium flex items-center justify-center gap-2 hover:bg-[#fafafa] transition-colors mt-4"
+                    className="w-full h-[40px] rounded-full border border-[#ebebeb] dark:border-zinc-700 bg-white dark:bg-zinc-800 text-[#171717] dark:text-white text-[13px] font-medium flex items-center justify-center gap-2 hover:bg-[#fafafa] dark:hover:bg-zinc-700 transition-colors mt-4"
                   >
                     <RotateCcw className="h-3.5 w-3.5" /> Reset Simulator
                   </button>
@@ -527,40 +527,40 @@ export default function LandingPage({ user }: LandingPageProps) {
       </section>
 
       {/* ── Problem & Solution Section ────────────────────── */}
-      <section id="problem-solution" className="mx-auto max-w-6xl px-6 py-24 border-b border-[#ebebeb]">
-        <h2 className="text-[32px] md:text-[36px] font-semibold tracking-[-1px] text-[#171717] text-center mb-12">
+      <section id="problem-solution" className="mx-auto max-w-6xl px-6 py-24 border-b border-[#ebebeb] dark:border-zinc-800">
+        <h2 className="text-[32px] md:text-[36px] font-semibold tracking-[-1px] text-[#171717] dark:text-white text-center mb-12">
           Problem & solution
         </h2>
 
         <div className="grid gap-8 md:grid-cols-2 items-stretch">
           
           {/* Left Card: Problem */}
-          <div className="bg-white border border-[#ebebeb] rounded-[24px] p-8 md:p-12 flex flex-col items-center text-center shadow-[0px_4px_20px_rgba(0,0,0,0.01)] min-h-[460px] justify-start">
-            <span className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 font-mono text-[11px] uppercase tracking-wider font-semibold">
+          <div className="bg-white dark:bg-zinc-900 border border-[#ebebeb] dark:border-zinc-800 rounded-[24px] p-8 md:p-12 flex flex-col items-center text-center shadow-[0px_4px_20px_rgba(0,0,0,0.01)] min-h-[460px] justify-start">
+            <span className="px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 font-mono text-[11px] uppercase tracking-wider font-semibold">
               Problem
             </span>
             
-            <h3 className="mt-8 text-[22px] md:text-[25px] font-normal tracking-[-0.8px] leading-[1.3] text-[#4d4d4d] max-w-md">
-              In an information-heavy world, knowing <span className="text-[#171717] font-semibold">what to trust</span> and being aware of <span className="text-[#171717] font-semibold">hallucinations and bias</span> is more crucial than ever.
+            <h3 className="mt-8 text-[22px] md:text-[25px] font-normal tracking-[-0.8px] leading-[1.3] text-[#4d4d4d] dark:text-zinc-300 max-w-md">
+              In an information-heavy world, knowing <span className="text-[#171717] dark:text-white font-semibold">what to trust</span> and being aware of <span className="text-[#171717] dark:text-white font-semibold">hallucinations and bias</span> is more crucial than ever.
             </h3>
             
-            <p className="mt-6 text-[13px] leading-relaxed text-[#8f8f8f] max-w-sm">
+            <p className="mt-6 text-[13px] leading-relaxed text-[#8f8f8f] dark:text-zinc-400 max-w-sm">
               Traditional AI models generate answers instantly but offer zero traceability, presenting opinions and errors as verified truths.
             </p>
           </div>
 
           {/* Right Card: Solution */}
-          <div className="bg-white border border-[#ebebeb] rounded-[24px] p-8 md:p-12 flex flex-col items-center text-center shadow-[0px_4px_20px_rgba(0,0,0,0.01)] min-h-[460px] justify-between">
+          <div className="bg-white dark:bg-zinc-900 border border-[#ebebeb] dark:border-zinc-800 rounded-[24px] p-8 md:p-12 flex flex-col items-center text-center shadow-[0px_4px_20px_rgba(0,0,0,0.01)] min-h-[460px] justify-between">
             <div className="flex flex-col items-center">
-              <span className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 font-mono text-[11px] uppercase tracking-wider font-semibold">
+              <span className="px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 font-mono text-[11px] uppercase tracking-wider font-semibold">
                 Solution
               </span>
               
-              <h3 className="mt-8 text-[22px] md:text-[25px] font-normal tracking-[-0.8px] leading-[1.3] text-[#4d4d4d] max-w-md">
-                Veriq empowers you with <span className="text-[#171717] font-semibold">autonomous multi-agent validation</span> and instant source citations when you research questions.
+              <h3 className="mt-8 text-[22px] md:text-[25px] font-normal tracking-[-0.8px] leading-[1.3] text-[#4d4d4d] dark:text-zinc-300 max-w-md">
+                Veriq empowers you with <span className="text-[#171717] dark:text-white font-semibold">autonomous multi-agent validation</span> and instant source citations when you research questions.
               </h3>
               
-              <p className="mt-6 text-[13px] leading-relaxed text-[#8f8f8f] max-w-sm">
+              <p className="mt-6 text-[13px] leading-relaxed text-[#8f8f8f] dark:text-zinc-400 max-w-sm">
                 By deploying specialized specialist and auditor nodes, Veriq challenges, validates, and fact-checks statements before you read them.
               </p>
             </div>
@@ -578,13 +578,13 @@ export default function LandingPage({ user }: LandingPageProps) {
                 
 
                 {/* bubble 2 */}
-                <div className="bg-[#fafafa] border border-[#ebebeb] rounded-[10px] p-2 flex items-center gap-2 shadow-[0px_1px_2px_rgba(0,0,0,0.01)] shrink-0">
-                  <div className="h-6 w-6 rounded-full bg-blue-500/10 flex items-center justify-center text-[10px] text-blue-500">
+                <div className="bg-[#fafafa] dark:bg-zinc-800 border border-[#ebebeb] dark:border-zinc-700 rounded-[10px] p-2 flex items-center gap-2 shadow-[0px_1px_2px_rgba(0,0,0,0.01)] shrink-0">
+                  <div className="h-6 w-6 rounded-full bg-blue-500/10 flex items-center justify-center text-[10px] text-blue-500 dark:text-blue-400">
                     🛡️
                   </div>
                   <div className="text-left">
-                    <div className="text-[10px] font-semibold text-[#171717] leading-tight">Confidence</div>
-                    <div className="text-[8px] text-blue-500 font-mono leading-none font-semibold">94% score</div>
+                    <div className="text-[10px] font-semibold text-[#171717] dark:text-white leading-tight">Confidence</div>
+                    <div className="text-[8px] text-blue-500 dark:text-blue-400 font-mono leading-none font-semibold">94% score</div>
                   </div>
                 </div>
 
@@ -597,11 +597,11 @@ export default function LandingPage({ user }: LandingPageProps) {
       </section>
 
       {/* ── How It Works ──────────────────────────────────── */}
-      <section id="how-it-works" className="border-b border-[#ebebeb] py-24 px-6" style={{ backgroundImage: "linear-gradient(to top, #fff1eb 0%, #ace0f9 100%)" }}>
+      <section id="how-it-works" className="border-b border-[#ebebeb] dark:border-zinc-800 py-24 px-6 bg-gradient-to-t from-[#ace0f9] to-[#fff1eb] dark:from-[#121215] dark:to-[#09090b] transition-colors duration-200">
         <div className="mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <span className="text-[12px] font-mono uppercase tracking-wider text-[#8f8f8f]">Process Workflow</span>
-            <h2 className="mt-2 text-[32px] font-semibold tracking-[-1.28px] text-[#171717]">
+            <span className="text-[12px] font-mono uppercase tracking-wider text-[#8f8f8f] dark:text-zinc-400">Process Workflow</span>
+            <h2 className="mt-2 text-[32px] font-semibold tracking-[-1.28px] text-[#171717] dark:text-white">
               From Question to Verified Report
             </h2>
           </div>
@@ -612,15 +612,15 @@ export default function LandingPage({ user }: LandingPageProps) {
               onClick={() => setActiveWorksStep(0)}
               className={`rounded-[12px] border p-6 transition-all cursor-pointer ${
                 activeWorksStep === 0
-                  ? "border-[#171717] bg-[#fafafa] shadow-[0px_2px_4px_rgba(0,0,0,0.02)]"
-                  : "border-[#ebebeb] bg-white hover:border-[#a1a1a1]"
+                  ? "border-[#171717] dark:border-zinc-400 bg-[#fafafa] dark:bg-zinc-800 shadow-[0px_2px_4px_rgba(0,0,0,0.02)]"
+                  : "border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:border-[#a1a1a1] dark:hover:border-zinc-600"
               }`}
             >
-              <div className="h-8 w-8 flex items-center justify-center rounded-lg bg-[#171717] text-white font-mono text-xs font-bold mb-4">
+              <div className="h-8 w-8 flex items-center justify-center rounded-lg bg-[#171717] dark:bg-white text-white dark:text-[#171717] font-mono text-xs font-bold mb-4">
                 1
               </div>
-              <h3 className="text-[16px] font-semibold tracking-[-0.4px] text-[#171717]">Ask</h3>
-              <p className="mt-2 text-[13px] leading-5 text-[#4d4d4d]">
+              <h3 className="text-[16px] font-semibold tracking-[-0.4px] text-[#171717] dark:text-white">Ask</h3>
+              <p className="mt-2 text-[13px] leading-5 text-[#4d4d4d] dark:text-zinc-300">
                 Enter any research question. Veriq creates a research strategy and identifies what needs to be investigated.
               </p>
             </div>
@@ -630,15 +630,15 @@ export default function LandingPage({ user }: LandingPageProps) {
               onClick={() => setActiveWorksStep(1)}
               className={`rounded-[12px] border p-6 transition-all cursor-pointer ${
                 activeWorksStep === 1
-                  ? "border-[#171717] bg-[#fafafa] shadow-[0px_2px_4px_rgba(0,0,0,0.02)]"
-                  : "border-[#ebebeb] bg-white hover:border-[#a1a1a1]"
+                  ? "border-[#171717] dark:border-zinc-400 bg-[#fafafa] dark:bg-zinc-800 shadow-[0px_2px_4px_rgba(0,0,0,0.02)]"
+                  : "border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:border-[#a1a1a1] dark:hover:border-zinc-600"
               }`}
             >
-              <div className="h-8 w-8 flex items-center justify-center rounded-lg bg-[#171717] text-white font-mono text-xs font-bold mb-4">
+              <div className="h-8 w-8 flex items-center justify-center rounded-lg bg-[#171717] dark:bg-white text-white dark:text-[#171717] font-mono text-xs font-bold mb-4">
                 2
               </div>
-              <h3 className="text-[16px] font-semibold tracking-[-0.4px] text-[#171717]">Investigate</h3>
-              <p className="mt-2 text-[13px] leading-5 text-[#4d4d4d]">
+              <h3 className="text-[16px] font-semibold tracking-[-0.4px] text-[#171717] dark:text-white">Investigate</h3>
+              <p className="mt-2 text-[13px] leading-5 text-[#4d4d4d] dark:text-zinc-300">
                 Specialized AI agents search trusted sources, analyze evidence, verify claims, and identify contradictions. Each focuses on one task.
               </p>
             </div>
@@ -648,15 +648,15 @@ export default function LandingPage({ user }: LandingPageProps) {
               onClick={() => setActiveWorksStep(2)}
               className={`rounded-[12px] border p-6 transition-all cursor-pointer ${
                 activeWorksStep === 2
-                  ? "border-[#171717] bg-[#fafafa] shadow-[0px_2px_4px_rgba(0,0,0,0.02)]"
-                  : "border-[#ebebeb] bg-white hover:border-[#a1a1a1]"
+                  ? "border-[#171717] dark:border-zinc-400 bg-[#fafafa] dark:bg-zinc-800 shadow-[0px_2px_4px_rgba(0,0,0,0.02)]"
+                  : "border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:border-[#a1a1a1] dark:hover:border-zinc-600"
               }`}
             >
-              <div className="h-8 w-8 flex items-center justify-center rounded-lg bg-[#171717] text-white font-mono text-xs font-bold mb-4">
+              <div className="h-8 w-8 flex items-center justify-center rounded-lg bg-[#171717] dark:bg-white text-white dark:text-[#171717] font-mono text-xs font-bold mb-4">
                 3
               </div>
-              <h3 className="text-[16px] font-semibold tracking-[-0.4px] text-[#171717]">Verify</h3>
-              <p className="mt-2 text-[13px] leading-5 text-[#4d4d4d]">
+              <h3 className="text-[16px] font-semibold tracking-[-0.4px] text-[#171717] dark:text-white">Verify</h3>
+              <p className="mt-2 text-[13px] leading-5 text-[#4d4d4d] dark:text-zinc-300">
                 Claims are independently validated and assigned confidence scores based on supporting evidence.
               </p>
             </div>
@@ -666,15 +666,15 @@ export default function LandingPage({ user }: LandingPageProps) {
               onClick={() => setActiveWorksStep(3)}
               className={`rounded-[12px] border p-6 transition-all cursor-pointer ${
                 activeWorksStep === 3
-                  ? "border-[#171717] bg-[#fafafa] shadow-[0px_2px_4px_rgba(0,0,0,0.02)]"
-                  : "border-[#ebebeb] bg-white hover:border-[#a1a1a1]"
+                  ? "border-[#171717] dark:border-zinc-400 bg-[#fafafa] dark:bg-zinc-800 shadow-[0px_2px_4px_rgba(0,0,0,0.02)]"
+                  : "border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:border-[#a1a1a1] dark:hover:border-zinc-600"
               }`}
             >
-              <div className="h-8 w-8 flex items-center justify-center rounded-lg bg-[#171717] text-white font-mono text-xs font-bold mb-4">
+              <div className="h-8 w-8 flex items-center justify-center rounded-lg bg-[#171717] dark:bg-white text-white dark:text-[#171717] font-mono text-xs font-bold mb-4">
                 4
               </div>
-              <h3 className="text-[16px] font-semibold tracking-[-0.4px] text-[#171717]">Report</h3>
-              <p className="mt-2 text-[13px] leading-5 text-[#4d4d4d]">
+              <h3 className="text-[16px] font-semibold tracking-[-0.4px] text-[#171717] dark:text-white">Report</h3>
+              <p className="mt-2 text-[13px] leading-5 text-[#4d4d4d] dark:text-zinc-300">
                 Receive a structured report containing executive summaries, verified claims, contradictions, and actionable citations.
               </p>
             </div>
@@ -683,19 +683,19 @@ export default function LandingPage({ user }: LandingPageProps) {
       </section>
 
       {/* ── Multi-Agent Architecture Section ───────────────── */}
-      <section id="architecture" className="mx-auto max-w-6xl px-6 py-24 border-b border-[#ebebeb]">
+      <section id="architecture" className="mx-auto max-w-6xl px-6 py-24 border-b border-[#ebebeb] dark:border-zinc-800">
         <div className="text-center mb-16">
-          <span className="text-[12px] font-mono uppercase tracking-wider text-[#8f8f8f]">Multi-Agent Architecture</span>
-          <h2 className="mt-2 text-[32px] font-semibold tracking-[-1.28px] text-[#171717]">
+          <span className="text-[12px] font-mono uppercase tracking-wider text-[#8f8f8f] dark:text-zinc-400">Multi-Agent Architecture</span>
+          <h2 className="mt-2 text-[32px] font-semibold tracking-[-1.28px] text-[#171717] dark:text-white">
             A Team of AI Specialists, Coordinated by One Orchestrator
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-[14px] text-[#4d4d4d]">
+          <p className="mx-auto mt-4 max-w-xl text-[14px] text-[#4d4d4d] dark:text-zinc-300">
             Veriq breaks complex research into specialized tasks handled by independent AI agents. Instead of one model trying to do everything, each agent contributes expertise.
           </p>
         </div>
 
         {/* Interactive Visual Graph Canvas (2-Row Layout on Desktop, Vertical Stack on Mobile) */}
-        <div className="w-full bg-[radial-gradient(#ebebeb_1.5px,transparent_1.5px)] [background-size:24px_24px] bg-[#fafafa] border border-[#ebebeb] rounded-[16px] py-12 px-4 mb-8 shadow-[inset_0px_2px_4px_rgba(0,0,0,0.02)] flex flex-col items-center gap-0">
+        <div className="w-full bg-[radial-gradient(#ebebeb_1.5px,transparent_1.5px)] dark:bg-[radial-gradient(#27272a_1.5px,transparent_1.5px)] [background-size:24px_24px] bg-[#fafafa] dark:bg-zinc-950 border border-[#ebebeb] dark:border-zinc-800 rounded-[16px] py-12 px-4 mb-8 shadow-[inset_0px_2px_4px_rgba(0,0,0,0.02)] flex flex-col items-center gap-0">
           
           {/* DESKTOP VIEWPORT: 2-Row Layout */}
           <div className="hidden lg:flex flex-col items-center gap-6 w-full max-w-[1100px] py-2 relative">
@@ -706,58 +706,58 @@ export default function LandingPage({ user }: LandingPageProps) {
               {/* Orchestrator */}
               <div
                 onClick={() => setActiveArchitectureAgent("orchestrator")}
-                className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
+                className={`relative cursor-pointer rounded-[12px] border bg-white dark:bg-zinc-900 p-4 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
                   activeArchitectureAgent === "orchestrator"
-                    ? "border-[#171717] ring-1 ring-[#171717]"
-                    : "border-[#ebebeb] hover:border-[#a1a1a1]"
+                    ? "border-[#171717] dark:border-zinc-400 ring-1 ring-[#171717] dark:ring-zinc-400"
+                    : "border-[#ebebeb] dark:border-zinc-800 hover:border-[#a1a1a1] dark:hover:border-zinc-600"
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
                     <span className="text-[12px]">🧠</span>
-                    <span className="font-semibold text-[12px] text-[#171717]">Orchestrator</span>
+                    <span className="font-semibold text-[12px] text-[#171717] dark:text-white">Orchestrator</span>
                   </div>
-                  <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Start</span>
+                  <span className="text-[#8f8f8f] dark:text-zinc-400 font-mono text-[9px] uppercase tracking-wider">Start</span>
                 </div>
                 <div className="space-y-1 text-[10px]">
                   <div>
-                    <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
-                    <span className="text-[#171717] font-mono font-semibold">LangGraph State Core</span>
+                    <span className="text-[#8f8f8f] dark:text-zinc-400 block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                    <span className="text-[#171717] dark:text-white font-mono font-semibold">LangGraph State Core</span>
                   </div>
                 </div>
-                <div className="border-t border-[#f2f2f2] pt-2 mt-3 flex justify-between items-center text-[9px] font-mono text-[#8f8f8f]">
+                <div className="border-t border-[#f2f2f2] dark:border-zinc-800 pt-2 mt-3 flex justify-between items-center text-[9px] font-mono text-[#8f8f8f] dark:text-zinc-400">
                   <span>Transition: ~5ms</span>
                   <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
                 </div>
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[5px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[5px] h-2 w-2 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
               </div>
 
               {/* Connector */}
               <div className="w-[50px] h-[60px] flex items-center justify-center shrink-0">
                 <svg className="w-full h-full" viewBox="0 0 50 60" fill="none">
-                  <path d="M 0 30 L 50 30" stroke="#171717" strokeWidth="2" />
+                  <path d="M 0 30 L 50 30" stroke="currentColor" className="text-[#171717] dark:text-zinc-600" strokeWidth="2" />
                 </svg>
               </div>
 
               {/* Research Strategist */}
               <div
                 onClick={() => setActiveArchitectureAgent("strategist")}
-                className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
+                className={`relative cursor-pointer rounded-[12px] border bg-white dark:bg-zinc-900 p-4 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
                   activeArchitectureAgent === "strategist"
-                    ? "border-[#171717] ring-1 ring-[#171717]"
-                    : "border-[#ebebeb] hover:border-[#a1a1a1]"
+                    ? "border-[#171717] dark:border-zinc-400 ring-1 ring-[#171717] dark:ring-zinc-400"
+                    : "border-[#ebebeb] dark:border-zinc-800 hover:border-[#a1a1a1] dark:hover:border-zinc-600"
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
                     <span className="text-[12px]">🗺️</span>
-                    <span className="font-semibold text-[12px] text-[#171717]">Strategist</span>
+                    <span className="font-semibold text-[12px] text-[#171717] dark:text-white">Strategist</span>
                   </div>
-                  <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Node 1</span>
+                  <span className="text-[#8f8f8f] dark:text-zinc-400 font-mono text-[9px] uppercase tracking-wider">Node 1</span>
                 </div>
                 <div className="space-y-1 text-[10px]">
                   <div>
-                    <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                    <span className="text-[#8f8f8f] dark:text-zinc-400 block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
                     <span className="text-[#171717] font-mono font-medium">llama-3.3-70b</span>
                   </div>
                 </div>
@@ -765,36 +765,36 @@ export default function LandingPage({ user }: LandingPageProps) {
                   <span>Duration: 0.7s</span>
                   <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
                 </div>
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[4px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[5px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[4px] h-2 w-2 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[5px] h-2 w-2 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
               </div>
 
               {/* Connector */}
               <div className="w-[50px] h-[60px] flex items-center justify-center shrink-0">
                 <svg className="w-full h-full" viewBox="0 0 50 60" fill="none">
-                  <path d="M 0 30 L 50 30" stroke="#171717" strokeWidth="2" />
+                  <path d="M 0 30 L 50 30" stroke="currentColor" className="text-[#171717] dark:text-zinc-600" strokeWidth="2" />
                 </svg>
               </div>
 
               {/* Search Specialist */}
               <div
                 onClick={() => setActiveArchitectureAgent("searcher")}
-                className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
+                className={`relative cursor-pointer rounded-[12px] border bg-white dark:bg-zinc-900 p-4 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
                   activeArchitectureAgent === "searcher"
-                    ? "border-[#171717] ring-1 ring-[#171717]"
-                    : "border-[#ebebeb] hover:border-[#a1a1a1]"
+                    ? "border-[#171717] dark:border-zinc-400 ring-1 ring-[#171717] dark:ring-zinc-400"
+                    : "border-[#ebebeb] dark:border-zinc-800 hover:border-[#a1a1a1] dark:hover:border-zinc-600"
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
                     <span className="text-[12px]">🔍</span>
-                    <span className="font-semibold text-[12px] text-[#171717]">Search Specialist</span>
+                    <span className="font-semibold text-[12px] text-[#171717] dark:text-white">Search Specialist</span>
                   </div>
-                  <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Node 2</span>
+                  <span className="text-[#8f8f8f] dark:text-zinc-400 font-mono text-[9px] uppercase tracking-wider">Node 2</span>
                 </div>
                 <div className="space-y-1 text-[10px]">
                   <div>
-                    <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                    <span className="text-[#8f8f8f] dark:text-zinc-400 block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
                     <span className="text-[#171717] font-mono font-medium">Tavily + Scrape API</span>
                   </div>
                 </div>
@@ -802,36 +802,36 @@ export default function LandingPage({ user }: LandingPageProps) {
                   <span>Filters: .edu / .gov</span>
                   <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
                 </div>
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[4px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[5px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[4px] h-2 w-2 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[5px] h-2 w-2 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
               </div>
 
               {/* Connector */}
               <div className="w-[50px] h-[60px] flex items-center justify-center shrink-0">
                 <svg className="w-full h-full" viewBox="0 0 50 60" fill="none">
-                  <path d="M 0 30 L 50 30" stroke="#171717" strokeWidth="2" />
+                  <path d="M 0 30 L 50 30" stroke="currentColor" className="text-[#171717] dark:text-zinc-600" strokeWidth="2" />
                 </svg>
               </div>
 
               {/* Research Analyst */}
               <div
                 onClick={() => setActiveArchitectureAgent("analyst")}
-                className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
+                className={`relative cursor-pointer rounded-[12px] border bg-white dark:bg-zinc-900 p-4 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
                   activeArchitectureAgent === "analyst"
-                    ? "border-[#171717] ring-1 ring-[#171717]"
-                    : "border-[#ebebeb] hover:border-[#a1a1a1]"
+                    ? "border-[#171717] dark:border-zinc-400 ring-1 ring-[#171717] dark:ring-zinc-400"
+                    : "border-[#ebebeb] dark:border-zinc-800 hover:border-[#a1a1a1] dark:hover:border-zinc-600"
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
                     <span className="text-[12px]">📚</span>
-                    <span className="font-semibold text-[12px] text-[#171717]">Research Analyst</span>
+                    <span className="font-semibold text-[12px] text-[#171717] dark:text-white">Research Analyst</span>
                   </div>
-                  <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Node 3</span>
+                  <span className="text-[#8f8f8f] dark:text-zinc-400 font-mono text-[9px] uppercase tracking-wider">Node 3</span>
                 </div>
                 <div className="space-y-1 text-[10px]">
                   <div>
-                    <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                    <span className="text-[#8f8f8f] dark:text-zinc-400 block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
                     <span className="text-[#171717] font-mono font-medium">llama-3.3-70b</span>
                   </div>
                 </div>
@@ -839,8 +839,8 @@ export default function LandingPage({ user }: LandingPageProps) {
                   <span>Markdown Notes</span>
                   <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
                 </div>
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[4px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[5px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[4px] h-2 w-2 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[5px] h-2 w-2 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
               </div>
 
             </div>
@@ -848,7 +848,7 @@ export default function LandingPage({ user }: LandingPageProps) {
             {/* Sweeping Loop Connector from Row 1 End to Row 2 Start */}
             <div className="w-full h-[50px] relative overflow-visible select-none pointer-events-none">
               <svg className="absolute w-[1100px] h-[50px] overflow-visible" viewBox="0 0 1100 50" fill="none">
-                <path d="M 990 0 C 990 25, 110 25, 110 50" stroke="#171717" strokeWidth="2" strokeDasharray="4 4" strokeLinecap="round" />
+                <path d="M 990 0 C 990 25, 110 25, 110 50" stroke="currentColor" className="text-[#171717] dark:text-zinc-600" strokeWidth="2" strokeDasharray="4 4" strokeLinecap="round" />
               </svg>
             </div>
 
@@ -858,22 +858,22 @@ export default function LandingPage({ user }: LandingPageProps) {
               {/* Evidence Analyst */}
               <div
                 onClick={() => setActiveArchitectureAgent("evidence")}
-                className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
+                className={`relative cursor-pointer rounded-[12px] border bg-white dark:bg-zinc-900 p-4 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
                   activeArchitectureAgent === "evidence"
-                    ? "border-[#171717] ring-1 ring-[#171717]"
-                    : "border-[#ebebeb] hover:border-[#a1a1a1]"
+                    ? "border-[#171717] dark:border-zinc-400 ring-1 ring-[#171717] dark:ring-zinc-400"
+                    : "border-[#ebebeb] dark:border-zinc-800 hover:border-[#a1a1a1] dark:hover:border-zinc-600"
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
                     <span className="text-[12px]">📝</span>
-                    <span className="font-semibold text-[12px] text-[#171717]">Evidence Analyst</span>
+                    <span className="font-semibold text-[12px] text-[#171717] dark:text-white">Evidence Analyst</span>
                   </div>
-                  <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Node 4</span>
+                  <span className="text-[#8f8f8f] dark:text-zinc-400 font-mono text-[9px] uppercase tracking-wider">Node 4</span>
                 </div>
                 <div className="space-y-1 text-[10px]">
                   <div>
-                    <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                    <span className="text-[#8f8f8f] dark:text-zinc-400 block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
                     <span className="text-[#171717] font-mono font-medium">llama-3.1-8b</span>
                   </div>
                 </div>
@@ -881,15 +881,15 @@ export default function LandingPage({ user }: LandingPageProps) {
                   <span>Extracts: 5-15 Claims</span>
                   <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
                 </div>
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[4px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[5px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[4px] h-2 w-2 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[5px] h-2 w-2 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
               </div>
 
               {/* Parallel Split Connector */}
               <div className="w-[50px] h-[160px] flex items-center justify-center shrink-0">
                 <svg className="w-full h-full" viewBox="0 0 50 160" fill="none">
-                  <path d="M 0 80 C 25 80, 25 30, 50 30" stroke="#171717" strokeWidth="2" strokeLinecap="round" />
-                  <path d="M 0 80 C 25 80, 25 130, 50 130" stroke="#171717" strokeWidth="2" strokeLinecap="round" />
+                  <path d="M 0 80 C 25 80, 25 30, 50 30" stroke="currentColor" className="text-[#171717] dark:text-zinc-600" strokeWidth="2" strokeLinecap="round" />
+                  <path d="M 0 80 C 25 80, 25 130, 50 130" stroke="currentColor" className="text-[#171717] dark:text-zinc-600" strokeWidth="2" strokeLinecap="round" />
                 </svg>
               </div>
 
@@ -899,22 +899,22 @@ export default function LandingPage({ user }: LandingPageProps) {
                 {/* Verification Specialist */}
                 <div
                   onClick={() => setActiveArchitectureAgent("verifier")}
-                  className={`relative cursor-pointer rounded-[12px] border bg-white p-3 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
+                  className={`relative cursor-pointer rounded-[12px] border bg-white dark:bg-zinc-900 p-3 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
                     activeArchitectureAgent === "verifier"
-                      ? "border-[#171717] ring-1 ring-[#171717]"
-                      : "border-[#ebebeb] hover:border-[#a1a1a1]"
+                      ? "border-[#171717] dark:border-zinc-400 ring-1 ring-[#171717] dark:ring-zinc-400"
+                      : "border-[#ebebeb] dark:border-zinc-800 hover:border-[#a1a1a1] dark:hover:border-zinc-600"
                   }`}
                 >
                   <div className="flex items-center justify-between mb-1.5">
                     <div className="flex items-center gap-1.5">
                       <span className="text-[11px]">✅</span>
-                      <span className="font-semibold text-[11px] text-[#171717]">Verifier</span>
+                      <span className="font-semibold text-[11px] text-[#171717] dark:text-white">Verifier</span>
                     </div>
-                    <span className="text-[#8f8f8f] font-mono text-[8px] uppercase tracking-wider">Parallel</span>
+                    <span className="text-[#8f8f8f] dark:text-zinc-400 font-mono text-[8px] uppercase tracking-wider">Parallel</span>
                   </div>
                   <div className="space-y-0.5 text-[9px]">
                     <div>
-                      <span className="text-[#8f8f8f] block uppercase text-[7px] font-mono tracking-wider">Target Registry Model</span>
+                      <span className="text-[#8f8f8f] dark:text-zinc-400 block uppercase text-[7px] font-mono tracking-wider">Target Registry Model</span>
                       <span className="text-[#171717] font-mono font-medium">llama-3.1-8b</span>
                     </div>
                   </div>
@@ -922,29 +922,29 @@ export default function LandingPage({ user }: LandingPageProps) {
                     <span>Mode: Batched</span>
                     <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
                   </div>
-                  <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[4px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
-                  <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[5px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[4px] h-2 w-2 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
+                  <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[5px] h-2 w-2 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
                 </div>
 
                 {/* Contradiction Detector */}
                 <div
                   onClick={() => setActiveArchitectureAgent("contradiction")}
-                  className={`relative cursor-pointer rounded-[12px] border bg-white p-3 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
+                  className={`relative cursor-pointer rounded-[12px] border bg-white dark:bg-zinc-900 p-3 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
                     activeArchitectureAgent === "contradiction"
-                      ? "border-[#171717] ring-1 ring-[#171717]"
-                      : "border-[#ebebeb] hover:border-[#a1a1a1]"
+                      ? "border-[#171717] dark:border-zinc-400 ring-1 ring-[#171717] dark:ring-zinc-400"
+                      : "border-[#ebebeb] dark:border-zinc-800 hover:border-[#a1a1a1] dark:hover:border-zinc-600"
                   }`}
                 >
                   <div className="flex items-center justify-between mb-1.5">
                     <div className="flex items-center gap-1.5">
                       <span className="text-[11px]">⚔️</span>
-                      <span className="font-semibold text-[11px] text-[#171717]">Contradiction</span>
+                      <span className="font-semibold text-[11px] text-[#171717] dark:text-white">Contradiction</span>
                     </div>
-                    <span className="text-[#8f8f8f] font-mono text-[8px] uppercase tracking-wider">Parallel</span>
+                    <span className="text-[#8f8f8f] dark:text-zinc-400 font-mono text-[8px] uppercase tracking-wider">Parallel</span>
                   </div>
                   <div className="space-y-0.5 text-[9px]">
                     <div>
-                      <span className="text-[#8f8f8f] block uppercase text-[7px] font-mono tracking-wider">Target Registry Model</span>
+                      <span className="text-[#8f8f8f] dark:text-zinc-400 block uppercase text-[7px] font-mono tracking-wider">Target Registry Model</span>
                       <span className="text-[#171717] font-mono font-medium">llama-3.3-70b</span>
                     </div>
                   </div>
@@ -952,8 +952,8 @@ export default function LandingPage({ user }: LandingPageProps) {
                     <span>Goal: Adversarial</span>
                     <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
                   </div>
-                  <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[4px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
-                  <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[5px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[4px] h-2 w-2 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
+                  <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[5px] h-2 w-2 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
                 </div>
 
               </div>
@@ -969,22 +969,22 @@ export default function LandingPage({ user }: LandingPageProps) {
               {/* Confidence Scorer */}
               <div
                 onClick={() => setActiveArchitectureAgent("scorer")}
-                className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
+                className={`relative cursor-pointer rounded-[12px] border bg-white dark:bg-zinc-900 p-4 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
                   activeArchitectureAgent === "scorer"
-                    ? "border-[#171717] ring-1 ring-[#171717]"
-                    : "border-[#ebebeb] hover:border-[#a1a1a1]"
+                    ? "border-[#171717] dark:border-zinc-400 ring-1 ring-[#171717] dark:ring-zinc-400"
+                    : "border-[#ebebeb] dark:border-zinc-800 hover:border-[#a1a1a1] dark:hover:border-zinc-600"
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
                     <span className="text-[12px]">📊</span>
-                    <span className="font-semibold text-[12px] text-[#171717]">Confidence Scorer</span>
+                    <span className="font-semibold text-[12px] text-[#171717] dark:text-white">Confidence Scorer</span>
                   </div>
-                  <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Node 5</span>
+                  <span className="text-[#8f8f8f] dark:text-zinc-400 font-mono text-[9px] uppercase tracking-wider">Node 5</span>
                 </div>
                 <div className="space-y-1 text-[10px]">
                   <div>
-                    <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                    <span className="text-[#8f8f8f] dark:text-zinc-400 block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
                     <span className="text-[#171717] font-mono font-medium">llama-3.3-70b</span>
                   </div>
                 </div>
@@ -992,36 +992,36 @@ export default function LandingPage({ user }: LandingPageProps) {
                   <span>Formula: Clamped</span>
                   <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
                 </div>
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[4px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[5px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[4px] h-2 w-2 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[5px] h-2 w-2 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
               </div>
 
               {/* Connector */}
               <div className="w-[50px] h-[60px] flex items-center justify-center shrink-0">
                 <svg className="w-full h-full" viewBox="0 0 50 60" fill="none">
-                  <path d="M 0 30 L 50 30" stroke="#171717" strokeWidth="2" />
+                  <path d="M 0 30 L 50 30" stroke="currentColor" className="text-[#171717] dark:text-zinc-600" strokeWidth="2" />
                 </svg>
               </div>
 
               {/* Report Writer */}
               <div
                 onClick={() => setActiveArchitectureAgent("writer")}
-                className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
+                className={`relative cursor-pointer rounded-[12px] border bg-white dark:bg-zinc-900 p-4 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
                   activeArchitectureAgent === "writer"
-                    ? "border-[#171717] ring-1 ring-[#171717]"
-                    : "border-[#ebebeb] hover:border-[#a1a1a1]"
+                    ? "border-[#171717] dark:border-zinc-400 ring-1 ring-[#171717] dark:ring-zinc-400"
+                    : "border-[#ebebeb] dark:border-zinc-800 hover:border-[#a1a1a1] dark:hover:border-zinc-600"
                 }`}
               >
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
                     <span className="text-[12px]">📄</span>
-                    <span className="font-semibold text-[12px] text-[#171717]">Report Writer</span>
+                    <span className="font-semibold text-[12px] text-[#171717] dark:text-white">Report Writer</span>
                   </div>
-                  <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">End</span>
+                  <span className="text-[#8f8f8f] dark:text-zinc-400 font-mono text-[9px] uppercase tracking-wider">End</span>
                 </div>
                 <div className="space-y-1 text-[10px]">
                   <div>
-                    <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                    <span className="text-[#8f8f8f] dark:text-zinc-400 block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
                     <span className="text-[#171717] font-mono font-medium">gemini-2.5</span>
                   </div>
                 </div>
@@ -1029,7 +1029,7 @@ export default function LandingPage({ user }: LandingPageProps) {
                   <span>Verified Markdown</span>
                   <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
                 </div>
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[4px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[4px] h-2 w-2 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
               </div>
 
             </div>
@@ -1042,22 +1042,22 @@ export default function LandingPage({ user }: LandingPageProps) {
             {/* Start Node */}
             <div
               onClick={() => setActiveArchitectureAgent("orchestrator")}
-              className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
+              className={`relative cursor-pointer rounded-[12px] border bg-white dark:bg-zinc-900 p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
                 activeArchitectureAgent === "orchestrator"
-                  ? "border-[#171717] ring-1 ring-[#171717]"
-                  : "border-[#ebebeb] hover:border-[#a1a1a1]"
+                  ? "border-[#171717] dark:border-zinc-400 ring-1 ring-[#171717] dark:ring-zinc-400"
+                  : "border-[#ebebeb] dark:border-zinc-800 hover:border-[#a1a1a1] dark:hover:border-zinc-600"
               }`}
             >
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-1.5">
                   <span className="text-[12px]">🧠</span>
-                  <span className="font-semibold text-[13px] text-[#171717]">Orchestrator</span>
+                  <span className="font-semibold text-[13px] text-[#171717] dark:text-white">Orchestrator</span>
                 </div>
-                <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Start</span>
+                <span className="text-[#8f8f8f] dark:text-zinc-400 font-mono text-[9px] uppercase tracking-wider">Start</span>
               </div>
               <div className="space-y-1 text-[10px]">
                 <div>
-                  <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                  <span className="text-[#8f8f8f] dark:text-zinc-400 block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
                   <span className="text-[#171717] font-mono font-medium">LangGraph State Core</span>
                 </div>
               </div>
@@ -1065,34 +1065,34 @@ export default function LandingPage({ user }: LandingPageProps) {
                 <span>Transition: ~5ms</span>
                 <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
               </div>
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
             </div>
 
             {/* Vertical Connector */}
-            <div className="h-10 w-[2px] bg-[#171717] relative shrink-0">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
+            <div className="h-10 w-[2px] bg-[#171717] dark:bg-zinc-600 relative shrink-0">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900" />
             </div>
 
             {/* Research Strategist */}
             <div
               onClick={() => setActiveArchitectureAgent("strategist")}
-              className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
+              className={`relative cursor-pointer rounded-[12px] border bg-white dark:bg-zinc-900 p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
                 activeArchitectureAgent === "strategist"
-                  ? "border-[#171717] ring-1 ring-[#171717]"
-                  : "border-[#ebebeb] hover:border-[#a1a1a1]"
+                  ? "border-[#171717] dark:border-zinc-400 ring-1 ring-[#171717] dark:ring-zinc-400"
+                  : "border-[#ebebeb] dark:border-zinc-800 hover:border-[#a1a1a1] dark:hover:border-zinc-600"
               }`}
             >
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-1.5">
                   <span className="text-[12px]">🗺️</span>
-                  <span className="font-semibold text-[13px] text-[#171717]">Research Strategist</span>
+                  <span className="font-semibold text-[13px] text-[#171717] dark:text-white">Research Strategist</span>
                 </div>
-                <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Node 1</span>
+                <span className="text-[#8f8f8f] dark:text-zinc-400 font-mono text-[9px] uppercase tracking-wider">Node 1</span>
               </div>
               <div className="space-y-1 text-[10px]">
                 <div>
-                  <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                  <span className="text-[#8f8f8f] dark:text-zinc-400 block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
                   <span className="text-[#171717] font-mono font-medium">llama-3.3-70b</span>
                 </div>
               </div>
@@ -1100,35 +1100,35 @@ export default function LandingPage({ user }: LandingPageProps) {
                 <span>Duration: 0.7s</span>
                 <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
               </div>
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
             </div>
 
             {/* Vertical Connector */}
-            <div className="h-10 w-[2px] bg-[#171717] relative shrink-0">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
+            <div className="h-10 w-[2px] bg-[#171717] dark:bg-zinc-600 relative shrink-0">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900" />
             </div>
 
             {/* Search Specialist */}
             <div
               onClick={() => setActiveArchitectureAgent("searcher")}
-              className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
+              className={`relative cursor-pointer rounded-[12px] border bg-white dark:bg-zinc-900 p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
                 activeArchitectureAgent === "searcher"
-                  ? "border-[#171717] ring-1 ring-[#171717]"
-                  : "border-[#ebebeb] hover:border-[#a1a1a1]"
+                  ? "border-[#171717] dark:border-zinc-400 ring-1 ring-[#171717] dark:ring-zinc-400"
+                  : "border-[#ebebeb] dark:border-zinc-800 hover:border-[#a1a1a1] dark:hover:border-zinc-600"
               }`}
             >
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-1.5">
                   <span className="text-[12px]">🔍</span>
-                  <span className="font-semibold text-[13px] text-[#171717]">Search Specialist</span>
+                  <span className="font-semibold text-[13px] text-[#171717] dark:text-white">Search Specialist</span>
                 </div>
-                <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Node 2</span>
+                <span className="text-[#8f8f8f] dark:text-zinc-400 font-mono text-[9px] uppercase tracking-wider">Node 2</span>
               </div>
               <div className="space-y-1 text-[10px]">
                 <div>
-                  <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                  <span className="text-[#8f8f8f] dark:text-zinc-400 block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
                   <span className="text-[#171717] font-mono font-medium">Tavily + Scrape API</span>
                 </div>
               </div>
@@ -1136,35 +1136,35 @@ export default function LandingPage({ user }: LandingPageProps) {
                 <span>Filters: .edu / .gov</span>
                 <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
               </div>
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
             </div>
 
             {/* Vertical Connector */}
-            <div className="h-10 w-[2px] bg-[#171717] relative shrink-0">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
+            <div className="h-10 w-[2px] bg-[#171717] dark:bg-zinc-600 relative shrink-0">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900" />
             </div>
 
             {/* Research Analyst */}
             <div
               onClick={() => setActiveArchitectureAgent("analyst")}
-              className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
+              className={`relative cursor-pointer rounded-[12px] border bg-white dark:bg-zinc-900 p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
                 activeArchitectureAgent === "analyst"
-                  ? "border-[#171717] ring-1 ring-[#171717]"
-                  : "border-[#ebebeb] hover:border-[#a1a1a1]"
+                  ? "border-[#171717] dark:border-zinc-400 ring-1 ring-[#171717] dark:ring-zinc-400"
+                  : "border-[#ebebeb] dark:border-zinc-800 hover:border-[#a1a1a1] dark:hover:border-zinc-600"
               }`}
             >
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-1.5">
                   <span className="text-[12px]">📚</span>
-                  <span className="font-semibold text-[13px] text-[#171717]">Research Analyst</span>
+                  <span className="font-semibold text-[13px] text-[#171717] dark:text-white">Research Analyst</span>
                 </div>
-                <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Node 3</span>
+                <span className="text-[#8f8f8f] dark:text-zinc-400 font-mono text-[9px] uppercase tracking-wider">Node 3</span>
               </div>
               <div className="space-y-1 text-[10px]">
                 <div>
-                  <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                  <span className="text-[#8f8f8f] dark:text-zinc-400 block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
                   <span className="text-[#171717] font-mono font-medium">llama-3.3-70b</span>
                 </div>
               </div>
@@ -1172,35 +1172,35 @@ export default function LandingPage({ user }: LandingPageProps) {
                 <span>Markdown Notes</span>
                 <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
               </div>
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
             </div>
 
             {/* Vertical Connector */}
-            <div className="h-10 w-[2px] bg-[#171717] relative shrink-0">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
+            <div className="h-10 w-[2px] bg-[#171717] dark:bg-zinc-600 relative shrink-0">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900" />
             </div>
 
             {/* Evidence Analyst */}
             <div
               onClick={() => setActiveArchitectureAgent("evidence")}
-              className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
+              className={`relative cursor-pointer rounded-[12px] border bg-white dark:bg-zinc-900 p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
                 activeArchitectureAgent === "evidence"
-                  ? "border-[#171717] ring-1 ring-[#171717]"
-                  : "border-[#ebebeb] hover:border-[#a1a1a1]"
+                  ? "border-[#171717] dark:border-zinc-400 ring-1 ring-[#171717] dark:ring-zinc-400"
+                  : "border-[#ebebeb] dark:border-zinc-800 hover:border-[#a1a1a1] dark:hover:border-zinc-600"
               }`}
             >
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-1.5">
                   <span className="text-[12px]">📝</span>
-                  <span className="font-semibold text-[13px] text-[#171717]">Evidence Analyst</span>
+                  <span className="font-semibold text-[13px] text-[#171717] dark:text-white">Evidence Analyst</span>
                 </div>
-                <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Node 4</span>
+                <span className="text-[#8f8f8f] dark:text-zinc-400 font-mono text-[9px] uppercase tracking-wider">Node 4</span>
               </div>
               <div className="space-y-1 text-[10px]">
                 <div>
-                  <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                  <span className="text-[#8f8f8f] dark:text-zinc-400 block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
                   <span className="text-[#171717] font-mono font-medium">llama-3.1-8b</span>
                 </div>
               </div>
@@ -1208,35 +1208,35 @@ export default function LandingPage({ user }: LandingPageProps) {
                 <span>Extracts: 5-15 Claims</span>
                 <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
               </div>
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
             </div>
 
             {/* Vertical Split Connector */}
-            <div className="h-10 w-[2px] bg-[#171717] relative shrink-0">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
+            <div className="h-10 w-[2px] bg-[#171717] dark:bg-zinc-600 relative shrink-0">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900" />
             </div>
 
             {/* Verification Specialist Node */}
             <div
               onClick={() => setActiveArchitectureAgent("verifier")}
-              className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
+              className={`relative cursor-pointer rounded-[12px] border bg-white dark:bg-zinc-900 p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
                 activeArchitectureAgent === "verifier"
-                  ? "border-[#171717] ring-1 ring-[#171717]"
-                  : "border-[#ebebeb] hover:border-[#a1a1a1]"
+                  ? "border-[#171717] dark:border-zinc-400 ring-1 ring-[#171717] dark:ring-zinc-400"
+                  : "border-[#ebebeb] dark:border-zinc-800 hover:border-[#a1a1a1] dark:hover:border-zinc-600"
               }`}
             >
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-1.5">
                   <span className="text-[12px]">✅</span>
-                  <span className="font-semibold text-[13px] text-[#171717]">Verification Specialist</span>
+                  <span className="font-semibold text-[13px] text-[#171717] dark:text-white">Verification Specialist</span>
                 </div>
-                <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Parallel</span>
+                <span className="text-[#8f8f8f] dark:text-zinc-400 font-mono text-[9px] uppercase tracking-wider">Parallel</span>
               </div>
               <div className="space-y-1 text-[10px]">
                 <div>
-                  <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                  <span className="text-[#8f8f8f] dark:text-zinc-400 block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
                   <span className="text-[#171717] font-mono font-medium">llama-3.1-8b</span>
                 </div>
               </div>
@@ -1244,35 +1244,35 @@ export default function LandingPage({ user }: LandingPageProps) {
                 <span>Mode: Batched Claims</span>
                 <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
               </div>
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
             </div>
 
             {/* Vertical Connector */}
-            <div className="h-10 w-[2px] bg-[#171717] relative shrink-0">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
+            <div className="h-10 w-[2px] bg-[#171717] dark:bg-zinc-600 relative shrink-0">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900" />
             </div>
 
             {/* Contradiction Detector Node */}
             <div
               onClick={() => setActiveArchitectureAgent("contradiction")}
-              className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
+              className={`relative cursor-pointer rounded-[12px] border bg-white dark:bg-zinc-900 p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
                 activeArchitectureAgent === "contradiction"
-                  ? "border-[#171717] ring-1 ring-[#171717]"
-                  : "border-[#ebebeb] hover:border-[#a1a1a1]"
+                  ? "border-[#171717] dark:border-zinc-400 ring-1 ring-[#171717] dark:ring-zinc-400"
+                  : "border-[#ebebeb] dark:border-zinc-800 hover:border-[#a1a1a1] dark:hover:border-zinc-600"
               }`}
             >
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-1.5">
                   <span className="text-[12px]">⚔️</span>
-                  <span className="font-semibold text-[13px] text-[#171717]">Contradiction Detector</span>
+                  <span className="font-semibold text-[13px] text-[#171717] dark:text-white">Contradiction Detector</span>
                 </div>
-                <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Parallel</span>
+                <span className="text-[#8f8f8f] dark:text-zinc-400 font-mono text-[9px] uppercase tracking-wider">Parallel</span>
               </div>
               <div className="space-y-1 text-[10px]">
                 <div>
-                  <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                  <span className="text-[#8f8f8f] dark:text-zinc-400 block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
                   <span className="text-[#171717] font-mono font-medium">llama-3.3-70b</span>
                 </div>
               </div>
@@ -1280,35 +1280,35 @@ export default function LandingPage({ user }: LandingPageProps) {
                 <span>Goal: Adversarial Check</span>
                 <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
               </div>
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
             </div>
 
             {/* Vertical Connector */}
-            <div className="h-10 w-[2px] bg-[#171717] relative shrink-0">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
+            <div className="h-10 w-[2px] bg-[#171717] dark:bg-zinc-600 relative shrink-0">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900" />
             </div>
 
             {/* Confidence Scorer */}
             <div
               onClick={() => setActiveArchitectureAgent("scorer")}
-              className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
+              className={`relative cursor-pointer rounded-[12px] border bg-white dark:bg-zinc-900 p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
                 activeArchitectureAgent === "scorer"
-                  ? "border-[#171717] ring-1 ring-[#171717]"
-                  : "border-[#ebebeb] hover:border-[#a1a1a1]"
+                  ? "border-[#171717] dark:border-zinc-400 ring-1 ring-[#171717] dark:ring-zinc-400"
+                  : "border-[#ebebeb] dark:border-zinc-800 hover:border-[#a1a1a1] dark:hover:border-zinc-600"
               }`}
             >
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-1.5">
                   <span className="text-[12px]">📊</span>
-                  <span className="font-semibold text-[13px] text-[#171717]">Confidence Scorer</span>
+                  <span className="font-semibold text-[13px] text-[#171717] dark:text-white">Confidence Scorer</span>
                 </div>
-                <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Node 5</span>
+                <span className="text-[#8f8f8f] dark:text-zinc-400 font-mono text-[9px] uppercase tracking-wider">Node 5</span>
               </div>
               <div className="space-y-1 text-[10px]">
                 <div>
-                  <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                  <span className="text-[#8f8f8f] dark:text-zinc-400 block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
                   <span className="text-[#171717] font-mono font-medium">llama-3.3-70b</span>
                 </div>
               </div>
@@ -1316,35 +1316,35 @@ export default function LandingPage({ user }: LandingPageProps) {
                 <span>Formula: Clamped</span>
                 <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
               </div>
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
             </div>
 
             {/* Vertical Connector */}
-            <div className="h-10 w-[2px] bg-[#171717] relative shrink-0">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
-              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
+            <div className="h-10 w-[2px] bg-[#171717] dark:bg-zinc-600 relative shrink-0">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900" />
             </div>
 
             {/* Report Writer */}
             <div
               onClick={() => setActiveArchitectureAgent("writer")}
-              className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
+              className={`relative cursor-pointer rounded-[12px] border bg-white dark:bg-zinc-900 p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
                 activeArchitectureAgent === "writer"
-                  ? "border-[#171717] ring-1 ring-[#171717]"
-                  : "border-[#ebebeb] hover:border-[#a1a1a1]"
+                  ? "border-[#171717] dark:border-zinc-400 ring-1 ring-[#171717] dark:ring-zinc-400"
+                  : "border-[#ebebeb] dark:border-zinc-800 hover:border-[#a1a1a1] dark:hover:border-zinc-600"
               }`}
             >
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-1.5">
                   <span className="text-[12px]">📄</span>
-                  <span className="font-semibold text-[13px] text-[#171717]">Report Writer</span>
+                  <span className="font-semibold text-[13px] text-[#171717] dark:text-white">Report Writer</span>
                 </div>
-                <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">End</span>
+                <span className="text-[#8f8f8f] dark:text-zinc-400 font-mono text-[9px] uppercase tracking-wider">End</span>
               </div>
               <div className="space-y-1 text-[10px]">
                 <div>
-                  <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                  <span className="text-[#8f8f8f] dark:text-zinc-400 block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
                   <span className="text-[#171717] font-mono font-medium">gemini-2.5-flash</span>
                 </div>
               </div>
@@ -1352,47 +1352,47 @@ export default function LandingPage({ user }: LandingPageProps) {
                 <span>Verified Markdown</span>
                 <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
               </div>
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] dark:border-zinc-500 bg-white dark:bg-zinc-900 z-10" />
             </div>
             
           </div>
         </div>
 
         {/* Selected Agent Details Card (Below visual graph) */}
-        <div className="rounded-[16px] border border-[#ebebeb] bg-white p-8 shadow-[0px_2px_8px_rgba(0,0,0,0.02)] min-h-[260px] flex flex-col justify-between transition-all duration-300">
+        <div className="rounded-[16px] border border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 shadow-[0px_2px_8px_rgba(0,0,0,0.02)] min-h-[260px] flex flex-col justify-between transition-all duration-300">
           <div>
-            <div className="font-mono text-[11px] text-[#8f8f8f] uppercase tracking-wider">
+            <div className="font-mono text-[11px] text-[#8f8f8f] dark:text-zinc-400 uppercase tracking-wider">
               Selected Agent Node Properties
             </div>
-            <h3 className="text-[22px] font-semibold tracking-[-0.6px] text-[#171717] mt-1.5">
+            <h3 className="text-[22px] font-semibold tracking-[-0.6px] text-[#171717] dark:text-white mt-1.5">
               {architectureAgents[activeArchitectureAgent]?.title || "🧠 Orchestrator"}
             </h3>
             
             <div className="mt-6 grid gap-8 md:grid-cols-3">
               <div>
-                <span className="text-[11px] font-mono uppercase text-[#8f8f8f] tracking-wider block mb-1">Target Registry Model</span>
-                <span className="text-[13px] font-mono font-semibold text-[#171717]">
+                <span className="text-[11px] font-mono uppercase text-[#8f8f8f] dark:text-zinc-400 tracking-wider block mb-1">Target Registry Model</span>
+                <span className="text-[13px] font-mono font-semibold text-[#171717] dark:text-white">
                   {architectureAgents[activeArchitectureAgent]?.model}
                 </span>
               </div>
 
               <div>
-                <span className="text-[11px] font-mono uppercase text-[#8f8f8f] tracking-wider block mb-1">Primary Responsibility</span>
-                <p className="text-[13px] text-[#4d4d4d] leading-relaxed mt-0.5">
+                <span className="text-[11px] font-mono uppercase text-[#8f8f8f] dark:text-zinc-400 tracking-wider block mb-1">Primary Responsibility</span>
+                <p className="text-[13px] text-[#4d4d4d] dark:text-zinc-300 leading-relaxed mt-0.5">
                   {architectureAgents[activeArchitectureAgent]?.responsibility}
                 </p>
               </div>
 
               <div>
-                <span className="text-[11px] font-mono uppercase text-[#8f8f8f] tracking-wider block mb-1">Core Details</span>
-                <p className="text-[13px] text-[#8f8f8f] leading-relaxed mt-0.5">
+                <span className="text-[11px] font-mono uppercase text-[#8f8f8f] dark:text-zinc-400 tracking-wider block mb-1">Core Details</span>
+                <p className="text-[13px] text-[#8f8f8f] dark:text-zinc-400 leading-relaxed mt-0.5">
                   {architectureAgents[activeArchitectureAgent]?.details}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="border-t border-[#f2f2f2] pt-5 mt-8 flex justify-between items-center text-[13px] font-mono text-[#8f8f8f]">
+          <div className="border-t border-[#f2f2f2] dark:border-zinc-800 pt-5 mt-8 flex justify-between items-center text-[13px] font-mono text-[#8f8f8f] dark:text-zinc-400">
             <span>{architectureAgents[activeArchitectureAgent]?.metric}</span>
             <span className="text-[#10b77f] flex items-center gap-1 font-semibold">
               ✓ Enabled
@@ -1402,71 +1402,71 @@ export default function LandingPage({ user }: LandingPageProps) {
       </section>
 
       {/* ── Features List ─────────────────────────────────── */}
-      <section className="mx-auto max-w-6xl px-6 py-24 border-b border-[#ebebeb]">
+      <section className="mx-auto max-w-6xl px-6 py-24 border-b border-[#ebebeb] dark:border-zinc-800">
         <div className="text-center mb-16">
-          <span className="text-[12px] font-mono uppercase tracking-wider text-[#8f8f8f]">Features</span>
-          <h2 className="mt-2 text-[32px] font-semibold tracking-[-1.28px] text-[#171717]">
+          <span className="text-[12px] font-mono uppercase tracking-wider text-[#8f8f8f] dark:text-zinc-400">Features</span>
+          <h2 className="mt-2 text-[32px] font-semibold tracking-[-1.28px] text-[#171717] dark:text-white">
             Designed for Absolute Integrity
           </h2>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {/* F 1 */}
-          <div className="rounded-[12px] border border-[#ebebeb] bg-white p-8 shadow-[0px_1px_1px_rgba(0,0,0,0.04)]">
-            <h3 className="text-[16px] font-semibold tracking-[-0.4px] text-[#171717]">
+          <div className="rounded-[12px] border border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 shadow-[0px_1px_1px_rgba(0,0,0,0.04)]">
+            <h3 className="text-[16px] font-semibold tracking-[-0.4px] text-[#171717] dark:text-white">
               Multi-Agent Intelligence
             </h3>
-            <p className="mt-3 text-[13px] leading-6 text-[#4d4d4d]">
+            <p className="mt-3 text-[13px] leading-6 text-[#4d4d4d] dark:text-zinc-300">
               Multiple specialized AI agents collaborate to solve one research problem, avoiding single-point model bias.
             </p>
           </div>
 
           {/* F 2 */}
-          <div className="rounded-[12px] border border-[#ebebeb] bg-white p-8 shadow-[0px_1px_1px_rgba(0,0,0,0.04)]">
-            <h3 className="text-[16px] font-semibold tracking-[-0.4px] text-[#171717]">
+          <div className="rounded-[12px] border border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 shadow-[0px_1px_1px_rgba(0,0,0,0.04)]">
+            <h3 className="text-[16px] font-semibold tracking-[-0.4px] text-[#171717] dark:text-white">
               Evidence-Backed Research
             </h3>
-            <p className="mt-3 text-[13px] leading-6 text-[#4d4d4d]">
+            <p className="mt-3 text-[13px] leading-6 text-[#4d4d4d] dark:text-zinc-300">
               Every single claim is supported by direct URL citations and verified context, matching academic review patterns.
             </p>
           </div>
 
           {/* F 3 */}
-          <div className="rounded-[12px] border border-[#ebebeb] bg-white p-8 shadow-[0px_1px_1px_rgba(0,0,0,0.04)]">
-            <h3 className="text-[16px] font-semibold tracking-[-0.4px] text-[#171717]">
+          <div className="rounded-[12px] border border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 shadow-[0px_1px_1px_rgba(0,0,0,0.04)]">
+            <h3 className="text-[16px] font-semibold tracking-[-0.4px] text-[#171717] dark:text-white">
               Contradiction Detection
             </h3>
-            <p className="mt-3 text-[13px] leading-6 text-[#4d4d4d]">
+            <p className="mt-3 text-[13px] leading-6 text-[#4d4d4d] dark:text-zinc-300">
               Veriq deploys a dedicated agent to actively challenge and attempt to disprove assertions.
             </p>
           </div>
 
           {/* F 4 */}
-          <div className="rounded-[12px] border border-[#ebebeb] bg-white p-8 shadow-[0px_1px_1px_rgba(0,0,0,0.04)]">
-            <h3 className="text-[16px] font-semibold tracking-[-0.4px] text-[#171717]">
+          <div className="rounded-[12px] border border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 shadow-[0px_1px_1px_rgba(0,0,0,0.04)]">
+            <h3 className="text-[16px] font-semibold tracking-[-0.4px] text-[#171717] dark:text-white">
               Explainable Confidence
             </h3>
-            <p className="mt-3 text-[13px] leading-6 text-[#4d4d4d]">
+            <p className="mt-3 text-[13px] leading-6 text-[#4d4d4d] dark:text-zinc-300">
               We don't just output numbers. Every score outlines the exact positive and negative factors behind it.
             </p>
           </div>
 
           {/* F 5 */}
-          <div className="rounded-[12px] border border-[#ebebeb] bg-white p-8 shadow-[0px_1px_1px_rgba(0,0,0,0.04)]">
-            <h3 className="text-[16px] font-semibold tracking-[-0.4px] text-[#171717]">
+          <div className="rounded-[12px] border border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 shadow-[0px_1px_1px_rgba(0,0,0,0.04)]">
+            <h3 className="text-[16px] font-semibold tracking-[-0.4px] text-[#171717] dark:text-white">
               Transparent Citations
             </h3>
-            <p className="mt-3 text-[13px] leading-6 text-[#4d4d4d]">
+            <p className="mt-3 text-[13px] leading-6 text-[#4d4d4d] dark:text-zinc-300">
               Direct links to raw papers, government releases, and academic journals that formed the research.
             </p>
           </div>
 
           {/* F 6 */}
-          <div className="rounded-[12px] border border-[#ebebeb] bg-white p-8 shadow-[0px_1px_1px_rgba(0,0,0,0.04)]">
-            <h3 className="text-[16px] font-semibold tracking-[-0.4px] text-[#171717]">
+          <div className="rounded-[12px] border border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 shadow-[0px_1px_1px_rgba(0,0,0,0.04)]">
+            <h3 className="text-[16px] font-semibold tracking-[-0.4px] text-[#171717] dark:text-white">
               Structured Research Reports
             </h3>
-            <p className="mt-3 text-[13px] leading-6 text-[#4d4d4d]">
+            <p className="mt-3 text-[13px] leading-6 text-[#4d4d4d] dark:text-zinc-300">
               Receive beautifully organized reports that are easy to verify, download, and share.
             </p>
           </div>
@@ -1474,54 +1474,54 @@ export default function LandingPage({ user }: LandingPageProps) {
       </section>
 
       {/* ── Why Veriq Table (Comparison) ─────────────────── */}
-      <section id="why-veriq" className="px-6 py-24 border-b border-[#ebebeb]" >
+      <section id="why-veriq" className="px-6 py-24 border-b border-[#ebebeb] dark:border-zinc-800" >
         <div className="mx-auto max-w-5xl">
         <div className="text-center mb-16">
-          <span className="text-[12px] font-mono uppercase tracking-wider text-[#8f8f8f]">Comparative Analysis</span>
-          <h2 className="mt-2 text-[32px] font-semibold tracking-[-1.28px] text-[#171717]">
+          <span className="text-[12px] font-mono uppercase tracking-wider text-[#8f8f8f] dark:text-zinc-400">Comparative Analysis</span>
+          <h2 className="mt-2 text-[32px] font-semibold tracking-[-1.28px] text-[#171717] dark:text-white">
             Traditional AI vs. Veriq
           </h2>
         </div>
 
-        <div className="border border-[#ebebeb] rounded-[12px] overflow-hidden bg-white shadow-[0px_1px_1px_rgba(0,0,0,0.02)]">
+        <div className="border border-[#ebebeb] dark:border-zinc-800 rounded-[12px] overflow-hidden bg-white dark:bg-zinc-900 shadow-[0px_1px_1px_rgba(0,0,0,0.02)]">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-[#fafafa] border-b border-[#ebebeb]">
-                <th className="p-4 text-[13px] font-semibold uppercase tracking-wider text-[#8f8f8f] font-mono w-1/3">Feature</th>
-                <th className="p-4 text-[13px] font-semibold uppercase tracking-wider text-[#8f8f8f] font-mono w-1/3">Traditional AI</th>
-                <th className="p-4 text-[13px] font-semibold uppercase tracking-wider text-[#171717] font-mono w-1/3">Veriq</th>
+              <tr className="bg-[#fafafa] dark:bg-zinc-950 border-b border-[#ebebeb] dark:border-zinc-800">
+                <th className="p-4 text-[13px] font-semibold uppercase tracking-wider text-[#8f8f8f] dark:text-zinc-400 font-mono w-1/3">Feature</th>
+                <th className="p-4 text-[13px] font-semibold uppercase tracking-wider text-[#8f8f8f] dark:text-zinc-400 font-mono w-1/3">Traditional AI</th>
+                <th className="p-4 text-[13px] font-semibold uppercase tracking-wider text-[#171717] dark:text-white font-mono w-1/3">Veriq</th>
               </tr>
             </thead>
             <tbody className="text-[14px]">
-              <tr className="border-b border-[#ebebeb]">
-                <td className="p-4 font-semibold text-[#171717]">Execution Framework</td>
-                <td className="p-4 text-[#4d4d4d]">Single AI model generation</td>
-                <td className="p-4 text-[#0070f3] font-semibold">Multiple specialized AI agents</td>
+              <tr className="border-b border-[#ebebeb] dark:border-zinc-800">
+                <td className="p-4 font-semibold text-[#171717] dark:text-white">Execution Framework</td>
+                <td className="p-4 text-[#4d4d4d] dark:text-zinc-300">Single AI model generation</td>
+                <td className="p-4 text-[#0070f3] dark:text-blue-400 font-semibold">Multiple specialized AI agents</td>
               </tr>
-              <tr className="border-b border-[#ebebeb]">
-                <td className="p-4 font-semibold text-[#171717]">Reasoning Process</td>
-                <td className="p-4 text-[#4d4d4d]">Hidden, non-traceable</td>
-                <td className="p-4 text-[#0070f3] font-semibold">Research-first workflow</td>
+              <tr className="border-b border-[#ebebeb] dark:border-zinc-800">
+                <td className="p-4 font-semibold text-[#171717] dark:text-white">Reasoning Process</td>
+                <td className="p-4 text-[#4d4d4d] dark:text-zinc-300">Hidden, non-traceable</td>
+                <td className="p-4 text-[#0070f3] dark:text-blue-400 font-semibold">Research-first workflow</td>
               </tr>
-              <tr className="border-b border-[#ebebeb]">
-                <td className="p-4 font-semibold text-[#171717]">Verification Layer</td>
-                <td className="p-4 text-[#4d4d4d]">None, prone to hallucination</td>
-                <td className="p-4 text-[#0070f3] font-semibold">Independent claim verification</td>
+              <tr className="border-b border-[#ebebeb] dark:border-zinc-800">
+                <td className="p-4 font-semibold text-[#171717] dark:text-white">Verification Layer</td>
+                <td className="p-4 text-[#4d4d4d] dark:text-zinc-300">None, prone to hallucination</td>
+                <td className="p-4 text-[#0070f3] dark:text-blue-400 font-semibold">Independent claim verification</td>
               </tr>
-              <tr className="border-b border-[#ebebeb]">
-                <td className="p-4 font-semibold text-[#171717]">Bias Reduction</td>
-                <td className="p-4 text-[#4d4d4d]">Accepts statements at face value</td>
-                <td className="p-4 text-[#0070f3] font-semibold">Contradiction analysis checks</td>
+              <tr className="border-b border-[#ebebeb] dark:border-zinc-800">
+                <td className="p-4 font-semibold text-[#171717] dark:text-white">Bias Reduction</td>
+                <td className="p-4 text-[#4d4d4d] dark:text-zinc-300">Accepts statements at face value</td>
+                <td className="p-4 text-[#0070f3] dark:text-blue-400 font-semibold">Contradiction analysis checks</td>
               </tr>
-              <tr className="border-b border-[#ebebeb]">
-                <td className="p-4 font-semibold text-[#171717]">Citations & Links</td>
-                <td className="p-4 text-[#4d4d4d]">Often missing or broken URLs</td>
-                <td className="p-4 text-[#0070f3] font-semibold">Transparent, verified references</td>
+              <tr className="border-b border-[#ebebeb] dark:border-zinc-800">
+                <td className="p-4 font-semibold text-[#171717] dark:text-white">Citations & Links</td>
+                <td className="p-4 text-[#4d4d4d] dark:text-zinc-300">Often missing or broken URLs</td>
+                <td className="p-4 text-[#0070f3] dark:text-blue-400 font-semibold">Transparent, verified references</td>
               </tr>
               <tr>
-                <td className="p-4 font-semibold text-[#171717]">Output Style</td>
-                <td className="p-4 text-[#4d4d4d]">Standard conversational text block</td>
-                <td className="p-4 text-[#0070f3] font-semibold">Structured fact-checked report</td>
+                <td className="p-4 font-semibold text-[#171717] dark:text-white">Output Style</td>
+                <td className="p-4 text-[#4d4d4d] dark:text-zinc-300">Standard conversational text block</td>
+                <td className="p-4 text-[#0070f3] dark:text-blue-400 font-semibold">Structured fact-checked report</td>
               </tr>
             </tbody>
           </table>
@@ -1530,9 +1530,9 @@ export default function LandingPage({ user }: LandingPageProps) {
       </section>
 
       {/* ── Product Preview List ─────────────────────────── */}
-      <section className="mx-auto max-w-4xl px-6 py-24 text-center border-b border-[#ebebeb]">
-        <span className="text-[12px] font-mono uppercase tracking-wider text-[#8f8f8f]">Deliverables</span>
-        <h2 className="mt-2 text-[32px] font-semibold tracking-[-1.28px] text-[#171717]">
+      <section className="mx-auto max-w-4xl px-6 py-24 text-center border-b border-[#ebebeb] dark:border-zinc-800">
+        <span className="text-[12px] font-mono uppercase tracking-wider text-[#8f8f8f] dark:text-zinc-400">Deliverables</span>
+        <h2 className="mt-2 text-[32px] font-semibold tracking-[-1.28px] text-[#171717] dark:text-white">
           What You'll Receive
         </h2>
         <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-6 text-left">
@@ -1546,7 +1546,7 @@ export default function LandingPage({ user }: LandingPageProps) {
             "Final Recommendations",
             "Citeable Citations",
           ].map((item, idx) => (
-            <div key={idx} className="flex items-center gap-2 border-b border-[#ebebeb] pb-2 text-[14px] text-[#4d4d4d]">
+            <div key={idx} className="flex items-center gap-2 border-b border-[#ebebeb] dark:border-zinc-800 pb-2 text-[14px] text-[#4d4d4d] dark:text-zinc-300">
               <Check className="h-4 w-4 text-[#0070f3]" />
               <span>{item}</span>
             </div>
@@ -1556,21 +1556,20 @@ export default function LandingPage({ user }: LandingPageProps) {
 
       {/* ── Final Call To Action ──────────────────────────── */}
       <section
-        className="relative overflow-hidden px-6 py-24 text-center border-b border-[#ebebeb]"
-        style={{ backgroundImage: "linear-gradient(to top, #fff1eb 0%, #ace0f9 100%)" }}
+        className="relative overflow-hidden px-6 py-24 text-center border-b border-[#ebebeb] dark:border-zinc-800 bg-gradient-to-t from-[#ace0f9] to-[#fff1eb] dark:from-[#121215] dark:to-[#09090b] transition-colors duration-200"
       >
 
         <div className="mx-auto max-w-3xl">
-          <h2 className="text-[32px] md:text-[44px] font-bold tracking-[-1.28px] text-[#171717]">
+          <h2 className="text-[32px] md:text-[44px] font-bold tracking-[-1.28px] text-[#171717] dark:text-white">
             Research Beyond the First Answer.
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-[15px] leading-7 text-[#4d4d4d]">
+          <p className="mx-auto mt-4 max-w-xl text-[15px] leading-7 text-[#4d4d4d] dark:text-zinc-300">
             Veriq doesn't just generate responses—it investigates them. Experience transparent, evidence-backed research powered by autonomous AI agents.
           </p>
           <div className="mt-8">
             <Link
               href={user ? "/workspace" : "/signup"}
-              className="inline-flex h-[48px] items-center justify-center rounded-full bg-[#171717] px-8 text-[15px] font-medium text-white transition-all hover:bg-[#2c2c2c] hover:scale-[1.02] shadow-[0px_2px_4px_rgba(0,0,0,0.06)]"
+              className="inline-flex h-[48px] items-center justify-center rounded-full bg-[#171717] dark:bg-white px-8 text-[15px] font-medium text-white dark:text-[#171717] transition-all hover:bg-[#2c2c2c] dark:hover:bg-zinc-200 hover:scale-[1.02] shadow-[0px_2px_4px_rgba(0,0,0,0.06)]"
             >
               Launch Veriq
             </Link>
@@ -1579,39 +1578,39 @@ export default function LandingPage({ user }: LandingPageProps) {
       </section>
 
       {/* ── Footer ────────────────────────────────────────── */}
-      <footer className="border-t border-[#ebebeb] bg-[#fafafa] py-16 px-6">
+      <footer className="border-t border-[#ebebeb] dark:border-zinc-800 bg-[#fafafa] dark:bg-[#09090b] py-16 px-6 transition-colors duration-200">
         <div className="mx-auto max-w-6xl grid gap-8 md:grid-cols-4">
           <div className="md:col-span-2 space-y-4">
             <div className="flex items-center gap-2">
-              <span className="text-[20px] font-bold tracking-[-0.6px] text-[#171717]">Veriq</span>
+              <span className="text-[20px] font-bold tracking-[-0.6px] text-[#171717] dark:text-white">Veriq</span>
             </div>
-            <p className="text-[13px] text-[#8f8f8f] leading-5">
+            <p className="text-[13px] text-[#8f8f8f] dark:text-zinc-400 leading-5">
               Autonomous Multi-Agent Research Platform.<br />
-              <strong>Research. Verify. Challenge. Trust.</strong>
+              <strong className="text-[#171717] dark:text-white">Research. Verify. Challenge. Trust.</strong>
             </p>
           </div>
 
           <div>
-            <h4 className="text-[12px] font-mono uppercase tracking-wider text-[#8f8f8f] mb-4">Product</h4>
-            <ul className="space-y-2 text-[13px] text-[#4d4d4d]">
-              <li><a href="#features" className="hover:text-[#171717] transition-colors">Features</a></li>
-              <li><a href="#architecture" className="hover:text-[#171717] transition-colors">Architecture</a></li>
-              <li><a href="#" className="hover:text-[#171717] transition-colors">Documentation</a></li>
-              <li><a href="#" className="hover:text-[#171717] transition-colors">GitHub</a></li>
+            <h4 className="text-[12px] font-mono uppercase tracking-wider text-[#8f8f8f] dark:text-zinc-400 mb-4">Product</h4>
+            <ul className="space-y-2 text-[13px] text-[#4d4d4d] dark:text-zinc-300">
+              <li><a href="#features" className="hover:text-[#171717] dark:hover:text-white transition-colors">Features</a></li>
+              <li><a href="#architecture" className="hover:text-[#171717] dark:hover:text-white transition-colors">Architecture</a></li>
+              <li><a href="#" className="hover:text-[#171717] dark:hover:text-white transition-colors">Documentation</a></li>
+              <li><a href="#" className="hover:text-[#171717] dark:hover:text-white transition-colors">GitHub</a></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-[12px] font-mono uppercase tracking-wider text-[#8f8f8f] mb-4">Resources</h4>
-            <ul className="space-y-2 text-[13px] text-[#4d4d4d]">
-              <li><a href="#" className="hover:text-[#171717] transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-[#171717] transition-colors">Terms of Service</a></li>
-              <li><a href="#" className="hover:text-[#171717] transition-colors">Contact</a></li>
+            <h4 className="text-[12px] font-mono uppercase tracking-wider text-[#8f8f8f] dark:text-zinc-400 mb-4">Resources</h4>
+            <ul className="space-y-2 text-[13px] text-[#4d4d4d] dark:text-zinc-300">
+              <li><a href="#" className="hover:text-[#171717] dark:hover:text-white transition-colors">Privacy Policy</a></li>
+              <li><a href="#" className="hover:text-[#171717] dark:hover:text-white transition-colors">Terms of Service</a></li>
+              <li><a href="#" className="hover:text-[#171717] dark:hover:text-white transition-colors">Contact</a></li>
             </ul>
           </div>
         </div>
 
-        <div className="mx-auto max-w-6xl border-t border-[#ebebeb] mt-12 pt-6 flex flex-col md:flex-row justify-between items-center text-[12px] text-[#8f8f8f] gap-4">
+        <div className="mx-auto max-w-6xl border-t border-[#ebebeb] dark:border-zinc-800 mt-12 pt-6 flex flex-col md:flex-row justify-between items-center text-[12px] text-[#8f8f8f] dark:text-zinc-400 gap-4">
           <div>&copy; 2026 Veriq AI. All rights reserved.</div>
         </div>
       </footer>

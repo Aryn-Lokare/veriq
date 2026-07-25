@@ -72,28 +72,28 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-[#fafafa] px-4 py-12 font-sans selection:bg-[#d3e5ff]">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-[#fafafa] dark:bg-[#09090b] px-4 py-12 font-sans selection:bg-[#d3e5ff] dark:selection:bg-zinc-800">
       {/* Decorative Top-Middle Mesh Gradient */}
-      <div className="absolute top-0 left-1/2 -z-10 h-[300px] w-[500px] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-200 via-violet-100 to-transparent opacity-40 blur-[80px]" />
+      <div className="absolute top-0 left-1/2 -z-10 h-[300px] w-[500px] -translate-x-1/2 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-200 dark:from-zinc-800 via-violet-100 dark:via-zinc-900 to-transparent opacity-40 dark:opacity-20 blur-[80px]" />
 
       <div className="w-full max-w-[400px]">
         {/* Logo and Header */}
         <div className="mb-8 flex flex-col items-center text-center">
           <Link href="/">
-            <span className="text-[36px] font-bold tracking-[-0.8px] text-[#171717]">
+            <span className="text-[36px] font-bold tracking-[-0.8px] text-[#171717] dark:text-white">
               Veriq
             </span>
           </Link>
-          <h1 className="mt-4 text-[24px] font-semibold tracking-[-0.6px] text-[#171717]">
+          <h1 className="mt-4 text-[24px] font-semibold tracking-[-0.6px] text-[#171717] dark:text-white">
             Create your account
           </h1>
-          <p className="mt-1.5 text-[14px] text-[#8f8f8f]">
+          <p className="mt-1.5 text-[14px] text-[#8f8f8f] dark:text-zinc-400">
             Access autonomous collaborative AI research
           </p>
         </div>
 
         {/* Auth Card */}
-        <div className="rounded-[12px] border border-[#ebebeb] bg-white p-8 shadow-[0px_1px_1px_rgba(0,0,0,0.04)]">
+        <div className="rounded-[12px] border border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-zinc-900 p-8 shadow-[0px_1px_1px_rgba(0,0,0,0.04)]">
           {errorMsg && (
             <div className="mb-4 rounded-[6px] border border-[#ee0000]/10 bg-[#ee0000]/5 px-3 py-2.5 text-[13px] text-[#ee0000]">
               {errorMsg}
@@ -101,7 +101,7 @@ export default function SignupPage() {
           )}
 
           {successMsg && (
-            <div className="mb-4 rounded-[6px] border border-[#0070f3]/10 bg-[#0070f3]/5 px-3 py-2.5 text-[13px] text-[#0070f3]">
+            <div className="mb-4 rounded-[6px] border border-[#0070f3]/10 bg-[#0070f3]/5 px-3 py-2.5 text-[13px] text-[#0070f3] dark:text-blue-400">
               {successMsg}
             </div>
           )}
@@ -110,7 +110,7 @@ export default function SignupPage() {
             <div>
               <label
                 htmlFor="name"
-                className="block text-[12px] font-medium uppercase tracking-wider text-[#8f8f8f] mb-1.5 font-mono"
+                className="block text-[12px] font-medium uppercase tracking-wider text-[#8f8f8f] dark:text-zinc-400 mb-1.5 font-mono"
               >
                 Full Name
               </label>
@@ -122,14 +122,14 @@ export default function SignupPage() {
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 placeholder="John Doe"
-                className="w-full rounded-[6px] border border-[#ebebeb] bg-white px-3 py-2 text-[14px] text-[#171717] placeholder-[#a1a1a1] transition-colors focus:border-[#171717] focus:outline-none disabled:opacity-50"
+                className="w-full rounded-[6px] border border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-zinc-800 px-3 py-2 text-[14px] text-[#171717] dark:text-white placeholder-[#a1a1a1] dark:placeholder-zinc-500 transition-colors focus:border-[#171717] dark:focus:border-zinc-500 focus:outline-none disabled:opacity-50"
               />
             </div>
 
             <div>
               <label
                 htmlFor="email"
-                className="block text-[12px] font-medium uppercase tracking-wider text-[#8f8f8f] mb-1.5 font-mono"
+                className="block text-[12px] font-medium uppercase tracking-wider text-[#8f8f8f] dark:text-zinc-400 mb-1.5 font-mono"
               >
                 Email Address
               </label>
@@ -141,14 +141,14 @@ export default function SignupPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="name@example.com"
-                className="w-full rounded-[6px] border border-[#ebebeb] bg-white px-3 py-2 text-[14px] text-[#171717] placeholder-[#a1a1a1] transition-colors focus:border-[#171717] focus:outline-none disabled:opacity-50"
+                className="w-full rounded-[6px] border border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-zinc-800 px-3 py-2 text-[14px] text-[#171717] dark:text-white placeholder-[#a1a1a1] dark:placeholder-zinc-500 transition-colors focus:border-[#171717] dark:focus:border-zinc-500 focus:outline-none disabled:opacity-50"
               />
             </div>
 
             <div>
               <label
                 htmlFor="password"
-                className="block text-[12px] font-medium uppercase tracking-wider text-[#8f8f8f] mb-1.5 font-mono"
+                className="block text-[12px] font-medium uppercase tracking-wider text-[#8f8f8f] dark:text-zinc-400 mb-1.5 font-mono"
               >
                 Password
               </label>
@@ -160,14 +160,14 @@ export default function SignupPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="•••••••• (min 6 characters)"
-                className="w-full rounded-[6px] border border-[#ebebeb] bg-white px-3 py-2 text-[14px] text-[#171717] placeholder-[#a1a1a1] transition-colors focus:border-[#171717] focus:outline-none disabled:opacity-50"
+                className="w-full rounded-[6px] border border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-zinc-800 px-3 py-2 text-[14px] text-[#171717] dark:text-white placeholder-[#a1a1a1] dark:placeholder-zinc-500 transition-colors focus:border-[#171717] dark:focus:border-zinc-500 focus:outline-none disabled:opacity-50"
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="flex h-[40px] w-full items-center justify-center rounded-[6px] bg-[#171717] px-4 text-[14px] font-medium text-white transition-colors hover:bg-[#2c2c2c] focus:outline-none disabled:opacity-50"
+              className="flex h-[40px] w-full items-center justify-center rounded-[6px] bg-[#171717] dark:bg-white px-4 text-[14px] font-medium text-white dark:text-[#171717] transition-colors hover:bg-[#2c2c2c] dark:hover:bg-zinc-200 focus:outline-none disabled:opacity-50"
             >
               {loading ? 'Creating Account...' : 'Sign Up'}
             </button>
@@ -175,9 +175,9 @@ export default function SignupPage() {
 
           {/* Divider */}
           <div className="my-6 flex items-center justify-between">
-            <span className="h-[1px] w-full bg-[#ebebeb]"></span>
-            <span className="px-3 text-[12px] font-mono text-[#a1a1a1] uppercase">or</span>
-            <span className="h-[1px] w-full bg-[#ebebeb]"></span>
+            <span className="h-[1px] w-full bg-[#ebebeb] dark:bg-zinc-800"></span>
+            <span className="px-3 text-[12px] font-mono text-[#a1a1a1] dark:text-zinc-500 uppercase">or</span>
+            <span className="h-[1px] w-full bg-[#ebebeb] dark:bg-zinc-800"></span>
           </div>
 
           {/* Google Sign Up */}
@@ -185,7 +185,7 @@ export default function SignupPage() {
             type="button"
             onClick={handleGoogleSignUp}
             disabled={loading}
-            className="flex h-[40px] w-full items-center justify-center rounded-[6px] border border-[#ebebeb] bg-white px-4 text-[14px] font-medium text-[#171717] transition-all hover:bg-[#fafafa] hover:border-[#171717] focus:outline-none disabled:opacity-50"
+            className="flex h-[40px] w-full items-center justify-center rounded-[6px] border border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-zinc-800 px-4 text-[14px] font-medium text-[#171717] dark:text-white transition-all hover:bg-[#fafafa] dark:hover:bg-zinc-700 dark:bg-[#09090b] hover:border-[#171717] dark:hover:border-zinc-500 focus:outline-none disabled:opacity-50"
           >
             <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24" width="16" height="16">
               <path
@@ -210,11 +210,11 @@ export default function SignupPage() {
         </div>
 
         {/* Footer Links */}
-        <p className="mt-6 text-center text-[13px] text-[#4d4d4d]">
+        <p className="mt-6 text-center text-[13px] text-[#4d4d4d] dark:text-zinc-300">
           Already have an account?{' '}
           <Link
             href="/login"
-            className="font-medium text-[#0070f3] hover:text-[#0761d1] transition-colors"
+            className="font-medium text-[#0070f3] dark:text-blue-400 hover:text-[#0761d1] dark:hover:text-blue-300 transition-colors"
           >
             Log in
           </Link>
