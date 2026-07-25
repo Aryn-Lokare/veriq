@@ -121,8 +121,9 @@ export default function LoginPage() {
         {/* Logo and Header */}
         <div className="mb-8 flex flex-col items-center text-center">
           <Link href="/">
-            <div className="relative h-16 w-16 overflow-hidden rounded-[12px] border border-[#ebebeb] bg-white p-2 transition-transform hover:scale-102">
-            </div>
+            <span className="text-[36px] font-bold tracking-[-0.8px] text-[#171717]">
+              Veriq
+            </span>
           </Link>
           <h1 className="mt-4 text-[24px] font-semibold tracking-[-0.6px] text-[#171717]">
             Log in to Veriq

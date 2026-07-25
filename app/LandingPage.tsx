@@ -8,7 +8,6 @@ import {
   AlertTriangle,
   FileText,
   Layers,
-  HelpCircle,
   Check,
   ChevronRight,
   TrendingUp,
@@ -36,7 +35,6 @@ export default function LandingPage({ user }: LandingPageProps) {
   const [query, setQuery] = useState("Will AI replace software engineers?");
   const [isSimulating, setIsSimulating] = useState(false);
   const [simulationStep, setSimulationStep] = useState(-1);
-  const [typingIndex, setTypingIndex] = useState(-1);
   const [showReport, setShowReport] = useState(false);
   const [activeQuestionCategory, setActiveQuestionCategory] = useState("technology");
   const [activeArchitectureAgent, setActiveArchitectureAgent] = useState("orchestrator");
@@ -262,38 +260,26 @@ export default function LandingPage({ user }: LandingPageProps) {
 
   return (
     <div className="flex min-h-screen flex-col bg-[#fafafa] font-sans text-[#171717] selection:bg-[#d3e5ff] antialiased">
-      {/* ── Nav Bar ───────────────────────────────────────── */}
-      <nav className="sticky top-0 z-50 border-b border-[#ebebeb] bg-[#fafafa]/80 backdrop-blur-md">
-        <div className="mx-auto flex max-w-7xl h-[64px] items-center justify-between px-6">
-          <div className="flex items-center gap-3">
-            <div className="h-6 w-6 flex items-center justify-center rounded-[4px] bg-[#171717] text-white font-mono font-bold text-xs">
-              V
-            </div>
-            <span className="text-[18px] font-semibold tracking-[-0.4px]">
+      
+      {/* ── Hero Section (Navigation bar resides inside here, transparent and non-sticky) ── */}
+      <header
+        className="relative px-6 pt-6 pb-16 text-center border-b border-[#ebebeb]"
+        style={{ backgroundImage: "linear-gradient(to top, #fff1eb 0%, #ace0f9 100%)" }}
+      >
+
+        {/* Navigation Bar: Part of the hero section, scrolling naturally with page */}
+        <nav className="mx-auto flex max-w-7xl h-[72px] items-center justify-between mb-16">
+          <div className="flex items-center gap-2">
+            <span className="text-[36px] font-bold tracking-[-0.8px]">
               Veriq
             </span>
           </div>
 
-          <div className="hidden items-center gap-6 md:flex">
-            <a href="#problem" className="text-[14px] text-[#4d4d4d] hover:text-[#171717] transition-colors">
-              The Problem
-            </a>
-            <a href="#how-it-works" className="text-[14px] text-[#4d4d4d] hover:text-[#171717] transition-colors">
-              How It Works
-            </a>
-            <a href="#architecture" className="text-[14px] text-[#4d4d4d] hover:text-[#171717] transition-colors">
-              Architecture
-            </a>
-            <a href="#why-veriq" className="text-[14px] text-[#4d4d4d] hover:text-[#171717] transition-colors">
-              Compare
-            </a>
-          </div>
-
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4">
             {user ? (
               <Link
                 href="/workspace"
-                className="flex h-[32px] items-center justify-center rounded-[6px] bg-[#171717] px-4 text-[13px] font-medium text-white transition-colors hover:bg-[#2c2c2c]"
+                className="flex h-[40px] items-center justify-center rounded-[8px] bg-[#171717] px-5 text-[15px] font-medium text-white transition-colors hover:bg-[#2c2c2c]"
               >
                 Go to Workspace
               </Link>
@@ -301,29 +287,22 @@ export default function LandingPage({ user }: LandingPageProps) {
               <>
                 <Link
                   href="/login"
-                  className="flex h-[32px] items-center justify-center rounded-[6px] border border-[#ebebeb] bg-white px-3 text-[13px] font-medium text-[#171717] transition-colors hover:bg-[#fafafa]"
+                  className="flex h-[40px] items-center justify-center rounded-[8px] border border-[#ebebeb] bg-white px-5 text-[15px] font-medium text-[#171717] transition-colors hover:bg-[#fafafa]"
                 >
                   Log In
                 </Link>
                 <Link
                   href="/signup"
-                  className="flex h-[32px] items-center justify-center rounded-[6px] bg-[#171717] px-3 text-[13px] font-medium text-white transition-colors hover:bg-[#2c2c2c]"
+                  className="flex h-[40px] items-center justify-center rounded-[8px] bg-[#171717] px-5 text-[15px] font-medium text-white transition-colors hover:bg-[#2c2c2c]"
                 >
                   Sign Up
                 </Link>
               </>
             )}
           </div>
-        </div>
-      </nav>
+        </nav>
 
-      {/* ── Hero Section ──────────────────────────────────── */}
-      <header className="relative px-6 pt-24 pb-16 text-center border-b border-[#ebebeb]">
-        {/* Geist system Mesh Gradient */}
-        <div className="absolute inset-x-0 top-0 -z-10 flex justify-center overflow-hidden pointer-events-none">
-          <div className="h-[600px] w-[1200px] bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-cyan-200/40 via-violet-200/30 to-amber-100/20 blur-[100px] opacity-70" />
-        </div>
-
+        {/* Hero Marketing Copy Content */}
         <div className="mx-auto max-w-4xl">
           <div className="inline-flex items-center gap-2 rounded-full border border-[#ebebeb] bg-white px-3 py-1 text-[11px] font-mono uppercase tracking-wider text-[#7928ca] mb-6 shadow-[0px_1px_2px_rgba(0,0,0,0.02)]">
             <Sparkles className="h-3.5 w-3.5 text-violet-500 animate-pulse" />
@@ -337,7 +316,6 @@ export default function LandingPage({ user }: LandingPageProps) {
 
           <p className="mx-auto mt-6 max-w-2xl text-[16px] md:text-[18px] leading-7 text-[#4d4d4d]">
             Veriq is an autonomous multi-agent research platform that plans, researches, verifies, challenges, and scores information before generating a transparent, evidence-backed report.
-            <span className="block mt-2 font-medium text-[#171717]">Unlike traditional AI assistants, Veriq doesn't stop at generating answers—it validates them.</span>
           </p>
 
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -548,36 +526,88 @@ export default function LandingPage({ user }: LandingPageProps) {
         </div>
       </section>
 
-      {/* ── Problem Section ───────────────────────────────── */}
-      <section id="problem" className="mx-auto max-w-5xl px-6 py-24 text-center border-b border-[#ebebeb]">
-        <span className="text-[12px] font-mono uppercase tracking-wider text-[#8f8f8f]">The Problem</span>
-        <h2 className="mt-2 text-[32px] md:text-[44px] font-bold tracking-[-1.28px] leading-[1.1] text-[#171717]">
-          AI Can Answer Anything.<br className="hidden md:inline" /> But Can You Trust It?
+      {/* ── Problem & Solution Section ────────────────────── */}
+      <section id="problem-solution" className="mx-auto max-w-6xl px-6 py-24 border-b border-[#ebebeb]">
+        <h2 className="text-[32px] md:text-[36px] font-semibold tracking-[-1px] text-[#171717] text-center mb-12">
+          Problem & solution
         </h2>
-        <p className="mx-auto mt-6 max-w-xl text-[15px] md:text-[16px] leading-7 text-[#4d4d4d]">
-          Most AI assistants generate a single response without showing how conclusions were reached or whether conflicting evidence exists.
-        </p>
-        <div className="mt-6 font-medium text-[16px] text-[#171717]">
-          When accuracy matters, users deserve more than confident-sounding answers.
+
+        <div className="grid gap-8 md:grid-cols-2 items-stretch">
+          
+          {/* Left Card: Problem */}
+          <div className="bg-white border border-[#ebebeb] rounded-[24px] p-8 md:p-12 flex flex-col items-center text-center shadow-[0px_4px_20px_rgba(0,0,0,0.01)] min-h-[460px] justify-start">
+            <span className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 font-mono text-[11px] uppercase tracking-wider font-semibold">
+              Problem
+            </span>
+            
+            <h3 className="mt-8 text-[22px] md:text-[25px] font-normal tracking-[-0.8px] leading-[1.3] text-[#4d4d4d] max-w-md">
+              In an information-heavy world, knowing <span className="text-[#171717] font-semibold">what to trust</span> and being aware of <span className="text-[#171717] font-semibold">hallucinations and bias</span> is more crucial than ever.
+            </h3>
+            
+            <p className="mt-6 text-[13px] leading-relaxed text-[#8f8f8f] max-w-sm">
+              Traditional AI models generate answers instantly but offer zero traceability, presenting opinions and errors as verified truths.
+            </p>
+          </div>
+
+          {/* Right Card: Solution */}
+          <div className="bg-white border border-[#ebebeb] rounded-[24px] p-8 md:p-12 flex flex-col items-center text-center shadow-[0px_4px_20px_rgba(0,0,0,0.01)] min-h-[460px] justify-between">
+            <div className="flex flex-col items-center">
+              <span className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 font-mono text-[11px] uppercase tracking-wider font-semibold">
+                Solution
+              </span>
+              
+              <h3 className="mt-8 text-[22px] md:text-[25px] font-normal tracking-[-0.8px] leading-[1.3] text-[#4d4d4d] max-w-md">
+                Veriq empowers you with <span className="text-[#171717] font-semibold">autonomous multi-agent validation</span> and instant source citations when you research questions.
+              </h3>
+              
+              <p className="mt-6 text-[13px] leading-relaxed text-[#8f8f8f] max-w-sm">
+                By deploying specialized specialist and auditor nodes, Veriq challenges, validates, and fact-checks statements before you read them.
+              </p>
+            </div>
+
+            <div className="mt-10 w-full flex flex-col items-center gap-6">
+              <Link
+                href={user ? "/workspace" : "/signup"}
+                className="inline-flex h-[40px] items-center justify-center rounded-full bg-[#171717] px-6 text-[13px] font-medium text-white transition-all hover:bg-[#2c2c2c] hover:scale-[1.02] shadow-[0px_2px_4px_rgba(0,0,0,0.06)]"
+              >
+                Start researching with Veriq
+              </Link>
+              
+              {/* Mockup notification bubbles at bottom */}
+              <div className="flex gap-3 items-center justify-center w-full max-w-xs select-none">
+                
+                {/* bubble 1 */}
+                <div className="bg-[#fafafa] border border-[#ebebeb] rounded-[10px] p-2 flex items-center gap-2 shadow-[0px_1px_2px_rgba(0,0,0,0.01)] shrink-0">
+                  <div className="h-6 w-6 rounded-full bg-[#10b77f]/10 flex items-center justify-center text-[10px] text-[#10b77f]">
+                    ✓
+                  </div>
+                  <div className="text-left">
+                    <div className="text-[10px] font-semibold text-[#171717] leading-tight">Claims Verified</div>
+                    <div className="text-[8px] text-[#8f8f8f] font-mono leading-none">12 verified</div>
+                  </div>
+                </div>
+
+                {/* bubble 2 */}
+                <div className="bg-[#fafafa] border border-[#ebebeb] rounded-[10px] p-2 flex items-center gap-2 shadow-[0px_1px_2px_rgba(0,0,0,0.01)] shrink-0">
+                  <div className="h-6 w-6 rounded-full bg-blue-500/10 flex items-center justify-center text-[10px] text-blue-500">
+                    🛡️
+                  </div>
+                  <div className="text-left">
+                    <div className="text-[10px] font-semibold text-[#171717] leading-tight">Confidence</div>
+                    <div className="text-[8px] text-blue-500 font-mono leading-none font-semibold">94% score</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
         </div>
       </section>
 
-      {/* ── Solution Section ──────────────────────────────── */}
-      <section className="mx-auto max-w-5xl px-6 py-24 text-center border-b border-[#ebebeb]">
-        <span className="text-[12px] font-mono uppercase tracking-wider text-[#8f8f8f]">The Solution</span>
-        <h2 className="mt-2 text-[32px] md:text-[44px] font-bold tracking-[-1.28px] text-[#171717]">
-          Meet Veriq
-        </h2>
-        <p className="mx-auto mt-6 max-w-2xl text-[15px] md:text-[16px] leading-7 text-[#4d4d4d]">
-          Instead of relying on one AI model, Veriq coordinates multiple specialized AI agents that independently investigate a question before producing a final report.
-        </p>
-        <p className="mx-auto mt-2 max-w-xl text-[15px] md:text-[16px] font-medium text-[#171717]">
-          Every conclusion is supported by research, verification, and transparent confidence scoring.
-        </p>
-      </section>
-
       {/* ── How It Works ──────────────────────────────────── */}
-      <section id="how-it-works" className="border-b border-[#ebebeb] bg-white py-24 px-6">
+      <section id="how-it-works" className="border-b border-[#ebebeb] py-24 px-6" style={{ backgroundImage: "linear-gradient(to top, #fff1eb 0%, #ace0f9 100%)" }}>
         <div className="mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <span className="text-[12px] font-mono uppercase tracking-wider text-[#8f8f8f]">Process Workflow</span>
@@ -674,70 +704,710 @@ export default function LandingPage({ user }: LandingPageProps) {
           </p>
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-12 items-start">
-          {/* Agent selection links */}
-          <div className="lg:col-span-4 space-y-1">
-            {Object.keys(architectureAgents).map((key) => {
-              const active = activeArchitectureAgent === key;
-              return (
-                <button
-                  key={key}
-                  onClick={() => setActiveArchitectureAgent(key)}
-                  className={`w-full text-left h-[44px] px-4 rounded-[6px] text-[13px] font-medium flex items-center justify-between transition-colors ${
-                    active
-                      ? "bg-white border border-[#ebebeb] text-[#171717] shadow-[0px_1px_1px_rgba(0,0,0,0.02)]"
-                      : "text-[#4d4d4d] hover:bg-[#fafafa] hover:text-[#171717]"
+        {/* Interactive Visual Graph Canvas (2-Row Layout on Desktop, Vertical Stack on Mobile) */}
+        <div className="w-full bg-[radial-gradient(#ebebeb_1.5px,transparent_1.5px)] [background-size:24px_24px] bg-[#fafafa] border border-[#ebebeb] rounded-[16px] py-12 px-4 mb-8 shadow-[inset_0px_2px_4px_rgba(0,0,0,0.02)] flex flex-col items-center gap-0">
+          
+          {/* DESKTOP VIEWPORT: 2-Row Layout */}
+          <div className="hidden lg:flex flex-col items-center gap-6 w-full max-w-[1100px] py-2 relative">
+            
+            {/* ROW 1: Ingestion & Analysis */}
+            <div className="flex items-center justify-between w-full">
+              
+              {/* Orchestrator */}
+              <div
+                onClick={() => setActiveArchitectureAgent("orchestrator")}
+                className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
+                  activeArchitectureAgent === "orchestrator"
+                    ? "border-[#171717] ring-1 ring-[#171717]"
+                    : "border-[#ebebeb] hover:border-[#a1a1a1]"
+                }`}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[12px]">🧠</span>
+                    <span className="font-semibold text-[12px] text-[#171717]">Orchestrator</span>
+                  </div>
+                  <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Start</span>
+                </div>
+                <div className="space-y-1 text-[10px]">
+                  <div>
+                    <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                    <span className="text-[#171717] font-mono font-semibold">LangGraph State Core</span>
+                  </div>
+                </div>
+                <div className="border-t border-[#f2f2f2] pt-2 mt-3 flex justify-between items-center text-[9px] font-mono text-[#8f8f8f]">
+                  <span>Transition: ~5ms</span>
+                  <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
+                </div>
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[5px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
+              </div>
+
+              {/* Connector */}
+              <div className="w-[50px] h-[60px] flex items-center justify-center shrink-0">
+                <svg className="w-full h-full" viewBox="0 0 50 60" fill="none">
+                  <path d="M 0 30 L 50 30" stroke="#171717" strokeWidth="2" />
+                </svg>
+              </div>
+
+              {/* Research Strategist */}
+              <div
+                onClick={() => setActiveArchitectureAgent("strategist")}
+                className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
+                  activeArchitectureAgent === "strategist"
+                    ? "border-[#171717] ring-1 ring-[#171717]"
+                    : "border-[#ebebeb] hover:border-[#a1a1a1]"
+                }`}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[12px]">🗺️</span>
+                    <span className="font-semibold text-[12px] text-[#171717]">Strategist</span>
+                  </div>
+                  <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Node 1</span>
+                </div>
+                <div className="space-y-1 text-[10px]">
+                  <div>
+                    <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                    <span className="text-[#171717] font-mono font-medium">llama-3.3-70b</span>
+                  </div>
+                </div>
+                <div className="border-t border-[#f2f2f2] pt-2 mt-3 flex justify-between items-center text-[9px] font-mono text-[#8f8f8f]">
+                  <span>Duration: 0.7s</span>
+                  <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
+                </div>
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[4px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[5px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
+              </div>
+
+              {/* Connector */}
+              <div className="w-[50px] h-[60px] flex items-center justify-center shrink-0">
+                <svg className="w-full h-full" viewBox="0 0 50 60" fill="none">
+                  <path d="M 0 30 L 50 30" stroke="#171717" strokeWidth="2" />
+                </svg>
+              </div>
+
+              {/* Search Specialist */}
+              <div
+                onClick={() => setActiveArchitectureAgent("searcher")}
+                className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
+                  activeArchitectureAgent === "searcher"
+                    ? "border-[#171717] ring-1 ring-[#171717]"
+                    : "border-[#ebebeb] hover:border-[#a1a1a1]"
+                }`}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[12px]">🔍</span>
+                    <span className="font-semibold text-[12px] text-[#171717]">Search Specialist</span>
+                  </div>
+                  <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Node 2</span>
+                </div>
+                <div className="space-y-1 text-[10px]">
+                  <div>
+                    <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                    <span className="text-[#171717] font-mono font-medium">Tavily + Scrape API</span>
+                  </div>
+                </div>
+                <div className="border-t border-[#f2f2f2] pt-2 mt-3 flex justify-between items-center text-[9px] font-mono text-[#8f8f8f]">
+                  <span>Filters: .edu / .gov</span>
+                  <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
+                </div>
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[4px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[5px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
+              </div>
+
+              {/* Connector */}
+              <div className="w-[50px] h-[60px] flex items-center justify-center shrink-0">
+                <svg className="w-full h-full" viewBox="0 0 50 60" fill="none">
+                  <path d="M 0 30 L 50 30" stroke="#171717" strokeWidth="2" />
+                </svg>
+              </div>
+
+              {/* Research Analyst */}
+              <div
+                onClick={() => setActiveArchitectureAgent("analyst")}
+                className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
+                  activeArchitectureAgent === "analyst"
+                    ? "border-[#171717] ring-1 ring-[#171717]"
+                    : "border-[#ebebeb] hover:border-[#a1a1a1]"
+                }`}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[12px]">📚</span>
+                    <span className="font-semibold text-[12px] text-[#171717]">Research Analyst</span>
+                  </div>
+                  <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Node 3</span>
+                </div>
+                <div className="space-y-1 text-[10px]">
+                  <div>
+                    <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                    <span className="text-[#171717] font-mono font-medium">llama-3.3-70b</span>
+                  </div>
+                </div>
+                <div className="border-t border-[#f2f2f2] pt-2 mt-3 flex justify-between items-center text-[9px] font-mono text-[#8f8f8f]">
+                  <span>Markdown Notes</span>
+                  <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
+                </div>
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[4px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[5px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
+              </div>
+
+            </div>
+
+            {/* Sweeping Loop Connector from Row 1 End to Row 2 Start */}
+            <div className="w-full h-[50px] relative overflow-visible select-none pointer-events-none">
+              <svg className="absolute w-[1100px] h-[50px] overflow-visible" viewBox="0 0 1100 50" fill="none">
+                <path d="M 990 0 C 990 25, 110 25, 110 50" stroke="#171717" strokeWidth="2" strokeDasharray="4 4" strokeLinecap="round" />
+              </svg>
+            </div>
+
+            {/* ROW 2: Verification & Scoring */}
+            <div className="flex items-center justify-between w-full">
+              
+              {/* Evidence Analyst */}
+              <div
+                onClick={() => setActiveArchitectureAgent("evidence")}
+                className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
+                  activeArchitectureAgent === "evidence"
+                    ? "border-[#171717] ring-1 ring-[#171717]"
+                    : "border-[#ebebeb] hover:border-[#a1a1a1]"
+                }`}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[12px]">📝</span>
+                    <span className="font-semibold text-[12px] text-[#171717]">Evidence Analyst</span>
+                  </div>
+                  <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Node 4</span>
+                </div>
+                <div className="space-y-1 text-[10px]">
+                  <div>
+                    <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                    <span className="text-[#171717] font-mono font-medium">llama-3.1-8b</span>
+                  </div>
+                </div>
+                <div className="border-t border-[#f2f2f2] pt-2 mt-3 flex justify-between items-center text-[9px] font-mono text-[#8f8f8f]">
+                  <span>Extracts: 5-15 Claims</span>
+                  <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
+                </div>
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[4px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[5px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
+              </div>
+
+              {/* Parallel Split Connector */}
+              <div className="w-[50px] h-[160px] flex items-center justify-center shrink-0">
+                <svg className="w-full h-full" viewBox="0 0 50 160" fill="none">
+                  <path d="M 0 80 C 25 80, 25 30, 50 30" stroke="#171717" strokeWidth="2" strokeLinecap="round" />
+                  <path d="M 0 80 C 25 80, 25 130, 50 130" stroke="#171717" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+              </div>
+
+              {/* Parallel Column (Verifier & Contradiction stacked vertically) */}
+              <div className="flex flex-col gap-4 justify-center shrink-0">
+                
+                {/* Verification Specialist */}
+                <div
+                  onClick={() => setActiveArchitectureAgent("verifier")}
+                  className={`relative cursor-pointer rounded-[12px] border bg-white p-3 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
+                    activeArchitectureAgent === "verifier"
+                      ? "border-[#171717] ring-1 ring-[#171717]"
+                      : "border-[#ebebeb] hover:border-[#a1a1a1]"
                   }`}
                 >
-                  <span>{architectureAgents[key].title}</span>
-                  <ChevronRight className={`h-4 w-4 text-[#8f8f8f] transition-transform ${active ? "translate-x-0.5" : ""}`} />
-                </button>
-              );
-            })}
-          </div>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[11px]">✅</span>
+                      <span className="font-semibold text-[11px] text-[#171717]">Verifier</span>
+                    </div>
+                    <span className="text-[#8f8f8f] font-mono text-[8px] uppercase tracking-wider">Parallel</span>
+                  </div>
+                  <div className="space-y-0.5 text-[9px]">
+                    <div>
+                      <span className="text-[#8f8f8f] block uppercase text-[7px] font-mono tracking-wider">Target Registry Model</span>
+                      <span className="text-[#171717] font-mono font-medium">llama-3.1-8b</span>
+                    </div>
+                  </div>
+                  <div className="border-t border-[#f2f2f2] pt-1.5 mt-2 flex justify-between items-center text-[8px] font-mono text-[#8f8f8f]">
+                    <span>Mode: Batched</span>
+                    <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
+                  </div>
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[4px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
+                  <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[5px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
+                </div>
 
-          {/* Active agent detail display */}
-          <div className="lg:col-span-8 rounded-[12px] border border-[#ebebeb] bg-white p-8 shadow-[0px_1px_1px_rgba(0,0,0,0.04)] min-h-[300px] flex flex-col justify-between">
-            <div>
-              <div className="flex items-center gap-2 font-mono text-[11px] text-[#8f8f8f] uppercase tracking-wider mb-2">
-                Active Architecture Node
+                {/* Contradiction Detector */}
+                <div
+                  onClick={() => setActiveArchitectureAgent("contradiction")}
+                  className={`relative cursor-pointer rounded-[12px] border bg-white p-3 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
+                    activeArchitectureAgent === "contradiction"
+                      ? "border-[#171717] ring-1 ring-[#171717]"
+                      : "border-[#ebebeb] hover:border-[#a1a1a1]"
+                  }`}
+                >
+                  <div className="flex items-center justify-between mb-1.5">
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-[11px]">⚔️</span>
+                      <span className="font-semibold text-[11px] text-[#171717]">Contradiction</span>
+                    </div>
+                    <span className="text-[#8f8f8f] font-mono text-[8px] uppercase tracking-wider">Parallel</span>
+                  </div>
+                  <div className="space-y-0.5 text-[9px]">
+                    <div>
+                      <span className="text-[#8f8f8f] block uppercase text-[7px] font-mono tracking-wider">Target Registry Model</span>
+                      <span className="text-[#171717] font-mono font-medium">llama-3.3-70b</span>
+                    </div>
+                  </div>
+                  <div className="border-t border-[#f2f2f2] pt-1.5 mt-2 flex justify-between items-center text-[8px] font-mono text-[#8f8f8f]">
+                    <span>Goal: Adversarial</span>
+                    <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
+                  </div>
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[4px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
+                  <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[5px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
+                </div>
+
               </div>
-              <h3 className="text-[20px] font-semibold tracking-[-0.4px] text-[#171717]">
-                {architectureAgents[activeArchitectureAgent].title}
-              </h3>
-              
-              <div className="mt-4 space-y-4">
-                <div>
-                  <span className="text-[11px] font-mono uppercase text-[#8f8f8f] block">Target Registry Model</span>
-                  <span className="text-[13px] font-medium text-[#171717] font-mono">
-                    {architectureAgents[activeArchitectureAgent].model}
-                  </span>
-                </div>
 
-                <div>
-                  <span className="text-[11px] font-mono uppercase text-[#8f8f8f] block">Primary Responsibility</span>
-                  <p className="text-[14px] text-[#4d4d4d] leading-6 mt-0.5">
-                    {architectureAgents[activeArchitectureAgent].responsibility}
-                  </p>
-                </div>
-
-                <div>
-                  <span className="text-[11px] font-mono uppercase text-[#8f8f8f] block">Core Details</span>
-                  <p className="text-[13px] text-[#8f8f8f] leading-5 mt-0.5">
-                    {architectureAgents[activeArchitectureAgent].details}
-                  </p>
-                </div>
+              {/* Parallel Merge Connector */}
+              <div className="w-[50px] h-[160px] flex items-center justify-center shrink-0">
+                <svg className="w-full h-full" viewBox="0 0 50 160" fill="none">
+                  <path d="M 0 30 C 25 30, 25 80, 50 80" stroke="#10b981" strokeWidth="2" strokeLinecap="round" />
+                  <path d="M 0 130 C 25 130, 25 80, 50 80" stroke="#f5a623" strokeWidth="2" strokeLinecap="round" />
+                </svg>
               </div>
+
+              {/* Confidence Scorer */}
+              <div
+                onClick={() => setActiveArchitectureAgent("scorer")}
+                className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
+                  activeArchitectureAgent === "scorer"
+                    ? "border-[#171717] ring-1 ring-[#171717]"
+                    : "border-[#ebebeb] hover:border-[#a1a1a1]"
+                }`}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[12px]">📊</span>
+                    <span className="font-semibold text-[12px] text-[#171717]">Confidence Scorer</span>
+                  </div>
+                  <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Node 5</span>
+                </div>
+                <div className="space-y-1 text-[10px]">
+                  <div>
+                    <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                    <span className="text-[#171717] font-mono font-medium">llama-3.3-70b</span>
+                  </div>
+                </div>
+                <div className="border-t border-[#f2f2f2] pt-2 mt-3 flex justify-between items-center text-[9px] font-mono text-[#8f8f8f]">
+                  <span>Formula: Clamped</span>
+                  <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
+                </div>
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[4px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-[5px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
+              </div>
+
+              {/* Connector */}
+              <div className="w-[50px] h-[60px] flex items-center justify-center shrink-0">
+                <svg className="w-full h-full" viewBox="0 0 50 60" fill="none">
+                  <path d="M 0 30 L 50 30" stroke="#171717" strokeWidth="2" />
+                </svg>
+              </div>
+
+              {/* Report Writer */}
+              <div
+                onClick={() => setActiveArchitectureAgent("writer")}
+                className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[220px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
+                  activeArchitectureAgent === "writer"
+                    ? "border-[#171717] ring-1 ring-[#171717]"
+                    : "border-[#ebebeb] hover:border-[#a1a1a1]"
+                }`}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[12px]">📄</span>
+                    <span className="font-semibold text-[12px] text-[#171717]">Report Writer</span>
+                  </div>
+                  <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">End</span>
+                </div>
+                <div className="space-y-1 text-[10px]">
+                  <div>
+                    <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                    <span className="text-[#171717] font-mono font-medium">gemini-2.5</span>
+                  </div>
+                </div>
+                <div className="border-t border-[#f2f2f2] pt-2 mt-3 flex justify-between items-center text-[9px] font-mono text-[#8f8f8f]">
+                  <span>Verified Markdown</span>
+                  <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
+                </div>
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[4px] h-2 w-2 rounded-full border border-[#171717] bg-white z-10" />
+              </div>
+
             </div>
 
-            <div className="border-t border-[#ebebeb] pt-4 mt-6 flex justify-between items-center text-[12px] font-mono text-[#8f8f8f]">
-              <span>{architectureAgents[activeArchitectureAgent].metric}</span>
-              <span className="text-green-600 flex items-center gap-1 font-semibold">
-                <Check className="h-3 w-3" /> Enabled
-              </span>
+          </div>
+
+          {/* MOBILE VIEWPORT: Vertical Stack Layout */}
+          <div className="flex lg:hidden flex-col items-center gap-0 w-full">
+            
+            {/* Start Node */}
+            <div
+              onClick={() => setActiveArchitectureAgent("orchestrator")}
+              className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
+                activeArchitectureAgent === "orchestrator"
+                  ? "border-[#171717] ring-1 ring-[#171717]"
+                  : "border-[#ebebeb] hover:border-[#a1a1a1]"
+              }`}
+            >
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[12px]">🧠</span>
+                  <span className="font-semibold text-[13px] text-[#171717]">Orchestrator</span>
+                </div>
+                <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Start</span>
+              </div>
+              <div className="space-y-1 text-[10px]">
+                <div>
+                  <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                  <span className="text-[#171717] font-mono font-medium">LangGraph State Core</span>
+                </div>
+              </div>
+              <div className="border-t border-[#f2f2f2] pt-2 mt-3 flex justify-between items-center text-[9px] font-mono text-[#8f8f8f]">
+                <span>Transition: ~5ms</span>
+                <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
+              </div>
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+            </div>
+
+            {/* Vertical Connector */}
+            <div className="h-10 w-[2px] bg-[#171717] relative shrink-0">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
+            </div>
+
+            {/* Research Strategist */}
+            <div
+              onClick={() => setActiveArchitectureAgent("strategist")}
+              className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
+                activeArchitectureAgent === "strategist"
+                  ? "border-[#171717] ring-1 ring-[#171717]"
+                  : "border-[#ebebeb] hover:border-[#a1a1a1]"
+              }`}
+            >
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[12px]">🗺️</span>
+                  <span className="font-semibold text-[13px] text-[#171717]">Research Strategist</span>
+                </div>
+                <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Node 1</span>
+              </div>
+              <div className="space-y-1 text-[10px]">
+                <div>
+                  <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                  <span className="text-[#171717] font-mono font-medium">llama-3.3-70b</span>
+                </div>
+              </div>
+              <div className="border-t border-[#f2f2f2] pt-2 mt-3 flex justify-between items-center text-[9px] font-mono text-[#8f8f8f]">
+                <span>Duration: 0.7s</span>
+                <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
+              </div>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+            </div>
+
+            {/* Vertical Connector */}
+            <div className="h-10 w-[2px] bg-[#171717] relative shrink-0">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
+            </div>
+
+            {/* Search Specialist */}
+            <div
+              onClick={() => setActiveArchitectureAgent("searcher")}
+              className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
+                activeArchitectureAgent === "searcher"
+                  ? "border-[#171717] ring-1 ring-[#171717]"
+                  : "border-[#ebebeb] hover:border-[#a1a1a1]"
+              }`}
+            >
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[12px]">🔍</span>
+                  <span className="font-semibold text-[13px] text-[#171717]">Search Specialist</span>
+                </div>
+                <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Node 2</span>
+              </div>
+              <div className="space-y-1 text-[10px]">
+                <div>
+                  <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                  <span className="text-[#171717] font-mono font-medium">Tavily + Scrape API</span>
+                </div>
+              </div>
+              <div className="border-t border-[#f2f2f2] pt-2 mt-3 flex justify-between items-center text-[9px] font-mono text-[#8f8f8f]">
+                <span>Filters: .edu / .gov</span>
+                <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
+              </div>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+            </div>
+
+            {/* Vertical Connector */}
+            <div className="h-10 w-[2px] bg-[#171717] relative shrink-0">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
+            </div>
+
+            {/* Research Analyst */}
+            <div
+              onClick={() => setActiveArchitectureAgent("analyst")}
+              className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
+                activeArchitectureAgent === "analyst"
+                  ? "border-[#171717] ring-1 ring-[#171717]"
+                  : "border-[#ebebeb] hover:border-[#a1a1a1]"
+              }`}
+            >
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[12px]">📚</span>
+                  <span className="font-semibold text-[13px] text-[#171717]">Research Analyst</span>
+                </div>
+                <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Node 3</span>
+              </div>
+              <div className="space-y-1 text-[10px]">
+                <div>
+                  <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                  <span className="text-[#171717] font-mono font-medium">llama-3.3-70b</span>
+                </div>
+              </div>
+              <div className="border-t border-[#f2f2f2] pt-2 mt-3 flex justify-between items-center text-[9px] font-mono text-[#8f8f8f]">
+                <span>Markdown Notes</span>
+                <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
+              </div>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+            </div>
+
+            {/* Vertical Connector */}
+            <div className="h-10 w-[2px] bg-[#171717] relative shrink-0">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
+            </div>
+
+            {/* Evidence Analyst */}
+            <div
+              onClick={() => setActiveArchitectureAgent("evidence")}
+              className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
+                activeArchitectureAgent === "evidence"
+                  ? "border-[#171717] ring-1 ring-[#171717]"
+                  : "border-[#ebebeb] hover:border-[#a1a1a1]"
+              }`}
+            >
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[12px]">📝</span>
+                  <span className="font-semibold text-[13px] text-[#171717]">Evidence Analyst</span>
+                </div>
+                <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Node 4</span>
+              </div>
+              <div className="space-y-1 text-[10px]">
+                <div>
+                  <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                  <span className="text-[#171717] font-mono font-medium">llama-3.1-8b</span>
+                </div>
+              </div>
+              <div className="border-t border-[#f2f2f2] pt-2 mt-3 flex justify-between items-center text-[9px] font-mono text-[#8f8f8f]">
+                <span>Extracts: 5-15 Claims</span>
+                <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
+              </div>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+            </div>
+
+            {/* Vertical Split Connector */}
+            <div className="h-10 w-[2px] bg-[#171717] relative shrink-0">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
+            </div>
+
+            {/* Verification Specialist Node */}
+            <div
+              onClick={() => setActiveArchitectureAgent("verifier")}
+              className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
+                activeArchitectureAgent === "verifier"
+                  ? "border-[#171717] ring-1 ring-[#171717]"
+                  : "border-[#ebebeb] hover:border-[#a1a1a1]"
+              }`}
+            >
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[12px]">✅</span>
+                  <span className="font-semibold text-[13px] text-[#171717]">Verification Specialist</span>
+                </div>
+                <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Parallel</span>
+              </div>
+              <div className="space-y-1 text-[10px]">
+                <div>
+                  <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                  <span className="text-[#171717] font-mono font-medium">llama-3.1-8b</span>
+                </div>
+              </div>
+              <div className="border-t border-[#f2f2f2] pt-2 mt-3 flex justify-between items-center text-[9px] font-mono text-[#8f8f8f]">
+                <span>Mode: Batched Claims</span>
+                <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
+              </div>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+            </div>
+
+            {/* Vertical Connector */}
+            <div className="h-10 w-[2px] bg-[#171717] relative shrink-0">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
+            </div>
+
+            {/* Contradiction Detector Node */}
+            <div
+              onClick={() => setActiveArchitectureAgent("contradiction")}
+              className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all ${
+                activeArchitectureAgent === "contradiction"
+                  ? "border-[#171717] ring-1 ring-[#171717]"
+                  : "border-[#ebebeb] hover:border-[#a1a1a1]"
+              }`}
+            >
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[12px]">⚔️</span>
+                  <span className="font-semibold text-[13px] text-[#171717]">Contradiction Detector</span>
+                </div>
+                <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Parallel</span>
+              </div>
+              <div className="space-y-1 text-[10px]">
+                <div>
+                  <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                  <span className="text-[#171717] font-mono font-medium">llama-3.3-70b</span>
+                </div>
+              </div>
+              <div className="border-t border-[#f2f2f2] pt-2 mt-3 flex justify-between items-center text-[9px] font-mono text-[#8f8f8f]">
+                <span>Goal: Adversarial Check</span>
+                <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
+              </div>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+            </div>
+
+            {/* Vertical Connector */}
+            <div className="h-10 w-[2px] bg-[#171717] relative shrink-0">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
+            </div>
+
+            {/* Confidence Scorer */}
+            <div
+              onClick={() => setActiveArchitectureAgent("scorer")}
+              className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
+                activeArchitectureAgent === "scorer"
+                  ? "border-[#171717] ring-1 ring-[#171717]"
+                  : "border-[#ebebeb] hover:border-[#a1a1a1]"
+              }`}
+            >
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[12px]">📊</span>
+                  <span className="font-semibold text-[13px] text-[#171717]">Confidence Scorer</span>
+                </div>
+                <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">Node 5</span>
+              </div>
+              <div className="space-y-1 text-[10px]">
+                <div>
+                  <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                  <span className="text-[#171717] font-mono font-medium">llama-3.3-70b</span>
+                </div>
+              </div>
+              <div className="border-t border-[#f2f2f2] pt-2 mt-3 flex justify-between items-center text-[9px] font-mono text-[#8f8f8f]">
+                <span>Formula: Clamped</span>
+                <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
+              </div>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+            </div>
+
+            {/* Vertical Connector */}
+            <div className="h-10 w-[2px] bg-[#171717] relative shrink-0">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
+            </div>
+
+            {/* Report Writer */}
+            <div
+              onClick={() => setActiveArchitectureAgent("writer")}
+              className={`relative cursor-pointer rounded-[12px] border bg-white p-4 w-[280px] shadow-[0px_1px_3px_rgba(0,0,0,0.04)] transition-all shrink-0 ${
+                activeArchitectureAgent === "writer"
+                  ? "border-[#171717] ring-1 ring-[#171717]"
+                  : "border-[#ebebeb] hover:border-[#a1a1a1]"
+              }`}
+            >
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[12px]">📄</span>
+                  <span className="font-semibold text-[13px] text-[#171717]">Report Writer</span>
+                </div>
+                <span className="text-[#8f8f8f] font-mono text-[9px] uppercase tracking-wider">End</span>
+              </div>
+              <div className="space-y-1 text-[10px]">
+                <div>
+                  <span className="text-[#8f8f8f] block uppercase text-[8px] font-mono tracking-wider">Target Registry Model</span>
+                  <span className="text-[#171717] font-mono font-medium">gemini-2.5-flash</span>
+                </div>
+              </div>
+              <div className="border-t border-[#f2f2f2] pt-2 mt-3 flex justify-between items-center text-[9px] font-mono text-[#8f8f8f]">
+                <span>Verified Markdown</span>
+                <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
+              </div>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+            </div>
+            
+          </div>
+        </div>
+
+        {/* Selected Agent Details Card (Below visual graph) */}
+        <div className="rounded-[16px] border border-[#ebebeb] bg-white p-8 shadow-[0px_2px_8px_rgba(0,0,0,0.02)] min-h-[260px] flex flex-col justify-between transition-all duration-300">
+          <div>
+            <div className="font-mono text-[11px] text-[#8f8f8f] uppercase tracking-wider">
+              Selected Agent Node Properties
+            </div>
+            <h3 className="text-[22px] font-semibold tracking-[-0.6px] text-[#171717] mt-1.5">
+              {architectureAgents[activeArchitectureAgent]?.title || "🧠 Orchestrator"}
+            </h3>
+            
+            <div className="mt-6 grid gap-8 md:grid-cols-3">
+              <div>
+                <span className="text-[11px] font-mono uppercase text-[#8f8f8f] tracking-wider block mb-1">Target Registry Model</span>
+                <span className="text-[13px] font-mono font-semibold text-[#171717]">
+                  {architectureAgents[activeArchitectureAgent]?.model}
+                </span>
+              </div>
+
+              <div>
+                <span className="text-[11px] font-mono uppercase text-[#8f8f8f] tracking-wider block mb-1">Primary Responsibility</span>
+                <p className="text-[13px] text-[#4d4d4d] leading-relaxed mt-0.5">
+                  {architectureAgents[activeArchitectureAgent]?.responsibility}
+                </p>
+              </div>
+
+              <div>
+                <span className="text-[11px] font-mono uppercase text-[#8f8f8f] tracking-wider block mb-1">Core Details</span>
+                <p className="text-[13px] text-[#8f8f8f] leading-relaxed mt-0.5">
+                  {architectureAgents[activeArchitectureAgent]?.details}
+                </p>
+              </div>
             </div>
           </div>
 
+          <div className="border-t border-[#f2f2f2] pt-5 mt-8 flex justify-between items-center text-[13px] font-mono text-[#8f8f8f]">
+            <span>{architectureAgents[activeArchitectureAgent]?.metric}</span>
+            <span className="text-[#10b77f] flex items-center gap-1 font-semibold">
+              ✓ Enabled
+            </span>
+          </div>
         </div>
       </section>
 
@@ -814,7 +1484,8 @@ export default function LandingPage({ user }: LandingPageProps) {
       </section>
 
       {/* ── Why Veriq Table (Comparison) ─────────────────── */}
-      <section id="why-veriq" className="mx-auto max-w-5xl px-6 py-24 border-b border-[#ebebeb]">
+      <section id="why-veriq" className="px-6 py-24 border-b border-[#ebebeb]" style={{ backgroundImage: "linear-gradient(to top, #fff1eb 0%, #ace0f9 100%)" }}>
+        <div className="mx-auto max-w-5xl">
         <div className="text-center mb-16">
           <span className="text-[12px] font-mono uppercase tracking-wider text-[#8f8f8f]">Comparative Analysis</span>
           <h2 className="mt-2 text-[32px] font-semibold tracking-[-1.28px] text-[#171717]">
@@ -865,6 +1536,7 @@ export default function LandingPage({ user }: LandingPageProps) {
             </tbody>
           </table>
         </div>
+        </div>
       </section>
 
       {/* ── Product Preview List ─────────────────────────── */}
@@ -893,10 +1565,10 @@ export default function LandingPage({ user }: LandingPageProps) {
       </section>
 
       {/* ── Final Call To Action ──────────────────────────── */}
-      <section className="relative overflow-hidden px-6 py-24 text-center border-b border-[#ebebeb] bg-white">
-        <div className="absolute inset-0 -z-10 flex justify-center overflow-hidden pointer-events-none">
-          <div className="h-[400px] w-[800px] bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-violet-100/40 via-cyan-100/30 to-white blur-[100px] opacity-60" />
-        </div>
+      <section
+        className="relative overflow-hidden px-6 py-24 text-center border-b border-[#ebebeb]"
+        style={{ backgroundImage: "linear-gradient(to top, #fff1eb 0%, #ace0f9 100%)" }}
+      >
 
         <div className="mx-auto max-w-3xl">
           <h2 className="text-[32px] md:text-[44px] font-bold tracking-[-1.28px] text-[#171717]">
@@ -921,10 +1593,7 @@ export default function LandingPage({ user }: LandingPageProps) {
         <div className="mx-auto max-w-6xl grid gap-8 md:grid-cols-4">
           <div className="md:col-span-2 space-y-4">
             <div className="flex items-center gap-2">
-              <div className="h-6 w-6 flex items-center justify-center rounded-[4px] bg-[#171717] text-white font-mono font-bold text-xs">
-                V
-              </div>
-              <span className="text-[16px] font-semibold text-[#171717]">Veriq</span>
+              <span className="text-[20px] font-bold tracking-[-0.6px] text-[#171717]">Veriq</span>
             </div>
             <p className="text-[13px] text-[#8f8f8f] leading-5">
               Autonomous Multi-Agent Research Platform.<br />
