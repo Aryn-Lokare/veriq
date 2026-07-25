@@ -1,4 +1,5 @@
 import { Source } from "../types";
+import { evaluateSourceUrl } from "../utils";
 
 export interface TavilySearchOptions {
   searchDepth?: 'basic' | 'advanced';
@@ -55,13 +56,7 @@ export class TavilyService {
 
       return data.results.map((result: any, index: number): Source => {
         const url = result.url || "";
-        const hostname = new URL(url).hostname.toLowerCase();
-        
-        // Basic heuristic to check if government or academic source
-        const isGovAcad = hostname.endsWith(".gov") || hostname.endsWith(".edu") || hostname.endsWith(".gov.in") || hostname.endsWith(".ac.uk");
-        
-        // Reliability score: government/academic sources get a higher base score
-        const reliabilityScore = isGovAcad ? 90 : 70;
+        const { isGovAcad, reliabilityScore } = evaluateSourceUrl(url);
 
         return {
           id: `tavily-${Date.now()}-${index}`,
@@ -78,3 +73,4 @@ export class TavilyService {
     }
   }
 }
+ 
