@@ -48,7 +48,7 @@ async function test() {
     );
 
     // ── Claims ─────────────────────────────────────────────────
-    console.log(`\n✅ Claims: ${result.claims.length}`);
+    console.log(`\n✅ Claims Extracted & Verified: ${result.claims.length}`);
     result.claims.forEach((c) => {
       const icon =
         c.status === "verified"
@@ -68,23 +68,40 @@ async function test() {
     });
 
     // ── Contradictions ─────────────────────────────────────────
-    console.log(`\n⚔️  Contradictions: ${result.contradictions.length}`);
+    console.log(`\n⚔️  Contradictions Found: ${result.contradictions.length}`);
     if (result.contradictions.length > 0) {
       result.contradictions.forEach((ct, i) => {
-        console.log(`  ${i + 1}. Claim: ${ct.claimId}`);
+        console.log(`  ${i + 1}. Claim Reference: ${ct.claimId}`);
         console.log(`     Contradiction: ${ct.contradictionText}`);
-        console.log(`     Source: ${ct.sourceId}`);
+        console.log(`     Source ID: ${ct.sourceId}`);
         console.log(`     Explanation: ${ct.explanation}`);
       });
     } else {
       console.log("  (none found)");
     }
 
+    // ── Confidence Score Reasoning ─────────────────────────────
+    console.log(`\n📊 Confidence Score: ${result.confidenceScore}%`);
+    if (result.confidenceReasoning) {
+      console.log(`   Reasoning: ${result.confidenceReasoning.reason}`);
+      console.log("   Supporting Factors:");
+      result.confidenceReasoning.supportingFactors.forEach((f) => console.log(`     - ${f}`));
+      console.log("   Detracting Factors:");
+      result.confidenceReasoning.detractingFactors.forEach((f) => console.log(`     - ${f}`));
+    }
+
+    // ── Final Report ───────────────────────────────────────────
+    console.log(`\n📄 Final Report Compiled (${result.finalReport.length} chars):`);
+    console.log("--------------------------------------------------");
+    console.log(result.finalReport);
+    console.log("--------------------------------------------------");
+
     // ── Summary ────────────────────────────────────────────────
     console.log("\n══════════════════════════════════════════════════");
+    console.log(` Session ID: ${result.sessionId}`);
     console.log(` Status: ${result.status}`);
     console.log(` Retry Count: ${result.retryCount}`);
-    console.log(` Elapsed: ${elapsed}s`);
+    console.log(` Total Time: ${elapsed}s`);
     console.log("══════════════════════════════════════════════════");
   } catch (error) {
     console.error("\n❌ Test failed with error:", error);

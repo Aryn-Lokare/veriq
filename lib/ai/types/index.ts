@@ -30,6 +30,13 @@ export interface AgentLog {
   durationMs?: number;
 }
 
+export interface ConfidenceReasoning {
+  score: number;
+  reason: string;
+  supportingFactors: string[];
+  detractingFactors: string[];
+}
+
 export interface ResearchSession {
   sessionId: string;
   question: string;

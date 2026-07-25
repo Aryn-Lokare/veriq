@@ -1,5 +1,5 @@
 import { Annotation } from "@langchain/langgraph";
-import { Source, Claim, Contradiction } from "./types";
+import { Source, Claim, Contradiction, ConfidenceReasoning } from "./types";
 
 export const ResearchStateAnnotation = Annotation.Root({
   sessionId: Annotation<string>(),
@@ -31,6 +31,10 @@ export const ResearchStateAnnotation = Annotation.Root({
   confidenceScore: Annotation<number>({
     reducer: (x, y) => y,
     default: () => 50,
+  }),
+  confidenceReasoning: Annotation<ConfidenceReasoning | null>({
+    reducer: (x, y) => y,
+    default: () => null,
   }),
   finalReport: Annotation<string>({
     reducer: (x, y) => y,

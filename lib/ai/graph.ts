@@ -8,27 +8,12 @@ import { researchAnalystNode } from "./nodes/analyst";
 import { evidenceAnalystNode } from "./nodes/evidence";
 import { verificationSpecialistNode } from "./nodes/verification";
 import { contradictionDetectorNode } from "./nodes/contradiction";
-
-// ── Stub Nodes (not yet implemented) ───────────────────────────────
-
-async function confidenceScorerNode(state: ResearchState): Promise<Partial<ResearchState>> {
-  console.log("[Node] confidenceScorer — STUB");
-  return {
-    status: "confidence_scored",
-  };
-}
-
-async function reportWriterNode(state: ResearchState): Promise<Partial<ResearchState>> {
-  console.log("[Node] reportWriter — STUB");
-  return {
-    finalReport: "",
-    status: "completed",
-  };
-}
+import { confidenceScorerNode } from "./nodes/scorer";
+import { reportWriterNode } from "./nodes/writer";
 
 // ── Conditional Routing (Autonomous Retry Logic) ───────────────────
 
-function shouldRetry(state: ResearchState): "strategist" | "scorer" {
+function shouldRetry(state: ResearchState): "strategist" | "writer" {
   console.log(
     `[Edge] shouldRetry — retryCount: ${state.retryCount}, sources: ${state.sources.length}`
   );
@@ -38,8 +23,8 @@ function shouldRetry(state: ResearchState): "strategist" | "scorer" {
     return "strategist";
   }
 
-  console.log("[Edge] Proceeding to Scorer (stub)");
-  return "scorer";
+  console.log("[Edge] Proceeding to Report Writer");
+  return "writer";
 }
 
 // ── Compile Graph Workflow ─────────────────────────────────────────
@@ -47,20 +32,18 @@ function shouldRetry(state: ResearchState): "strategist" | "scorer" {
 // Flow:
 //   START → strategist → searcher → analyst → evidenceAnalyst
 //     → verifier    ─┐
-//     → contradiction ─┤→ scorer (stub) → shouldRetry?
-//                                            ├─ strategist (retry)
-//                                            └─ writer (stub) → END
+//     → contradiction ─┤→ scorer → shouldRetry?
+//                                   ├─ strategist (retry)
+//                                   └─ writer → END
 
 const workflow = new StateGraph(ResearchStateAnnotation)
-  // Implemented nodes
+  // Register all nodes
   .addNode("strategist", researchStrategistNode)
   .addNode("searcher", searchSpecialistNode)
   .addNode("analyst", researchAnalystNode)
   .addNode("evidenceAnalyst", evidenceAnalystNode)
   .addNode("verifier", verificationSpecialistNode)
   .addNode("contradiction", contradictionDetectorNode)
-
-  // Stub nodes
   .addNode("scorer", confidenceScorerNode)
   .addNode("writer", reportWriterNode)
 
@@ -74,14 +57,14 @@ const workflow = new StateGraph(ResearchStateAnnotation)
   .addEdge("evidenceAnalyst", "verifier")
   .addEdge("evidenceAnalyst", "contradiction")
 
-  // Fan-in: both converge at scorer
+  // Fan-in: both parallel nodes converge at scorer
   .addEdge("verifier", "scorer")
   .addEdge("contradiction", "scorer")
 
-  // Conditional retry loop
+  // Conditional retry check after scorer
   .addConditionalEdges("scorer", shouldRetry, {
     strategist: "strategist",
-    scorer: "writer",
+    writer: "writer",
   })
   .addEdge("writer", END);
 
@@ -104,6 +87,7 @@ export async function runResearchGraph(
     claims: [],
     contradictions: [],
     confidenceScore: 50,
+    confidenceReasoning: null,
     finalReport: "",
     status: "starting",
   };
