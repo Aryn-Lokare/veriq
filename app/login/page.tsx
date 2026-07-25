@@ -51,7 +51,7 @@ function LoginContent() {
 
     // Try logging in with a default demo account.
     // If it doesn't exist, we will try to sign it up first, then log in.
-    const demoEmail = 'demo@veritas.ai';
+    const demoEmail = 'demo@veriq.ai';
     const demoPassword = 'password123';
 
     let { error } = await supabase.auth.signInWithPassword({

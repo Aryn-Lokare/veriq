@@ -169,8 +169,8 @@ export default function LandingPage({ user }: LandingPageProps) {
   };
 
   useEffect(() => {
-    if (terminalEndRef.current) {
-      terminalEndRef.current.scrollIntoView({ behavior: "smooth" });
+    if (terminalEndRef.current && terminalEndRef.current.parentElement) {
+      terminalEndRef.current.parentElement.scrollTop = terminalEndRef.current.parentElement.scrollHeight;
     }
   }, [simulationStep]);
 
