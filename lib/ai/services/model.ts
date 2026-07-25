@@ -12,6 +12,7 @@ export class ModelService {
       model: modelName,
       apiKey: process.env.GROQ_API_KEY,
       temperature,
+      maxRetries: 5,
     });
   }
 }

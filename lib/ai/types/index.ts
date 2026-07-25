@@ -30,6 +30,13 @@ export interface AgentLog {
   durationMs?: number;
 }
 
+export interface ConfidenceReasoning {
+  score: number;
+  reason: string;
+  supportingFactors: string[];
+  detractingFactors: string[];
+}
+
 export interface ResearchSession {
   sessionId: string;
   question: string;
@@ -38,3 +45,14 @@ export interface ResearchSession {
   summary?: string;
   createdAt: string;
 }
+
+export interface AgentEvent {
+  sessionId: string;
+  agentName: string;
+  status: 'waiting' | 'running' | 'completed' | 'failed';
+  message: string;
+  outputData?: Record<string, any>;
+  durationMs?: number;
+}
+
+export type AgentEventCallback = (event: AgentEvent) => Promise<void> | void;
