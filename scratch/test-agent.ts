@@ -2,6 +2,7 @@ import { loadEnvConfig } from "@next/env";
 loadEnvConfig(process.cwd());
 
 import { runResearchGraph } from "../lib/ai/graph";
+import { AgentEvent } from "../lib/ai/types";
 
 async function test() {
   const question =
@@ -11,16 +12,34 @@ async function test() {
   console.log("╔══════════════════════════════════════════════════╗");
   console.log("║           Veriq AI — Agent Test Runner           ║");
   console.log("╚══════════════════════════════════════════════════╝");
-  console.log(`\nQuestion: "${question}"\n`);
+  console.log(`\nQuestion: "${question}"`);
+
+  console.log("\n📡 Streaming Agent Timeline Events:");
+  console.log("--------------------------------------------------");
 
   const startTime = Date.now();
 
   try {
-    const result = await runResearchGraph("test-session-123", question);
+    const result = await runResearchGraph("test-session-123", question, {
+      onAgentEvent: (event: AgentEvent) => {
+        const time = new Date().toLocaleTimeString();
+        const duration = event.durationMs !== undefined ? ` (${event.durationMs}ms)` : "";
+        const statusIcon =
+          event.status === "running"
+            ? "🔄"
+            : event.status === "completed"
+              ? "✅"
+              : event.status === "failed"
+                ? "❌"
+                : "❓";
+        console.log(`[${time}] ${statusIcon} [${event.agentName}] ${event.message}${duration}`);
+      },
+    });
+
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
 
     console.log("\n══════════════════════════════════════════════════");
-    console.log(" RESULTS");
+    console.log(" FINAL STATE RESULTS");
     console.log("══════════════════════════════════════════════════");
 
     // ── Research Strategy ──────────────────────────────────────

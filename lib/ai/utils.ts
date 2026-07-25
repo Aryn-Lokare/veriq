@@ -1,4 +1,5 @@
-import { Source, Claim, Contradiction } from "./types";
+import { RunnableConfig } from "@langchain/core/runnables";
+import { Source, Claim, Contradiction, AgentEvent, AgentEventCallback } from "./types";
 
 /**
  * Calculates a confidence score based on the algorithm specified in the PRD.
@@ -33,7 +34,6 @@ export function calculateConfidence(
   }
 
   // 4. -10 if only one source confirms overall
-  // Let's assume this means we have exactly 1 source total or 1 verified source
   if (sources.length === 1) {
     score -= 10;
   }
@@ -48,7 +48,6 @@ export function calculateConfidence(
 export function parseSafeJson<T>(text: string, fallback: T): T {
   try {
     let cleanText = text.trim();
-    // Remove markdown code fences if present
     if (cleanText.startsWith("```")) {
       cleanText = cleanText.replace(/^```[a-zA-Z]*\n/, "").replace(/\n```$/, "");
     }
@@ -67,4 +66,105 @@ export function truncateText(text: string, maxLength: number): string {
     return text;
   }
   return text.slice(0, maxLength) + "...";
+}
+
+/**
+ * Evaluates a URL to determine if it is a government/academic host
+ * and calculates a baseline reliability score.
+ */
+export interface NormalizedSourceInfo {
+  isGovAcad: boolean;
+  reliabilityScore: number;
+}
+
+export function evaluateSourceUrl(url: string): NormalizedSourceInfo {
+  try {
+    const hostname = new URL(url).hostname.toLowerCase();
+    const isGovAcad =
+      hostname.endsWith(".gov") ||
+      hostname.endsWith(".edu") ||
+      hostname.endsWith(".gov.in") ||
+      hostname.endsWith(".ac.uk") ||
+      hostname.endsWith(".gov.uk") ||
+      hostname.endsWith(".edu.au");
+    const reliabilityScore = isGovAcad ? 90 : 70;
+    return { isGovAcad, reliabilityScore };
+  } catch {
+    return { isGovAcad: false, reliabilityScore: 70 };
+  }
+}
+
+/**
+ * Executes a graph node step with unified logging, metrics,
+ * callback events, and global error safety fallback.
+ */
+export async function executeNodeStep<T>(
+  agentName: string,
+  statusMessage: string,
+  state: { sessionId: string },
+  config: RunnableConfig | undefined,
+  action: () => Promise<T>
+): Promise<T> {
+  const onAgentEvent = config?.configurable?.onAgentEvent as AgentEventCallback | undefined;
+  const sessionId = state.sessionId || "unknown-session";
+  const startTime = Date.now();
+
+  console.log(`[${agentName}] Starting: ${statusMessage}`);
+
+  if (onAgentEvent) {
+    try {
+      await onAgentEvent({
+        sessionId,
+        agentName,
+        status: "running",
+        message: statusMessage,
+      });
+    } catch (e) {
+      console.error(`[${agentName}] Logger callback failed:`, e);
+    }
+  }
+
+  try {
+    const result = await action();
+    const durationMs = Date.now() - startTime;
+    console.log(`[${agentName}] Completed in ${durationMs}ms`);
+
+    if (onAgentEvent) {
+      try {
+        await onAgentEvent({
+          sessionId,
+          agentName,
+          status: "completed",
+          message: `Finished: ${statusMessage}`,
+          outputData: typeof result === "object" ? (result as Record<string, any>) : { result },
+          durationMs,
+        });
+      } catch (e) {
+        console.error(`[${agentName}] Logger callback failed:`, e);
+      }
+    }
+
+    return result;
+  } catch (error) {
+    const durationMs = Date.now() - startTime;
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error(`[${agentName}] Failed after ${durationMs}ms with error:`, error);
+
+    if (onAgentEvent) {
+      try {
+        await onAgentEvent({
+          sessionId,
+          agentName,
+          status: "failed",
+          message: `Error: ${errorMessage}`,
+          outputData: { error: errorMessage },
+          durationMs,
+        });
+      } catch (e) {
+        console.error(`[${agentName}] Logger callback failed:`, e);
+      }
+    }
+
+    throw error;
+  }
 }

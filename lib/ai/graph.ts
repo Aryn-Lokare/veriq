@@ -1,5 +1,6 @@
 import { StateGraph, START, END } from "@langchain/langgraph";
 import { ResearchStateAnnotation, ResearchState } from "./state";
+import { AgentEventCallback } from "./types";
 
 // ── Implemented Node Imports ───────────────────────────────────────
 import { researchStrategistNode } from "./nodes/strategist";
@@ -70,12 +71,17 @@ const workflow = new StateGraph(ResearchStateAnnotation)
 
 export const graph = workflow.compile();
 
+export interface RunGraphOptions {
+  onAgentEvent?: AgentEventCallback;
+}
+
 /**
  * Triggers the compiled LangGraph execution.
  */
 export async function runResearchGraph(
   sessionId: string,
-  question: string
+  question: string,
+  options?: RunGraphOptions
 ): Promise<ResearchState> {
   const initialState = {
     sessionId,
@@ -92,5 +98,9 @@ export async function runResearchGraph(
     status: "starting",
   };
 
-  return await graph.invoke(initialState);
+  return await graph.invoke(initialState, {
+    configurable: {
+      onAgentEvent: options?.onAgentEvent,
+    },
+  });
 }

@@ -2,8 +2,9 @@ import { ResearchState } from "../state";
 import { Contradiction } from "../types";
 import { ModelService } from "../services/model";
 import { CONTRADICTION_DETECTOR_PROMPT } from "../prompts/contradiction";
-import { parseSafeJson, truncateText } from "../utils";
+import { parseSafeJson, truncateText, executeNodeStep } from "../utils";
 import { HumanMessage, SystemMessage } from "@langchain/core/messages";
+import { RunnableConfig } from "@langchain/core/runnables";
 
 /** Maximum source context length for the contradiction prompt. */
 const MAX_SOURCE_CONTEXT_LENGTH = 10000;
@@ -24,41 +25,43 @@ interface ContradictionResult {
  * Returns any conflicting evidence found in the sources.
  */
 export async function contradictionDetectorNode(
-  state: ResearchState
+  state: ResearchState,
+  config?: RunnableConfig
 ): Promise<Partial<ResearchState>> {
-  console.log("[Node] contradictionDetector — Starting");
-  console.log(
-    `[Node] contradictionDetector — Checking ${state.claims.length} claims for contradictions`
-  );
+  return executeNodeStep(
+    "Contradiction Detector",
+    "Searching adversarial sources to detect conflicting data or claims",
+    state,
+    config,
+    async () => {
+      if (state.claims.length === 0) {
+        console.warn("[Node] contradictionDetector — No claims to check");
+        return {
+          contradictions: [],
+          status: "contradictions_checked",
+        };
+      }
 
-  if (state.claims.length === 0) {
-    console.warn("[Node] contradictionDetector — No claims to check");
-    return {
-      contradictions: [],
-      status: "contradictions_checked",
-    };
-  }
+      const model = ModelService.getModel("instant", 0.2);
 
-  const model = ModelService.getModel("versatile", 0.2);
+      // ── Build source context ─────────────────────────────────────────
+      const sourceBlocks = state.sources.map((source, i) => {
+        const snippet = truncateText(source.snippet, 1200);
+        const tag = source.isGovAcad ? " [GOV/ACADEMIC]" : "";
+        return `### Source ${i + 1} (${source.id}): ${source.title}${tag}\nURL: ${source.url}\n\n${snippet}`;
+      });
 
-  // ── Build source context ─────────────────────────────────────────
-  const sourceBlocks = state.sources.map((source, i) => {
-    const snippet = truncateText(source.snippet, 1200);
-    const tag = source.isGovAcad ? " [GOV/ACADEMIC]" : "";
-    return `### Source ${i + 1} (${source.id}): ${source.title}${tag}\nURL: ${source.url}\n\n${snippet}`;
-  });
+      const sourceContext = truncateText(
+        sourceBlocks.join("\n\n---\n\n"),
+        MAX_SOURCE_CONTEXT_LENGTH
+      );
 
-  const sourceContext = truncateText(
-    sourceBlocks.join("\n\n---\n\n"),
-    MAX_SOURCE_CONTEXT_LENGTH
-  );
+      // ── Build claims list ────────────────────────────────────────────
+      const claimsList = state.claims
+        .map((c) => `- [${c.id}]: "${c.claimText}"`)
+        .join("\n");
 
-  // ── Build claims list ────────────────────────────────────────────
-  const claimsList = state.claims
-    .map((c) => `- [${c.id}]: "${c.claimText}"`)
-    .join("\n");
-
-  const userMessage = `--- CLAIMS TO DISPROVE ---
+      const userMessage = `--- CLAIMS TO DISPROVE ---
 ${claimsList}
 
 --- SOURCE EVIDENCE ---
@@ -66,34 +69,31 @@ ${sourceContext}
 
 For every claim above, actively search the source evidence for anything that contradicts, conflicts with, or undermines the claim. Output a JSON array of contradiction objects. Return an empty array [] if no contradictions are found.`;
 
-  const response = await model.invoke([
-    new SystemMessage(CONTRADICTION_DETECTOR_PROMPT),
-    new HumanMessage(userMessage),
-  ]);
+      const response = await model.invoke([
+        new SystemMessage(CONTRADICTION_DETECTOR_PROMPT),
+        new HumanMessage(userMessage),
+      ]);
 
-  const content =
-    typeof response.content === "string"
-      ? response.content
-      : JSON.stringify(response.content);
+      const content =
+        typeof response.content === "string"
+          ? response.content
+          : JSON.stringify(response.content);
 
-  const results = parseSafeJson<ContradictionResult[]>(content, []);
+      const results = parseSafeJson<ContradictionResult[]>(content, []);
 
-  // ── Normalize into Contradiction interface ───────────────────────
-  const contradictions: Contradiction[] = results.map(
-    (r): Contradiction => ({
-      claimId: r.claimId,
-      contradictionText: r.contradictionText || "",
-      sourceId: r.sourceId || "",
-      explanation: r.explanation || "",
-    })
+      const contradictions: Contradiction[] = results.map(
+        (r): Contradiction => ({
+          claimId: r.claimId,
+          contradictionText: r.contradictionText || "",
+          sourceId: r.sourceId || "",
+          explanation: r.explanation || "",
+        })
+      );
+
+      return {
+        contradictions,
+        status: "contradictions_checked",
+      };
+    }
   );
-
-  console.log(
-    `[Node] contradictionDetector — Found ${contradictions.length} contradictions`
-  );
-
-  return {
-    contradictions,
-    status: "contradictions_checked",
-  };
 }
