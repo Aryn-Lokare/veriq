@@ -48,4 +48,4 @@ export const ResearchStateAnnotation = Annotation.Root({
 
 export type ResearchState = typeof ResearchStateAnnotation.State;
 export type ResearchStateFields = typeof ResearchStateAnnotation.spec;
-
+export type ResearchStateChannels = typeof ResearchStateAnnotation.spec;

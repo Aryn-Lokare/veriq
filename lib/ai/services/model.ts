@@ -93,7 +93,12 @@ export class ModelService {
 
     const modelName = type === 'versatile' ? "llama-3.3-70b-versatile" : "llama-3.1-8b-instant";
 
-    return new GroqModel(modelName, temperature);
+    return new ChatGroq({
+      model: modelName,
+      apiKey: process.env.GROQ_API_KEY,
+      temperature,
+      maxRetries: 5,
+    }) as unknown as InvokeableModel;
   }
 }
 
