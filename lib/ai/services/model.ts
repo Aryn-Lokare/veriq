@@ -56,6 +56,31 @@ class GeminiModel implements InvokeableModel {
   }
 }
 
+class GroqModel implements InvokeableModel {
+  constructor(private modelName: string, private temperature: number) {}
+
+  public async invoke(messages: BaseMessage[]): Promise<{ content: string }> {
+    if (!process.env.GROQ_API_KEY) {
+      console.warn("WARNING: GROQ_API_KEY is not configured in the environment.");
+    }
+
+    const client = new ChatGroq({
+      model: this.modelName,
+      apiKey: process.env.GROQ_API_KEY,
+      temperature: this.temperature,
+      maxRetries: 5,
+    });
+
+    const response = await client.invoke(messages);
+    const content =
+      typeof response.content === "string"
+        ? response.content
+        : JSON.stringify(response.content);
+
+    return { content };
+  }
+}
+
 export class ModelService {
   public static getModel(
     type: 'versatile' | 'instant' | 'gemini' = 'versatile',
@@ -66,17 +91,9 @@ export class ModelService {
       return new GeminiModel("gemini-2.5-flash", temperature);
     }
 
-    if (!process.env.GROQ_API_KEY) {
-      console.warn("WARNING: GROQ_API_KEY is not configured in the environment.");
-    }
-
     const modelName = type === 'versatile' ? "llama-3.3-70b-versatile" : "llama-3.1-8b-instant";
 
-    return new ChatGroq({
-      model: modelName,
-      apiKey: process.env.GROQ_API_KEY,
-      temperature,
-      maxRetries: 5,
-    });
+    return new GroqModel(modelName, temperature);
   }
 }
+
