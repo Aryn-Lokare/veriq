@@ -21,7 +21,7 @@ export async function reportWriterNode(
     state,
     config,
     async () => {
-      const model = ModelService.getModel("versatile", 0.2);
+      const model = ModelService.getModel("gemini", 0.2);
 
       const claimsText = state.claims
         .map((c) => `- Claim [${c.id}]: "${c.claimText}"\n  Status: ${c.status || "unverified"}\n  Explanation: ${c.explanation || "No explanation provided."}`)

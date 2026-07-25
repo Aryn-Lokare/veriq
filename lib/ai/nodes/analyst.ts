@@ -33,7 +33,7 @@ export async function researchAnalystNode(
         };
       }
 
-      const model = ModelService.getModel("instant", 0.1);
+      const model = ModelService.getModel("versatile", 0.1);
 
       // ── Build context block from sources ─────────────────────────────
       const sourceBlocks = state.sources.map((source, index) => {
