@@ -576,16 +576,6 @@ export default function LandingPage({ user }: LandingPageProps) {
               {/* Mockup notification bubbles at bottom */}
               <div className="flex gap-3 items-center justify-center w-full max-w-xs select-none">
                 
-                {/* bubble 1 */}
-                <div className="bg-[#fafafa] border border-[#ebebeb] rounded-[10px] p-2 flex items-center gap-2 shadow-[0px_1px_2px_rgba(0,0,0,0.01)] shrink-0">
-                  <div className="h-6 w-6 rounded-full bg-[#10b77f]/10 flex items-center justify-center text-[10px] text-[#10b77f]">
-                    ✓
-                  </div>
-                  <div className="text-left">
-                    <div className="text-[10px] font-semibold text-[#171717] leading-tight">Claims Verified</div>
-                    <div className="text-[8px] text-[#8f8f8f] font-mono leading-none">12 verified</div>
-                  </div>
-                </div>
 
                 {/* bubble 2 */}
                 <div className="bg-[#fafafa] border border-[#ebebeb] rounded-[10px] p-2 flex items-center gap-2 shadow-[0px_1px_2px_rgba(0,0,0,0.01)] shrink-0">
@@ -1484,7 +1474,7 @@ export default function LandingPage({ user }: LandingPageProps) {
       </section>
 
       {/* ── Why Veriq Table (Comparison) ─────────────────── */}
-      <section id="why-veriq" className="px-6 py-24 border-b border-[#ebebeb]" style={{ backgroundImage: "linear-gradient(to top, #fff1eb 0%, #ace0f9 100%)" }}>
+      <section id="why-veriq" className="px-6 py-24 border-b border-[#ebebeb]" >
         <div className="mx-auto max-w-5xl">
         <div className="text-center mb-16">
           <span className="text-[12px] font-mono uppercase tracking-wider text-[#8f8f8f]">Comparative Analysis</span>
@@ -1623,11 +1613,9 @@ export default function LandingPage({ user }: LandingPageProps) {
 
         <div className="mx-auto max-w-6xl border-t border-[#ebebeb] mt-12 pt-6 flex flex-col md:flex-row justify-between items-center text-[12px] text-[#8f8f8f] gap-4">
           <div>&copy; 2026 Veriq AI. All rights reserved.</div>
-          <div className="flex gap-4">
-            <span className="font-medium text-[#171717]">Geist Design Language v1.0</span>
-          </div>
         </div>
       </footer>
     </div>
   );
 }
+
