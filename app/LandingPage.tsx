@@ -139,6 +139,20 @@ export default function LandingPage({ user }: LandingPageProps) {
                     className="w-full rounded-2xl border border-white/10 bg-black p-3 text-xs text-white focus:outline-none"
                   />
                 </div>
+              </div>
+              <div className="border-t border-[#f2f2f2] pt-2 mt-3 flex justify-between items-center text-[9px] font-mono text-[#8f8f8f]">
+                <span>Duration: 0.7s</span>
+                <span className="text-[#10b77f] font-semibold flex items-center">✓ Enabled</span>
+              </div>
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[5px] h-2.5 w-2.5 rounded-full border border-[#171717] bg-white z-10" />
+            </div>
+
+            {/* Vertical Connector */}
+            <div className="h-10 w-[2px] bg-[#171717] relative shrink-0">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
+              <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-1.5 w-1.5 rounded-full border border-[#171717] bg-white" />
+            </div>
 
                 <Link
                   href="/workspace"
@@ -163,3 +177,4 @@ export default function LandingPage({ user }: LandingPageProps) {
     </div>
   );
 }
+
