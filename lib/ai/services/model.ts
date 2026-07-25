@@ -1,7 +1,71 @@
 import { ChatGroq } from "@langchain/groq";
+import { BaseMessage } from "@langchain/core/messages";
+
+export interface InvokeableModel {
+  invoke(messages: BaseMessage[]): Promise<{ content: string }>;
+}
+
+class GeminiModel implements InvokeableModel {
+  constructor(private modelName: string, private temperature: number) {}
+
+  public async invoke(messages: BaseMessage[]): Promise<{ content: string }> {
+    const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+    if (!apiKey) {
+      console.warn("WARNING: GEMINI_API_KEY or GOOGLE_API_KEY is not configured in the environment.");
+    }
+
+    const formattedMessages = messages.map((m) => {
+      let role = "user";
+      const type = m.getType();
+      if (type === "system") {
+        role = "system";
+      } else if (type === "ai") {
+        role = "assistant";
+      }
+      
+      const content = typeof m.content === "string" ? m.content : JSON.stringify(m.content);
+      return { role, content };
+    });
+
+    try {
+      const response = await fetch("https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${apiKey || ""}`,
+        },
+        body: JSON.stringify({
+          model: this.modelName,
+          messages: formattedMessages,
+          temperature: this.temperature,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Gemini API responded with status ${response.status}: ${errorText}`);
+      }
+
+      const data = await response.json();
+      const content = data?.choices?.[0]?.message?.content || "";
+      return { content };
+    } catch (error) {
+      console.error(`Gemini API call failed for model ${this.modelName}:`, error);
+      throw error;
+    }
+  }
+}
 
 export class ModelService {
-  public static getModel(type: 'versatile' | 'instant' = 'versatile', temperature = 0.1): ChatGroq {
+  public static getModel(
+    type: 'versatile' | 'instant' | 'gemini' = 'versatile',
+    temperature = 0.1
+  ): InvokeableModel {
+    if (type === 'gemini') {
+      // Use Gemini 2.5 Flash as requested in earlier requirements
+      return new GeminiModel("gemini-2.5-flash", temperature);
+    }
+
     if (!process.env.GROQ_API_KEY) {
       console.warn("WARNING: GROQ_API_KEY is not configured in the environment.");
     }

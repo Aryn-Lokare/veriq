@@ -42,7 +42,7 @@ export async function contradictionDetectorNode(
         };
       }
 
-      const model = ModelService.getModel("instant", 0.2);
+      const model = ModelService.getModel("versatile", 0.2);
 
       // ── Build source context ─────────────────────────────────────────
       const sourceBlocks = state.sources.map((source, i) => {
