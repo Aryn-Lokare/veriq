@@ -6,9 +6,12 @@ export async function updateSession(request: NextRequest) {
     request,
   });
 
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co';
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-anon-key';
+
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    url,
+    key,
     {
       cookies: {
         getAll() {
@@ -27,28 +30,34 @@ export async function updateSession(request: NextRequest) {
     }
   );
 
-  // IMPORTANT: Do NOT remove auth.getUser(). This is required to refresh the token.
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  let user = null;
+  if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    try {
+      const { data } = await supabase.auth.getUser();
+      user = data.user;
+    } catch {
+      user = null;
+    }
+  }
 
   const isAuthRoute =
     request.nextUrl.pathname.startsWith('/login') ||
     request.nextUrl.pathname.startsWith('/signup');
   const isWorkspaceRoute = request.nextUrl.pathname.startsWith('/workspace');
-  const isCallbackRoute = request.nextUrl.pathname.startsWith('/auth');
 
-  // Guard routing
-  if (!user && isWorkspaceRoute) {
-    const url = request.nextUrl.clone();
-    url.pathname = '/login';
-    return NextResponse.redirect(url);
-  }
+  // Guard routing only if Supabase keys exist
+  if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    if (!user && isWorkspaceRoute) {
+      const redirectUrl = request.nextUrl.clone();
+      redirectUrl.pathname = '/login';
+      return NextResponse.redirect(redirectUrl);
+    }
 
-  if (user && isAuthRoute) {
-    const url = request.nextUrl.clone();
-    url.pathname = '/workspace';
-    return NextResponse.redirect(url);
+    if (user && isAuthRoute) {
+      const redirectUrl = request.nextUrl.clone();
+      redirectUrl.pathname = '/workspace';
+      return NextResponse.redirect(redirectUrl);
+    }
   }
 
   return supabaseResponse;

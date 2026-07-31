@@ -51,7 +51,11 @@ export default function FeatureCard() {
             Architected for Absolute Trust
           </h2>
           <p className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+<<<<<<< HEAD
+            Why Single-Agent LLMs Fail & How Veritas AI Solves It
+=======
             Why Single-Agent LLMs Fail & How Veriq AI Solves It
+>>>>>>> b794ed2ace0d8b7c8266a346a8470e01ac3f119c
           </p>
         </div>
 

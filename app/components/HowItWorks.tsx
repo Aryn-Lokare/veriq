@@ -101,7 +101,11 @@ export default function HowItWorks() {
             Autonomous Orchestration Architecture
           </h2>
           <p className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+<<<<<<< HEAD
+            How Veritas AI Verifies Information
+=======
             How Veriq AI Verifies Information
+>>>>>>> b794ed2ace0d8b7c8266a346a8470e01ac3f119c
           </p>
           <p className="mt-4 text-zinc-400 text-base">
             Click any step to inspect the underlying agent logic and execution details.
