@@ -323,6 +323,7 @@ function ResearchContent() {
         userName={profile?.full_name}
         userEmail={profile?.email}
         onSignOut={handleSignOut}
+        onToggleSidebar={() => setSidebarOpen(!sidebarOpen)}
       />
 
       {/* ── Main Content Area ──────────────────────────────────────────────── */}
@@ -331,13 +332,15 @@ function ResearchContent() {
         {/* Geist Header Bar */}
         <header className="px-6 py-3 border-b border-[#ebebeb] dark:border-zinc-800 bg-white/80 dark:bg-[#09090b]/80 backdrop-blur-md shrink-0 flex items-center justify-between z-20">
           <div className="flex items-center gap-3 min-w-0">
-            <button
-              onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="p-1.5 rounded-[6px] border border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-zinc-900 text-[#171717] dark:text-white hover:bg-[#fafafa] dark:hover:bg-zinc-800 transition-colors shrink-0"
-              title={sidebarOpen ? "Collapse Sidebar" : "Expand Sidebar"}
-            >
-              <PanelLeft className="h-4 w-4" />
-            </button>
+            {!sidebarOpen && (
+              <button
+                onClick={() => setSidebarOpen(true)}
+                className="p-1.5 rounded-[6px] border border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-zinc-900 text-[#171717] dark:text-white hover:bg-[#fafafa] dark:hover:bg-zinc-800 transition-colors shrink-0"
+                title="Expand Sidebar"
+              >
+                <PanelLeft className="h-4 w-4" />
+              </button>
+            )}
 
             <div className="flex h-7 w-7 items-center justify-center rounded-[6px] bg-[#171717] dark:bg-white text-white dark:text-[#171717] font-bold text-xs shrink-0">
               <ShieldCheck className="h-4 w-4" />

@@ -11,6 +11,9 @@ import {
   Trash2,
   Loader2,
   Sparkles,
+  Plus,
+  PanelLeftClose,
+  PanelLeftOpen,
 } from 'lucide-react';
 import type { SessionSummaryDTO } from '@/lib/backend/types';
 import ThemeToggle from '@/app/components/ThemeToggle';
@@ -30,6 +33,7 @@ interface SidebarProps {
   userName?: string;
   userEmail?: string;
   onSignOut?: () => void;
+  onToggleSidebar?: () => void;
 }
 
 export default function Sidebar({
@@ -46,30 +50,112 @@ export default function Sidebar({
   userName = 'Lead Researcher',
   userEmail,
   onSignOut,
+  onToggleSidebar,
 }: SidebarProps) {
   const historyCount = sessions?.length ?? 0;
 
+  // ── COLLAPSED SIDEBAR (NARROW ICON-ONLY VIEW AS IN IMAGE) ─────────────────
+  if (!isOpen) {
+    return (
+      <aside className="w-[60px] border-r border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-[#09090b] flex flex-col items-center justify-between py-4 h-full shrink-0 font-sans transition-all duration-300 ease-in-out select-none">
+        {/* Top Section */}
+        <div className="flex flex-col items-center space-y-4 w-full">
+          {/* Toggle Expand */}
+          <button
+            onClick={onToggleSidebar}
+            title="Expand Sidebar"
+            className="p-2 rounded-xl text-[#8f8f8f] dark:text-zinc-400 hover:text-[#171717] dark:hover:text-white hover:bg-[#fafafa] dark:hover:bg-zinc-900 transition-colors"
+          >
+            <PanelLeftOpen className="h-5 w-5" />
+          </button>
+
+          {/* New Research + Button */}
+          <button
+            onClick={onNewResearch}
+            title="New Research"
+            className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#171717] dark:bg-white text-white dark:text-[#171717] hover:opacity-90 active:scale-[0.98] transition-all shadow-sm border border-zinc-200 dark:border-zinc-800"
+          >
+            <Plus className="h-4.5 w-4.5" />
+          </button>
+
+          <div className="w-8 h-px bg-[#ebebeb] dark:bg-zinc-800 my-1" />
+
+          {/* History Clock Button (triggers expand) */}
+          <button
+            onClick={onToggleSidebar}
+            title="Show History"
+            className="p-2 rounded-xl text-[#8f8f8f] dark:text-zinc-400 hover:text-[#171717] dark:hover:text-white hover:bg-[#fafafa] dark:hover:bg-zinc-900 transition-colors relative"
+          >
+            <History className="h-5 w-5" />
+            {historyCount > 0 && (
+              <span className="absolute top-1 right-1 flex h-1.5 w-1.5 rounded-full bg-[#171717] dark:bg-white border border-white dark:border-[#09090b]" />
+            )}
+          </button>
+
+          {/* Saved Reports */}
+          <button
+            onClick={onOpenSaved}
+            title="Saved Reports"
+            className="p-2 rounded-xl text-[#8f8f8f] dark:text-zinc-400 hover:text-[#171717] dark:hover:text-white hover:bg-[#fafafa] dark:hover:bg-zinc-900 transition-colors"
+          >
+            <Bookmark className="h-5 w-5" />
+          </button>
+        </div>
+
+        {/* Bottom Section */}
+        <div className="flex flex-col items-center space-y-4 w-full">
+          <ThemeToggle variant="icon" />
+
+          {/* Agent Settings */}
+          <button
+            onClick={onOpenSettings}
+            title="Agent Settings"
+            className="p-2 rounded-xl text-[#8f8f8f] dark:text-zinc-400 hover:text-[#171717] dark:hover:text-white hover:bg-[#fafafa] dark:hover:bg-zinc-900 transition-colors"
+          >
+            <Settings className="h-5 w-5" />
+          </button>
+
+          {/* User Sign Out / Profile */}
+          <button
+            onClick={onSignOut}
+            title="Sign Out"
+            className="flex h-8 w-8 items-center justify-center rounded-full bg-[#171717] dark:bg-white text-white dark:text-[#171717] font-medium text-xs hover:bg-rose-50 dark:hover:bg-rose-950/20 hover:text-rose-600 transition-all border border-zinc-200 dark:border-zinc-800"
+          >
+            <User className="h-4 w-4" />
+          </button>
+        </div>
+      </aside>
+    );
+  }
+
+  // ── EXPANDED SIDEBAR (FULL VIEW) ──────────────────────────────────────────
   return (
     <aside
-      className={`relative z-20 shrink-0 bg-white dark:bg-[#09090b] transition-all duration-300 ease-in-out font-sans flex flex-col justify-between h-full selection:bg-[#d3e5ff] dark:selection:bg-zinc-800 ${
-        isOpen ? 'w-64 border-r border-[#ebebeb] dark:border-zinc-800 p-4' : 'w-0 border-r-0 p-0 overflow-hidden opacity-0'
-      }`}
+      className="relative z-20 shrink-0 bg-white dark:bg-[#09090b] transition-all duration-300 ease-in-out font-sans flex flex-col justify-between h-full border-r border-[#ebebeb] dark:border-zinc-800 p-4 w-64 select-none"
     >
       {/* Top Section */}
       <div className="flex flex-col space-y-6">
-        {/* Geist Brand Header */}
-        <Link href="/" className="flex items-center justify-between px-2 group">
-          <div className="flex items-center gap-2">
+        {/* Geist Brand Header + Collapse Button */}
+        <div className="flex items-center justify-between px-2">
+          <Link href="/" className="flex items-center gap-2 group">
             <span className="text-[22px] font-bold tracking-[-0.6px] text-[#171717] dark:text-white">
               Veriq
             </span>
             <span className="rounded-full bg-[#fafafa] dark:bg-zinc-900 border border-[#ebebeb] dark:border-zinc-800 px-2 py-0.5 text-[10px] font-mono text-[#8f8f8f] dark:text-zinc-400 uppercase tracking-wider">
               Workspace
             </span>
-          </div>
-        </Link>
+          </Link>
 
-        {/* Vercel Pill CTA: New Research */}
+          <button
+            onClick={onToggleSidebar}
+            title="Collapse Sidebar"
+            className="p-1.5 rounded-[6px] text-[#8f8f8f] dark:text-zinc-400 hover:text-[#171717] dark:hover:text-white hover:bg-[#fafafa] dark:hover:bg-zinc-900 transition-colors"
+          >
+            <PanelLeftClose className="h-4 w-4" />
+          </button>
+        </div>
+
+        {/* New Research CTA */}
         <button
           onClick={onNewResearch}
           className="flex w-full items-center justify-center gap-2 rounded-full bg-[#171717] dark:bg-white py-2.5 px-4 text-[13px] font-medium text-white dark:text-[#171717] shadow-sm transition-all hover:bg-[#2c2c2c] dark:hover:bg-zinc-200 active:scale-[0.98]"
@@ -78,7 +164,7 @@ export default function Sidebar({
           <span>New Research</span>
         </button>
 
-        {/* Geist Technical Eyebrow & Session History */}
+        {/* History Eyebrow & Session History list */}
         <div className="flex flex-col space-y-2">
           <div className="flex items-center justify-between px-2 text-[10px] font-mono uppercase text-[#8f8f8f] dark:text-zinc-400 tracking-wider">
             <span className="flex items-center gap-1.5 font-medium">
@@ -102,7 +188,6 @@ export default function Sidebar({
               </div>
             )}
 
-            {/* Real Sessions list in Vercel Geist style */}
             {!loadingSessions && sessions && sessions.map((s) => {
               const isSelected = currentQueryId === s.sessionId;
               return (
