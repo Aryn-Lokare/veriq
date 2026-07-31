@@ -16,6 +16,127 @@ import {
   Sparkles,
 } from 'lucide-react';
 
+<<<<<<< HEAD
+=======
+function renderInlineFormatting(text: string): React.ReactNode {
+  const parts = text.split(/(\*\*.*?\*\*|`.*?`)/g);
+
+  return parts.map((part, index) => {
+    if (part.startsWith('**') && part.endsWith('**') && part.length > 4) {
+      return (
+        <strong key={index} className="font-semibold text-[#171717] dark:text-white">
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    if (part.startsWith('`') && part.endsWith('`') && part.length > 2) {
+      return (
+        <code key={index} className="font-mono text-xs bg-[#fafafa] dark:bg-zinc-800 text-[#171717] dark:text-zinc-200 px-1.5 py-0.5 rounded border border-[#ebebeb] dark:border-zinc-700">
+          {part.slice(1, -1)}
+        </code>
+      );
+    }
+    return part;
+  });
+}
+
+function FormattedMarkdown({ content }: { content: string }) {
+  if (!content) return null;
+
+  const lines = content.split('\n');
+  const elements: React.ReactNode[] = [];
+  let currentList: { type: 'ul' | 'ol'; items: string[] } | null = null;
+
+  const flushList = (key: string) => {
+    if (!currentList) return;
+    if (currentList.type === 'ol') {
+      elements.push(
+        <ol key={key} className="space-y-2.5 pl-1 my-3">
+          {currentList.items.map((item, idx) => (
+            <li key={idx} className="flex items-start gap-2.5 text-[#4d4d4d] dark:text-zinc-300 text-xs sm:text-sm bg-[#fafafa] dark:bg-zinc-800/60 p-3 rounded-[10px] border border-[#ebebeb] dark:border-zinc-800">
+              <span className="font-mono text-[#171717] dark:text-white font-bold shrink-0 text-xs mt-0.5">{idx + 1}.</span>
+              <span className="flex-1 min-w-0 break-words leading-relaxed">{renderInlineFormatting(item)}</span>
+            </li>
+          ))}
+        </ol>
+      );
+    } else {
+      elements.push(
+        <ul key={key} className="space-y-2.5 pl-1 my-3">
+          {currentList.items.map((item, idx) => (
+            <li key={idx} className="flex items-start gap-2.5 text-[#4d4d4d] dark:text-zinc-300 text-xs sm:text-sm bg-[#fafafa] dark:bg-zinc-800/60 p-3 rounded-[10px] border border-[#ebebeb] dark:border-zinc-800">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#171717] dark:bg-white shrink-0 mt-2" />
+              <span className="flex-1 min-w-0 break-words leading-relaxed">{renderInlineFormatting(item)}</span>
+            </li>
+          ))}
+        </ul>
+      );
+    }
+    currentList = null;
+  };
+
+  lines.forEach((rawLine, idx) => {
+    const line = rawLine.trim();
+    if (!line) {
+      flushList(`flush-${idx}`);
+      return;
+    }
+
+    // Numbered List Item (e.g., "1. ", "7. ")
+    const numberedMatch = line.match(/^(\d+)\.\s+(.*)/);
+    if (numberedMatch) {
+      const itemContent = numberedMatch[2];
+      if (!currentList || currentList.type !== 'ol') {
+        flushList(`flush-${idx}`);
+        currentList = { type: 'ol', items: [itemContent] };
+      } else {
+        currentList.items.push(itemContent);
+      }
+      return;
+    }
+
+    // Bullet List Item (e.g., "- ", "* ", "• ")
+    const bulletMatch = line.match(/^[-*•]\s+(.*)/);
+    if (bulletMatch) {
+      const itemContent = bulletMatch[1];
+      if (!currentList || currentList.type !== 'ul') {
+        flushList(`flush-${idx}`);
+        currentList = { type: 'ul', items: [itemContent] };
+      } else {
+        currentList.items.push(itemContent);
+      }
+      return;
+    }
+
+    // Regular line - flush list first
+    flushList(`flush-${idx}`);
+
+    // Section Headers
+    if (line.startsWith('#') || (line.startsWith('**') && line.endsWith('**') && line.length < 80)) {
+      const headerText = line.replace(/^#+\s*/, '').replace(/^\*\*/, '').replace(/\*\*$/, '');
+      elements.push(
+        <h4 key={`header-${idx}`} className="text-sm font-bold text-[#171717] dark:text-white tracking-wide pt-3 pb-1.5 flex items-center gap-2 border-b border-[#ebebeb] dark:border-zinc-800 mt-2">
+          <span className="h-2 w-2 rounded-full bg-[#171717] dark:bg-white" />
+          {headerText}
+        </h4>
+      );
+      return;
+    }
+
+    // Regular Paragraph Line
+    elements.push(
+      <p key={`p-${idx}`} className="text-[#4d4d4d] dark:text-zinc-300 leading-relaxed text-xs sm:text-sm my-1.5">
+        {renderInlineFormatting(line)}
+      </p>
+    );
+  });
+
+  flushList('flush-final');
+
+  return <div className="space-y-1 text-sm text-[#171717] dark:text-zinc-100 font-sans">{elements}</div>;
+}
+
+>>>>>>> b794ed2ace0d8b7c8266a346a8470e01ac3f119c
 interface ReportPanelProps {
   report: ResearchReport;
   onInspectClaim: (claim: Claim) => void;
@@ -30,6 +151,7 @@ export default function ReportPanel({
   onShareReport,
 }: ReportPanelProps) {
   return (
+<<<<<<< HEAD
     <div className="space-y-6">
       {/* Action Header */}
       <div className="flex items-center justify-between">
@@ -55,6 +177,17 @@ export default function ReportPanel({
           >
             <Download className="h-3.5 w-3.5" /> Export PDF
           </button>
+=======
+    <div className="report-panel print-area max-w-full box-border space-y-6 font-sans">
+      {/* Action Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-[18px] font-bold text-[#171717] dark:text-white tracking-tight flex items-center gap-2">
+            <FileText className="h-5 w-5 text-[#171717] dark:text-white" />
+            Verified Research Report
+          </h2>
+          <span className="text-[11px] font-mono text-[#8f8f8f] dark:text-zinc-400">Generated: {report.timestamp}</span>
+>>>>>>> b794ed2ace0d8b7c8266a346a8470e01ac3f119c
         </div>
       </div>
 
@@ -62,6 +195,7 @@ export default function ReportPanel({
       <ConfidenceGauge confidence={report.overallConfidence} />
 
       {/* Executive Summary */}
+<<<<<<< HEAD
       <div className="rounded-3xl border border-white/10 bg-[#121215]/80 p-5 shadow-xl backdrop-blur-xl space-y-3">
         <h3 className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-2">
           <Sparkles className="h-4 w-4 text-cyan-400" />
@@ -70,16 +204,36 @@ export default function ReportPanel({
         <p className="text-sm text-zinc-200 font-sans leading-relaxed">
           {report.executiveSummary}
         </p>
+=======
+      <div className="rounded-[16px] border border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-4">
+        <div className="flex items-center justify-between border-b border-[#f2f2f2] dark:border-zinc-800 pb-3">
+          <h3 className="text-[11px] font-mono font-medium text-[#171717] dark:text-white uppercase tracking-wider flex items-center gap-2">
+            <Sparkles className="h-4 w-4 text-[#171717] dark:text-white" />
+            Executive Summary
+          </h3>
+          <span className="text-[10px] font-mono text-[#8f8f8f] dark:text-zinc-400">AI Synthesized</span>
+        </div>
+
+        <FormattedMarkdown content={report.executiveSummary} />
+>>>>>>> b794ed2ace0d8b7c8266a346a8470e01ac3f119c
       </div>
 
       {/* Verified Claims Grid */}
       <div className="space-y-3">
         <div className="flex items-center justify-between">
+<<<<<<< HEAD
           <h3 className="text-xs font-mono font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-2">
             <CheckCircle2 className="h-4 w-4 text-emerald-400" />
             Extracted & Verified Claims ({report.verifiedClaims.length})
           </h3>
           <span className="text-[10px] font-mono text-zinc-500">Click to inspect evidence</span>
+=======
+          <h3 className="text-[11px] font-mono font-medium text-[#8f8f8f] dark:text-zinc-400 uppercase tracking-wider flex items-center gap-2">
+            <CheckCircle2 className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+            Extracted & Verified Claims ({report.verifiedClaims.length})
+          </h3>
+          <span className="text-[10px] font-mono text-[#8f8f8f] dark:text-zinc-400">Click to inspect evidence</span>
+>>>>>>> b794ed2ace0d8b7c8266a346a8470e01ac3f119c
         </div>
 
         <div className="space-y-3">
@@ -91,22 +245,35 @@ export default function ReportPanel({
 
       {/* Contradiction Warning Alert */}
       {report.contradictions && report.contradictions.length > 0 && (
+<<<<<<< HEAD
         <div className="rounded-3xl border border-amber-500/40 bg-amber-950/20 p-5 shadow-xl backdrop-blur-xl space-y-3">
           <h3 className="text-xs font-mono font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
             <AlertTriangle className="h-4 w-4" />
+=======
+        <div className="rounded-[16px] border border-amber-200 dark:border-amber-900/60 bg-amber-50/60 dark:bg-amber-950/20 p-5 shadow-sm space-y-3">
+          <h3 className="text-[11px] font-mono font-medium text-amber-800 dark:text-amber-400 uppercase tracking-wider flex items-center gap-2">
+            <AlertTriangle className="h-4 w-4 text-amber-600 dark:text-amber-400" />
+>>>>>>> b794ed2ace0d8b7c8266a346a8470e01ac3f119c
             Detected Contradiction & Discrepancies ({report.contradictions.length})
           </h3>
 
           {report.contradictions.map((cnt) => (
+<<<<<<< HEAD
             <div key={cnt.id} className="text-xs space-y-1 bg-white/5 p-3 rounded-2xl border border-amber-500/20">
               <span className="font-bold text-amber-300">{cnt.topic}</span>
               <p className="text-zinc-300 leading-normal">{cnt.explanation}</p>
+=======
+            <div key={cnt.id} className="text-[12px] space-y-1 bg-white dark:bg-zinc-900 p-3.5 rounded-[10px] border border-amber-200 dark:border-amber-900/40">
+              <span className="font-bold text-amber-900 dark:text-amber-300">{cnt.topic}</span>
+              <p className="text-[#4d4d4d] dark:text-zinc-300 leading-normal">{cnt.explanation}</p>
+>>>>>>> b794ed2ace0d8b7c8266a346a8470e01ac3f119c
             </div>
           ))}
         </div>
       )}
 
       {/* Recommendations */}
+<<<<<<< HEAD
       <div className="rounded-3xl border border-white/10 bg-[#121215]/80 p-5 shadow-xl backdrop-blur-xl space-y-3">
         <h3 className="text-xs font-mono font-bold text-purple-400 uppercase tracking-wider flex items-center gap-2">
           <Lightbulb className="h-4 w-4 text-purple-400" />
@@ -117,12 +284,25 @@ export default function ReportPanel({
             <li key={rIdx} className="flex items-start gap-2 bg-white/5 p-2.5 rounded-xl border border-white/5">
               <span className="font-mono text-purple-400 font-bold shrink-0">{rIdx + 1}.</span>
               <span>{rec}</span>
+=======
+      <div className="rounded-[16px] border border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-3">
+        <h3 className="text-[11px] font-mono font-medium text-[#171717] dark:text-white uppercase tracking-wider flex items-center gap-2">
+          <Lightbulb className="h-4 w-4 text-[#171717] dark:text-white" />
+          Evidence-Based Action Recommendations
+        </h3>
+        <ul className="space-y-2 text-[13px] text-[#4d4d4d] dark:text-zinc-300 font-sans">
+          {report.recommendations.map((rec, rIdx) => (
+            <li key={rIdx} className="flex items-start gap-2.5 bg-[#fafafa] dark:bg-zinc-800/60 p-3 rounded-[10px] border border-[#ebebeb] dark:border-zinc-800">
+              <span className="font-mono text-[#171717] dark:text-white font-bold shrink-0">{rIdx + 1}.</span>
+              <span className="flex-1 min-w-0 break-words">{rec}</span>
+>>>>>>> b794ed2ace0d8b7c8266a346a8470e01ac3f119c
             </li>
           ))}
         </ul>
       </div>
 
       {/* References & Citations */}
+<<<<<<< HEAD
       <div className="rounded-3xl border border-white/10 bg-[#121215]/80 p-5 shadow-xl backdrop-blur-xl space-y-3">
         <h3 className="text-xs font-mono font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-2">
           <BookOpen className="h-4 w-4 text-blue-400" />
@@ -134,6 +314,19 @@ export default function ReportPanel({
               <div className="flex flex-col min-w-0 pr-2">
                 <span className="font-semibold text-white truncate">{src.title}</span>
                 <span className="text-[10px] font-mono text-zinc-500">
+=======
+      <div className="rounded-[16px] border border-[#ebebeb] dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-3">
+        <h3 className="text-[11px] font-mono font-medium text-[#8f8f8f] dark:text-zinc-400 uppercase tracking-wider flex items-center gap-2">
+          <BookOpen className="h-4 w-4 text-[#171717] dark:text-white" />
+          Primary Literature References ({report.sources.length})
+        </h3>
+        <div className="space-y-2 text-[12px]">
+          {report.sources.map((src) => (
+            <div key={src.id} className="flex items-center justify-between bg-[#fafafa] dark:bg-zinc-800/60 p-3 rounded-[10px] border border-[#ebebeb] dark:border-zinc-800">
+              <div className="flex flex-col min-w-0 pr-2">
+                <span className="font-medium text-[#171717] dark:text-white truncate">{src.title}</span>
+                <span className="text-[10px] font-mono text-[#8f8f8f] dark:text-zinc-400">
+>>>>>>> b794ed2ace0d8b7c8266a346a8470e01ac3f119c
                   {src.domain} • Score: {src.credibilityScore}/100
                 </span>
               </div>
@@ -141,7 +334,11 @@ export default function ReportPanel({
                 href={src.url}
                 target="_blank"
                 rel="noopener noreferrer"
+<<<<<<< HEAD
                 className="p-1.5 rounded-lg text-zinc-400 hover:text-cyan-400 hover:bg-cyan-500/10 transition-colors"
+=======
+                className="p-1.5 rounded-[6px] text-[#8f8f8f] dark:text-zinc-400 hover:text-[#171717] dark:hover:text-white hover:bg-white dark:hover:bg-zinc-700 transition-colors"
+>>>>>>> b794ed2ace0d8b7c8266a346a8470e01ac3f119c
                 title="Open Source"
               >
                 <ExternalLink className="h-4 w-4" />

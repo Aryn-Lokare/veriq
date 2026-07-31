@@ -77,7 +77,11 @@ export interface TimelineEvent {
   agentIcon: string;
   message: string;
   type: 'info' | 'success' | 'warning' | 'milestone';
+<<<<<<< HEAD
   data?: any;
+=======
+  data?: Record<string, unknown>;
+>>>>>>> b794ed2ace0d8b7c8266a346a8470e01ac3f119c
 }
 
 export interface LogEntry {

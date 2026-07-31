@@ -45,7 +45,11 @@ export default function Hero({ onSeeDemo }: HeroProps) {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mx-auto mt-6 max-w-2xl text-base sm:text-xl text-zinc-400 leading-relaxed font-normal"
         >
+<<<<<<< HEAD
           Veritas AI autonomously researches, verifies, challenges and validates information using specialized AI agents before producing an evidence-backed report.
+=======
+          Veriq AI autonomously researches, verifies, challenges and validates information using specialized AI agents before producing an evidence-backed report.
+>>>>>>> b794ed2ace0d8b7c8266a346a8470e01ac3f119c
         </motion.p>
 
         {/* Action CTAs */}
@@ -85,7 +89,11 @@ export default function Hero({ onSeeDemo }: HeroProps) {
               <div className="h-3 w-3 rounded-full bg-rose-500/80" />
               <div className="h-3 w-3 rounded-full bg-amber-500/80" />
               <div className="h-3 w-3 rounded-full bg-emerald-500/80" />
+<<<<<<< HEAD
               <span className="ml-2 font-mono text-xs text-zinc-500">veritas-ai // live-mission-control</span>
+=======
+              <span className="ml-2 font-mono text-xs text-zinc-500">veriq-ai // live-mission-control</span>
+>>>>>>> b794ed2ace0d8b7c8266a346a8470e01ac3f119c
             </div>
             <div className="flex items-center gap-2 font-mono text-xs text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
               <span className="h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
