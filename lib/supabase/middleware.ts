@@ -43,7 +43,10 @@ export async function updateSession(request: NextRequest) {
   const isAuthRoute =
     request.nextUrl.pathname.startsWith('/login') ||
     request.nextUrl.pathname.startsWith('/signup');
-  const isWorkspaceRoute = request.nextUrl.pathname.startsWith('/workspace');
+  const isWorkspaceRoute =
+    request.nextUrl.pathname.startsWith('/workspace') ||
+    request.nextUrl.pathname.startsWith('/research') ||
+    request.nextUrl.pathname.startsWith('/research-results');
 
   // Guard routing only if Supabase keys exist
   if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
